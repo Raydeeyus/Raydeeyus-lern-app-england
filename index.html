@@ -77,66 +77,19 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .score{font-size:.78rem;font-weight:700}
 .result{font-family:var(--serif);background:var(--surface);border:2px solid var(--fg);border-radius:10px;padding:12px 14px}
 
-/* Zeitstrahl-Video / Erklärvideo */
-.chap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.chap button{font:inherit;width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
-.chap .t{flex:none;width:28px;height:28px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
-.chap .n{display:flex;flex-direction:column;line-height:1.25}
-.chap .n b{font-family:var(--serif);font-size:1.02rem}
-.chap .n span{font-size:.8rem;color:var(--muted);font-weight:600}
-.chap button[aria-current="true"]{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
-.chap button[aria-current="true"] .t{background:var(--gold);color:var(--bg)}
-.ev-stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:110px}
-.ev-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-.ev-steps span{font-size:.62rem;font-weight:700;color:var(--muted);text-align:center;line-height:1.15;padding:5px 2px;border-radius:7px;background:var(--bg);transition:background .4s,color .4s}
-.ev-steps span b{display:block;font-size:.85rem}
-.ev-steps span.on{background:var(--fg);color:var(--bg)}
-.ev-steps.all span{background:var(--gold-soft);color:var(--fg)}
-.ev-body{flex:1;display:flex;flex-direction:column;gap:6px}
-.ev-body.in{animation:evIn .6s ease both}
-@keyframes evIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.ev-kick{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-.ev-title{margin:0;font-family:var(--display);font-weight:400;font-size:1.9rem;line-height:1.1;text-wrap:balance}
-.ev-years{font-weight:700;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.ev-pts{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
-.ev-pts li{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:.95rem;line-height:1.35;opacity:0;transform:translateX(-12px);transition:opacity .5s,transform .5s,border-color .4s,box-shadow .4s}
-.ev-pts li.vis{opacity:1;transform:none}
-.ev-pts li.cur{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft)}
-.ev-y{flex:none;min-width:58px;font-family:var(--serif);font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
-.ev-pts li.k .ev-y{color:var(--crown)} .ev-pts li.p .ev-y{color:var(--parl)} .ev-pts li.n .ev-y{color:var(--muted)} .ev-pts li.g .ev-y{color:var(--gold)}
-.ev-pts li.big{font-size:.98rem}
-.ev-ico{flex:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
-.ev-pts li.k .ev-ico{background:var(--crown-soft)} .ev-pts li.p .ev-ico{background:var(--parl-soft)} .ev-pts li.g .ev-ico{background:var(--gold-soft)}
-.ev-ov{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
-.ev-ov li{opacity:0;transform:translateX(-12px);transition:opacity .5s,transform .5s;padding:7px 9px;border-radius:9px;border:1px solid transparent}
-.ev-ov li.vis{opacity:1;transform:none}
-.ev-ov li.cur{border-color:var(--gold)}
-.ev-ovh{display:flex;justify-content:space-between;gap:8px;font-size:.9rem}
-.ev-ovh span{color:var(--muted);font-weight:700;font-size:.8rem;font-variant-numeric:tabular-nums}
-.ev-mini{height:9px;border-radius:5px;background:var(--parl);overflow:hidden;margin:4px 0 3px}
-.ev-mini i{display:block;height:100%;background:var(--crown)}
-.ev-ovt{font-size:.84rem;color:var(--muted)}
-.ev-power{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;transition:opacity .5s}
-.ev-side{display:flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700}
-.ev-side svg{width:20px;height:20px}
-.ev-side.k{color:var(--crown)} .ev-side.p{color:var(--parl)}
-.ev-bar{height:16px;border-radius:8px;background:var(--parl);overflow:hidden;position:relative}
-.ev-bar::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:var(--surface);opacity:.8}
-.ev-bar i{display:block;height:100%;width:50%;background:var(--crown);transition:width 1.3s cubic-bezier(.65,0,.35,1)}
-.ev-sub{min-height:4.3em;background:var(--fg);color:var(--bg);border-radius:10px;padding:10px 12px;font-size:.95rem;line-height:1.4}
-.ev-ctrl{display:flex;justify-content:center;align-items:center;gap:18px}
-.ev-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.ev-btn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ev-btn svg .f{fill:currentColor;stroke:none}
-.ev-play{width:64px;height:64px;background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.ev-play svg{width:30px;height:30px}
-.ev-prog{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
-.ev-prog button{height:14px;padding:4px 0;border:0;background:none;cursor:pointer}
-.ev-prog button i{display:block;height:6px;border-radius:3px;background:var(--gold);width:0;box-shadow:0 0 0 100vmax var(--line) inset;transition:width .4s}
-.ev-prog button{background:linear-gradient(var(--line),var(--line)) center/100% 6px no-repeat;border-radius:3px}
-.ev-prog button i{box-shadow:none}
-.ev-voice{margin:0;text-align:center}
-@media (prefers-reduced-motion:reduce){.ev-body.in{animation:none}.ev-pts li,.ev-ov li,.ev-bar i{transition:none}}
+/* Herrscherwechsel */
+.ev.ru .node{background:var(--gold);width:21px;height:21px;margin:12px 0 0;display:flex;align-items:center;justify-content:center}
+.ev.ru .node svg{width:12px;height:12px;fill:var(--bg)}
+.card.ru{background:var(--gold-soft);border-color:var(--gold);gap:6px}
+.card.ru .tag{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.card.ru h3{font-family:var(--serif);font-size:1.15rem}
+.card.ru .reg{font-weight:700;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.why{display:flex;flex-direction:column;align-items:flex-start;gap:4px;background:var(--surface);border-radius:8px;padding:8px 10px}
+.why i{font-style:normal;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.why.up i{background:var(--parl-soft);color:var(--parl)} .why.dn i{background:var(--crown-soft);color:var(--crown)}
+.why p{margin:0;font-size:.93rem}
+#v-zeit.only .ev:not(.ru){display:none}
+#v-zeit.only .result{display:none}
 
 /* Lexikon */
 .search{position:relative}
@@ -340,6 +293,32 @@ const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON
 const cls=s=>s>0?"k":s<0?"p":"n";
 const sc=s=>s>0?`+${s} König`:s<0?`−${-s} Parlament`:"0 Gleichgewicht";
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const RULERS=[ // [Jahr, Epoche, Name, Regierungszeit, warum an die Macht, warum Ende]
+ ["1509",0,"Heinrich VIII.","1509–1547","Sohn Heinrichs VII., des ersten Tudor-Königs. Sein älterer Bruder Arthur war 1502 gestorben, deshalb erbte Heinrich den Thron.","Er starb 1547 eines natürlichen Todes. Sein einziger Sohn Eduard folgte ihm."],
+ ["1547",0,"Eduard VI.","1547–1553","Einziger Sohn Heinrichs VIII. Wurde mit 9 Jahren König, für ihn regierten Berater. Unter ihm wurde England protestantisch.","Er starb 1553 mit 15 Jahren an einer Krankheit, ohne Kinder. Seine Halbschwester Maria folgte."],
+ ["1553",0,"Maria I. („Bloody Mary“)","1553–1558","Älteste Tochter Heinrichs VIII. (Mutter: Katharina von Aragon), nächste in der Erbfolge. Sie setzte sich gegen Jane Grey durch, die nur 9 Tage Königin war.","Sie starb 1558 ohne Kinder. Vorher hatte sie England wieder katholisch gemacht und Protestanten verbrennen lassen."],
+ ["1558",0,"Elisabeth I.","1558–1603","Tochter Heinrichs VIII. und Anne Boleyns. Nach dem Tod ihrer Halbschwester Maria war sie die nächste Erbin.","Sie starb 1603 unverheiratet und ohne Kinder. Damit endeten die Tudors."],
+ ["1603",1,"Jakob I.","1603–1625","Er war schon als Jakob VI. König von Schottland und Elisabeths nächster Verwandter (Urenkel von Heinrichs Schwester Margarete Tudor). So bekamen England und Schottland denselben König (Personalunion).","Er starb 1625 eines natürlichen Todes. Sein Sohn Karl folgte."],
+ ["1625",1,"Karl I.","1625–1649","Sohn Jakobs I. Sein älterer Bruder Henry war 1612 gestorben, deshalb wurde Karl Thronfolger.","Er verlor den Bürgerkrieg gegen das Parlament und wurde am 30. Januar 1649 wegen Hochverrats hingerichtet."],
+ ["1653",3,"Oliver Cromwell (Lordprotektor, kein König)","1653–1658","Er war Heerführer der siegreichen New Model Army. 1653 jagte er das Parlament davon, und die Verfassung „Instrument of Government“ machte ihn zum Lordprotektor.","Er starb 1658 an einer Krankheit. Sein Sohn Richard wurde Nachfolger."],
+ ["1658",3,"Richard Cromwell (Lordprotektor)","1658–1659","Sohn Oliver Cromwells, der ihn als Nachfolger bestimmt hatte.","Er hatte keinen Rückhalt in der Armee und trat 1659 zurück. Es drohte Chaos, das führte zur Restauration."],
+ ["1660",3,"Karl II.","1660–1685","Sohn Karls I., lebte im Exil in Frankreich. Nach dem Chaos holte General Monck ihn zurück, das Parlament lud ihn ein (Restauration). Die Menschen wollten wieder Ruhe und Ordnung.","Er starb 1685 ohne eheliche Kinder. Deshalb wurde sein katholischer Bruder Jakob König."],
+ ["1685",4,"Jakob II.","1685–1688","Bruder Karls II., der keine ehelichen Kinder hatte. Das Parlament hatte vorher vergeblich versucht, den Katholiken von der Thronfolge auszuschließen.","1688 wurde sein Sohn geboren, eine katholische Dynastie drohte. Die Immortal Seven riefen Wilhelm von Oranien, Jakob floh nach Frankreich (Glorreiche Revolution)."],
+ ["1689",4,"Wilhelm III. und Maria II.","1689–1702 (Maria bis 1694)","Maria war die protestantische Tochter Jakobs II., Wilhelm ihr Ehemann. Das Parlament gab ihnen die Krone, aber nur weil sie vorher der Bill of Rights zustimmten.","Maria starb 1694 an den Pocken, Wilhelm regierte allein weiter und starb 1702 nach einem Sturz vom Pferd. Sie hatten keine Kinder."],
+ ["1702",4,"Anna","1702–1714","Jüngere Schwester Marias II., ebenfalls protestantische Tochter Jakobs II. Die Thronfolge regelte das Parlament im Act of Settlement 1701.","Sie starb 1714, keines ihrer Kinder überlebte. Laut Act of Settlement wurde Georg I. von Hannover König. Damit endeten die Stuarts."]
+];
+const CROWN_SVG=`<svg viewBox="0 0 24 24"><path d="M3 18h18l-1.5-10-4.5 4-3-7-3 7-4.5-4z"/></svg>`;
+const rulerLi=([y,,n,reg,up,dn])=>`<li class="ev ru"><span class="node">${CROWN_SVG}</span>
+  <div class="card ru"><span class="tag">Herrscherwechsel ${y}</span><h3>${n}</h3><span class="reg">regierte ${reg}</span>
+  <div class="why up"><i>An die Macht</i><p>${up}</p></div><div class="why dn"><i>Ende</i><p>${dn}</p></div></div></li>`;
+const evLi=([y,t,w,d,s,big])=>`<li class="ev ${cls(s)}${big?" big":""}"><span class="node ${cls(s)}"></span>
+      <div class="card"><span class="yr">${y}</span><h3>${t}</h3><p>${d}</p><span class="who">${w}</span><span class="score">Machtskala ${sc(s)}</span></div></li>`;
+function spineItems(e,i){ // Herrscherkarten vor dem ersten Ereignis im selben oder späteren Jahr einsortieren
+  const rs=RULERS.filter(r=>r[1]===i),out=[];let k=0;
+  e.ev.forEach(ev=>{while(k<rs.length&&+rs[k][0]<=parseInt(ev[0]))out.push(rulerLi(rs[k++]));out.push(evLi(ev))});
+  while(k<rs.length)out.push(rulerLi(rs[k++]));
+  return out.join("");
+}
 const EVENTS=ERAS.flatMap(e=>e.ev.map(([y,t,w,d,s,big])=>({y,t,w,d,s,big,era:e.name})));
 
 /* ---------- Tabs ---------- */
@@ -349,32 +328,22 @@ function show(v){
   ["zeit","lex","kurz","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.getElementById("ttl").textContent=TITLES[v][0];document.getElementById("sub").textContent=TITLES[v][1];
   window.scrollTo(0,0);store.set("tab",v);
-  if(v!=="zeit"&&window.EV_stop)window.EV_stop();
 }
 document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.v)});
 
 /* ---------- Zeitstrahl ---------- */
 document.getElementById("v-zeit").innerHTML=`
-  <div class="seg" id="zseg"><button type="button" data-z="liste" aria-pressed="true">Liste</button><button type="button" data-z="video" aria-pressed="false">Erklärvideo</button></div>
-  <div class="view" id="z-video" hidden></div>
-  <div class="view" id="z-liste">
-  <div class="legend"><span><i class="dot k"></i>König stärker</span><span><i class="dot p"></i>Parlament stärker</span><span><i class="dot n"></i>Gleichgewicht</span><span><b style="color:var(--gold)">★</b> unbedingt lernen</span></div>
+  <div class="legend"><span><i class="dot k"></i>König stärker</span><span><i class="dot p"></i>Parlament stärker</span><span><i class="dot n"></i>Gleichgewicht</span><span><b style="color:var(--gold)">★</b> unbedingt lernen</span><span><i class="dot" style="background:var(--gold)"></i>Herrscherwechsel</span></div>
+  <div class="row"><button id="onlyru" class="toggle" aria-pressed="false" type="button">Nur Herrscherwechsel zeigen</button></div>
   <div class="erachips">${ERAS.map((e,i)=>`<a href="#era${i}" style="--ec:var(${e.bg})">${e.span}</a>`).join("")}</div>
   ${ERAS.map((e,i)=>`<section class="era" id="era${i}" style="--eb:var(${e.bg})">
     <div class="era-head"><h2>${e.name}</h2><span class="span">${e.span}</span><p>${e.note}</p></div>
-    <ol class="spine">${e.ev.map(([y,t,w,d,s,big])=>`<li class="ev ${cls(s)}${big?" big":""}"><span class="node ${cls(s)}"></span>
-      <div class="card"><span class="yr">${y}</span><h3>${t}</h3><p>${d}</p><span class="who">${w}</span><span class="score">Machtskala ${sc(s)}</span></div></li>`).join("")}</ol>
+    <ol class="spine">${spineItems(e,i)}</ol>
   </section>`).join("")}
-  <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>
-  </div>`;
-function zshow(z){
-  document.querySelectorAll("#zseg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.z===z));
-  document.getElementById("z-liste").hidden=z!=="liste";document.getElementById("z-video").hidden=z!=="video";
-  if(z!=="video"&&window.EV_stop)window.EV_stop();
-  store.set("zsub",z);
-}
-document.getElementById("zseg").addEventListener("click",e=>{const b=e.target.closest("button");if(b)zshow(b.dataset.z)});
-zshow(store.get("zsub","liste"));
+  <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>`;
+function onlyRu(on){document.getElementById("v-zeit").classList.toggle("only",on);document.getElementById("onlyru").setAttribute("aria-pressed",on);store.set("onlyru",on)}
+document.getElementById("onlyru").onclick=e=>onlyRu(e.currentTarget.getAttribute("aria-pressed")!=="true");
+onlyRu(store.get("onlyru",false));
 document.getElementById("v-zeit").addEventListener("click",e=>{const a=e.target.closest(".erachips a");if(!a)return;e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"})});
 
 document.getElementById("v-kurz").innerHTML=`<h2 class="sec">Das Wichtigste in 5 Punkten</h2>
@@ -499,7 +468,6 @@ renderUeben();
 show(store.get("tab","zeit"));
 </script>
 
-<script src="erklaervideo.js"></script>
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
 </body>
 </html>
