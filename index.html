@@ -88,6 +88,16 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .why i{font-style:normal;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;white-space:nowrap}
 .why.up i{background:var(--parl-soft);color:var(--parl)} .why.dn i{background:var(--crown-soft);color:var(--crown)}
 .why p{margin:0;font-size:.93rem}
+.rtab-wrap{display:flex;flex-direction:column;gap:8px;scroll-margin-top:120px}
+.rtab-wrap h2{margin:0;font-family:var(--display);font-weight:400;font-size:1.4rem;border-bottom:2px solid var(--fg);line-height:1.2}
+.rtab{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:.84rem;line-height:1.35}
+.rtab th{background:var(--fg);color:var(--bg);text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px}
+.rtab td{padding:8px;vertical-align:top;border-top:1px solid var(--line)}
+.rtab td:first-child{border-left:4px solid var(--eb);width:30%}
+.rtab td b{font-family:var(--serif);font-size:.95rem;display:block}
+.rtab td span{color:var(--muted);font-weight:700;font-size:.76rem;font-variant-numeric:tabular-nums}
+.rtab tr.lp td b::after{content:" (Lordprotektor)";font-family:var(--sans);font-weight:600;font-size:.72rem;color:var(--muted)}
+#v-zeit.only .rtab-wrap{display:flex}
 #v-zeit.only .ev:not(.ru){display:none}
 #v-zeit.only .result{display:none}
 
@@ -307,6 +317,20 @@ const RULERS=[ // [Jahr, Epoche, Name, Regierungszeit, warum an die Macht, warum
  ["1689",4,"Wilhelm III. und Maria II.","1689–1702 (Maria bis 1694)","Maria war die protestantische Tochter Jakobs II., Wilhelm ihr Ehemann. Das Parlament gab ihnen die Krone, aber nur weil sie vorher der Bill of Rights zustimmten.","Maria starb 1694 an den Pocken, Wilhelm regierte allein weiter und starb 1702 nach einem Sturz vom Pferd. Sie hatten keine Kinder."],
  ["1702",4,"Anna","1702–1714","Jüngere Schwester Marias II., ebenfalls protestantische Tochter Jakobs II. Die Thronfolge regelte das Parlament im Act of Settlement 1701.","Sie starb 1714, keines ihrer Kinder überlebte. Laut Act of Settlement wurde Georg I. von Hannover König. Damit endeten die Stuarts."]
 ];
+const RTAB=[ // Kurzfassung: [Name, Jahre, Epoche, an die Macht, Ende, Lordprotektor?]
+ ["Heinrich VIII.","1509–1547",0,"Bruder Arthur tot, er erbt","natürlicher Tod 1547"],
+ ["Eduard VI.","1547–1553",0,"einziger Sohn Heinrichs, mit 9 Jahren König","stirbt 1553 mit 15 Jahren, kinderlos"],
+ ["Maria I.","1553–1558",0,"älteste Tochter Heinrichs, nächste Erbin","stirbt 1558 kinderlos"],
+ ["Elisabeth I.","1558–1603",0,"Halbschwester Maria tot","stirbt 1603 kinderlos, Ende der Tudors"],
+ ["Jakob I.","1603–1625",1,"nächster Verwandter, schon König von Schottland (Personalunion)","natürlicher Tod 1625"],
+ ["Karl I.","1625–1649",1,"Sohn Jakobs (Bruder Henry tot)","Bürgerkrieg verloren, 1649 hingerichtet"],
+ ["Oliver Cromwell","1653–1658",3,"Heerführer, jagt 1653 das Parlament weg","stirbt 1658, Sohn scheitert",1],
+ ["Richard Cromwell","1658–1659",3,"Sohn, von Oliver als Nachfolger bestimmt","kein Rückhalt in der Armee, Rücktritt 1659",1],
+ ["Karl II.","1660–1685",3,"nach dem Chaos zurückgeholt (Restauration)","stirbt 1685 ohne eheliche Kinder"],
+ ["Jakob II.","1685–1688",4,"Bruder Karls II.","1688 Sohn geboren, Wilhelm kommt, Jakob flieht"],
+ ["Wilhelm III. & Maria II.","1689–1702",4,"vom Parlament eingesetzt, nur mit Bill of Rights","Maria † 1694, Wilhelm † 1702, kinderlos"],
+ ["Anna","1702–1714",4,"Schwester Marias II. (Act of Settlement)","stirbt 1714, Ende der Stuarts, Georg I. von Hannover folgt"]
+];
 const CROWN_SVG=`<svg viewBox="0 0 24 24"><path d="M3 18h18l-1.5-10-4.5 4-3-7-3 7-4.5-4z"/></svg>`;
 const rulerLi=([y,,n,reg,up,dn])=>`<li class="ev ru"><span class="node">${CROWN_SVG}</span>
   <div class="card ru"><span class="tag">Herrscherwechsel ${y}</span><h3>${n}</h3><span class="reg">regierte ${reg}</span>
@@ -335,11 +359,15 @@ document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target
 document.getElementById("v-zeit").innerHTML=`
   <div class="legend"><span><i class="dot k"></i>König stärker</span><span><i class="dot p"></i>Parlament stärker</span><span><i class="dot n"></i>Gleichgewicht</span><span><b style="color:var(--gold)">★</b> unbedingt lernen</span><span><i class="dot" style="background:var(--gold)"></i>Herrscherwechsel</span></div>
   <div class="row"><button id="onlyru" class="toggle" aria-pressed="false" type="button">Nur Herrscherwechsel zeigen</button></div>
-  <div class="erachips">${ERAS.map((e,i)=>`<a href="#era${i}" style="--ec:var(${e.bg})">${e.span}</a>`).join("")}</div>
+  <div class="erachips">${ERAS.map((e,i)=>`<a href="#era${i}" style="--ec:var(${e.bg})">${e.span}</a>`).join("")}<a href="#rtab" style="--ec:var(--gold-soft)">Herrscher-Tabelle</a></div>
   ${ERAS.map((e,i)=>`<section class="era" id="era${i}" style="--eb:var(${e.bg})">
     <div class="era-head"><h2>${e.name}</h2><span class="span">${e.span}</span><p>${e.note}</p></div>
     <ol class="spine">${spineItems(e,i)}</ol>
   </section>`).join("")}
+  <section class="rtab-wrap" id="rtab"><h2>Herrscher auf einen Blick</h2>
+  <table class="rtab"><thead><tr><th>Herrscher</th><th>An die Macht</th><th>Ende</th></tr></thead><tbody>
+  ${RTAB.map(([n,y,e,up,dn,lp])=>`<tr${lp?' class="lp"':""} style="--eb:var(${ERAS[e].bg})"><td><b>${n}</b><span>${y}</span></td><td>${up}</td><td>${dn}</td></tr>`).join("")}
+  </tbody></table></section>
   <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>`;
 function onlyRu(on){document.getElementById("v-zeit").classList.toggle("only",on);document.getElementById("onlyru").setAttribute("aria-pressed",on);store.set("onlyru",on)}
 document.getElementById("onlyru").onclick=e=>onlyRu(e.currentTarget.getAttribute("aria-pressed")!=="true");
