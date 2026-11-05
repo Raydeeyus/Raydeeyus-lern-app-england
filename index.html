@@ -77,6 +77,18 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .score{font-size:.78rem;font-weight:700}
 .result{font-family:var(--serif);background:var(--surface);border:2px solid var(--fg);border-radius:10px;padding:12px 14px}
 
+/* Zeitstrahl-Video */
+.vidwrap{background:#000;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.vidwrap video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#f6f7f4}
+.chap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.chap button{font:inherit;width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.chap .t{flex:none;min-width:44px;font-weight:700;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.chap .sw{flex:none;width:12px;height:30px;border-radius:4px;background:var(--ec)}
+.chap .n{display:flex;flex-direction:column;line-height:1.25}
+.chap .n b{font-family:var(--serif);font-size:1.02rem}
+.chap .n span{font-size:.8rem;color:var(--muted);font-weight:600}
+.chap button[aria-current="true"]{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+
 /* Lexikon */
 .search{position:relative}
 #q{width:100%;font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg)}
@@ -288,11 +300,21 @@ function show(v){
   ["zeit","lex","kurz","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.getElementById("ttl").textContent=TITLES[v][0];document.getElementById("sub").textContent=TITLES[v][1];
   window.scrollTo(0,0);store.set("tab",v);
+  const zv=document.getElementById("zvid");if(zv&&v!=="zeit")zv.pause();
 }
 document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.v)});
 
 /* ---------- Zeitstrahl ---------- */
+const VCH=[[7,0],[41.4,1],[98.4,2],[122.2,3],[159.4,4]];
+const fmt=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,"0")}`;
 document.getElementById("v-zeit").innerHTML=`
+  <div class="seg" id="zseg"><button type="button" data-z="liste" aria-pressed="true">Liste</button><button type="button" data-z="video" aria-pressed="false">Video-Überblick</button></div>
+  <div class="view" id="z-video" hidden>
+    <div class="vidwrap"><video id="zvid" controls playsinline preload="metadata" poster="zeitstrahl-video.jpg" src="zeitstrahl-video.mp4"></video></div>
+    <p class="tip" style="margin:0">Die ganze Epoche in gut 3 Minuten: Unten läuft die Zeit, die Kurve zeigt nach jedem Ereignis, ob König oder Parlament stärker ist. Tipp: Querformat für Vollbild.</p>
+    <ol class="chap">${VCH.map(([t,i])=>`<li><button type="button" data-t="${t}" style="--ec:var(${ERAS[i].bg})"><span class="t">${fmt(t)}</span><span class="sw"></span><span class="n"><b>${ERAS[i].name}</b><span>${ERAS[i].span}</span></span></button></li>`).join("")}</ol>
+  </div>
+  <div class="view" id="z-liste">
   <div class="legend"><span><i class="dot k"></i>König stärker</span><span><i class="dot p"></i>Parlament stärker</span><span><i class="dot n"></i>Gleichgewicht</span><span><b style="color:var(--gold)">★</b> unbedingt lernen</span></div>
   <div class="erachips">${ERAS.map((e,i)=>`<a href="#era${i}" style="--ec:var(${e.bg})">${e.span}</a>`).join("")}</div>
   ${ERAS.map((e,i)=>`<section class="era" id="era${i}" style="--eb:var(${e.bg})">
@@ -300,7 +322,20 @@ document.getElementById("v-zeit").innerHTML=`
     <ol class="spine">${e.ev.map(([y,t,w,d,s,big])=>`<li class="ev ${cls(s)}${big?" big":""}"><span class="node ${cls(s)}"></span>
       <div class="card"><span class="yr">${y}</span><h3>${t}</h3><p>${d}</p><span class="who">${w}</span><span class="score">Machtskala ${sc(s)}</span></div></li>`).join("")}</ol>
   </section>`).join("")}
-  <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>`;
+  <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>
+  </div>`;
+function zshow(z){
+  document.querySelectorAll("#zseg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.z===z));
+  document.getElementById("z-liste").hidden=z!=="liste";document.getElementById("z-video").hidden=z!=="video";
+  if(z!=="video")document.getElementById("zvid").pause();
+  store.set("zsub",z);
+}
+document.getElementById("zseg").addEventListener("click",e=>{const b=e.target.closest("button");if(b)zshow(b.dataset.z)});
+const zvid=document.getElementById("zvid");
+document.querySelector(".chap").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;zvid.currentTime=+b.dataset.t;zvid.play().catch(()=>{})});
+zvid.addEventListener("timeupdate",()=>{let c=-1;VCH.forEach(([t],i)=>{if(zvid.currentTime>=t-.2)c=i});
+  document.querySelectorAll(".chap button").forEach((b,i)=>b.setAttribute("aria-current",i===c))});
+zshow(store.get("zsub","liste"));
 document.getElementById("v-zeit").addEventListener("click",e=>{const a=e.target.closest(".erachips a");if(!a)return;e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"})});
 
 document.getElementById("v-kurz").innerHTML=`<h2 class="sec">Das Wichtigste in 5 Punkten</h2>
