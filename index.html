@@ -77,17 +77,66 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .score{font-size:.78rem;font-weight:700}
 .result{font-family:var(--serif);background:var(--surface);border:2px solid var(--fg);border-radius:10px;padding:12px 14px}
 
-/* Zeitstrahl-Video */
-.vidwrap{background:#000;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
-.vidwrap video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#f6f7f4}
+/* Zeitstrahl-Video / Erklärvideo */
 .chap{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .chap button{font:inherit;width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
-.chap .t{flex:none;min-width:44px;font-weight:700;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.chap .sw{flex:none;width:12px;height:30px;border-radius:4px;background:var(--ec)}
+.chap .t{flex:none;width:28px;height:28px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
 .chap .n{display:flex;flex-direction:column;line-height:1.25}
 .chap .n b{font-family:var(--serif);font-size:1.02rem}
 .chap .n span{font-size:.8rem;color:var(--muted);font-weight:600}
 .chap button[aria-current="true"]{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.chap button[aria-current="true"] .t{background:var(--gold);color:var(--bg)}
+.ev-stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:110px}
+.ev-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.ev-steps span{font-size:.62rem;font-weight:700;color:var(--muted);text-align:center;line-height:1.15;padding:5px 2px;border-radius:7px;background:var(--bg);transition:background .4s,color .4s}
+.ev-steps span b{display:block;font-size:.85rem}
+.ev-steps span.on{background:var(--fg);color:var(--bg)}
+.ev-steps.all span{background:var(--gold-soft);color:var(--fg)}
+.ev-body{flex:1;display:flex;flex-direction:column;gap:6px}
+.ev-body.in{animation:evIn .6s ease both}
+@keyframes evIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ev-kick{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.ev-title{margin:0;font-family:var(--display);font-weight:400;font-size:1.9rem;line-height:1.1;text-wrap:balance}
+.ev-years{font-weight:700;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ev-pts{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.ev-pts li{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:.95rem;line-height:1.35;opacity:0;transform:translateX(-12px);transition:opacity .5s,transform .5s,border-color .4s,box-shadow .4s}
+.ev-pts li.vis{opacity:1;transform:none}
+.ev-pts li.cur{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft)}
+.ev-y{flex:none;min-width:58px;font-family:var(--serif);font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.ev-pts li.k .ev-y{color:var(--crown)} .ev-pts li.p .ev-y{color:var(--parl)} .ev-pts li.n .ev-y{color:var(--muted)} .ev-pts li.g .ev-y{color:var(--gold)}
+.ev-pts li.big{font-size:.98rem}
+.ev-ico{flex:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+.ev-pts li.k .ev-ico{background:var(--crown-soft)} .ev-pts li.p .ev-ico{background:var(--parl-soft)} .ev-pts li.g .ev-ico{background:var(--gold-soft)}
+.ev-ov{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
+.ev-ov li{opacity:0;transform:translateX(-12px);transition:opacity .5s,transform .5s;padding:7px 9px;border-radius:9px;border:1px solid transparent}
+.ev-ov li.vis{opacity:1;transform:none}
+.ev-ov li.cur{border-color:var(--gold)}
+.ev-ovh{display:flex;justify-content:space-between;gap:8px;font-size:.9rem}
+.ev-ovh span{color:var(--muted);font-weight:700;font-size:.8rem;font-variant-numeric:tabular-nums}
+.ev-mini{height:9px;border-radius:5px;background:var(--parl);overflow:hidden;margin:4px 0 3px}
+.ev-mini i{display:block;height:100%;background:var(--crown)}
+.ev-ovt{font-size:.84rem;color:var(--muted)}
+.ev-power{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;transition:opacity .5s}
+.ev-side{display:flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700}
+.ev-side svg{width:20px;height:20px}
+.ev-side.k{color:var(--crown)} .ev-side.p{color:var(--parl)}
+.ev-bar{height:16px;border-radius:8px;background:var(--parl);overflow:hidden;position:relative}
+.ev-bar::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:var(--surface);opacity:.8}
+.ev-bar i{display:block;height:100%;width:50%;background:var(--crown);transition:width 1.3s cubic-bezier(.65,0,.35,1)}
+.ev-sub{min-height:4.3em;background:var(--fg);color:var(--bg);border-radius:10px;padding:10px 12px;font-size:.95rem;line-height:1.4}
+.ev-ctrl{display:flex;justify-content:center;align-items:center;gap:18px}
+.ev-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.ev-btn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ev-btn svg .f{fill:currentColor;stroke:none}
+.ev-play{width:64px;height:64px;background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ev-play svg{width:30px;height:30px}
+.ev-prog{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.ev-prog button{height:14px;padding:4px 0;border:0;background:none;cursor:pointer}
+.ev-prog button i{display:block;height:6px;border-radius:3px;background:var(--gold);width:0;box-shadow:0 0 0 100vmax var(--line) inset;transition:width .4s}
+.ev-prog button{background:linear-gradient(var(--line),var(--line)) center/100% 6px no-repeat;border-radius:3px}
+.ev-prog button i{box-shadow:none}
+.ev-voice{margin:0;text-align:center}
+@media (prefers-reduced-motion:reduce){.ev-body.in{animation:none}.ev-pts li,.ev-ov li,.ev-bar i{transition:none}}
 
 /* Lexikon */
 .search{position:relative}
@@ -300,20 +349,14 @@ function show(v){
   ["zeit","lex","kurz","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.getElementById("ttl").textContent=TITLES[v][0];document.getElementById("sub").textContent=TITLES[v][1];
   window.scrollTo(0,0);store.set("tab",v);
-  const zv=document.getElementById("zvid");if(zv&&v!=="zeit")zv.pause();
+  if(v!=="zeit"&&window.EV_stop)window.EV_stop();
 }
 document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.v)});
 
 /* ---------- Zeitstrahl ---------- */
-const VCH=[[7,0],[41.4,1],[98.4,2],[122.2,3],[159.4,4]];
-const fmt=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,"0")}`;
 document.getElementById("v-zeit").innerHTML=`
-  <div class="seg" id="zseg"><button type="button" data-z="liste" aria-pressed="true">Liste</button><button type="button" data-z="video" aria-pressed="false">Video-Überblick</button></div>
-  <div class="view" id="z-video" hidden>
-    <div class="vidwrap"><video id="zvid" controls playsinline preload="metadata" poster="zeitstrahl-video.jpg" src="zeitstrahl-video.mp4"></video></div>
-    <p class="tip" style="margin:0">Die ganze Epoche in gut 3 Minuten: Unten läuft die Zeit, die Kurve zeigt nach jedem Ereignis, ob König oder Parlament stärker ist. Tipp: Querformat für Vollbild.</p>
-    <ol class="chap">${VCH.map(([t,i])=>`<li><button type="button" data-t="${t}" style="--ec:var(${ERAS[i].bg})"><span class="t">${fmt(t)}</span><span class="sw"></span><span class="n"><b>${ERAS[i].name}</b><span>${ERAS[i].span}</span></span></button></li>`).join("")}</ol>
-  </div>
+  <div class="seg" id="zseg"><button type="button" data-z="liste" aria-pressed="true">Liste</button><button type="button" data-z="video" aria-pressed="false">Erklärvideo</button></div>
+  <div class="view" id="z-video" hidden></div>
   <div class="view" id="z-liste">
   <div class="legend"><span><i class="dot k"></i>König stärker</span><span><i class="dot p"></i>Parlament stärker</span><span><i class="dot n"></i>Gleichgewicht</span><span><b style="color:var(--gold)">★</b> unbedingt lernen</span></div>
   <div class="erachips">${ERAS.map((e,i)=>`<a href="#era${i}" style="--ec:var(${e.bg})">${e.span}</a>`).join("")}</div>
@@ -327,14 +370,10 @@ document.getElementById("v-zeit").innerHTML=`
 function zshow(z){
   document.querySelectorAll("#zseg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.z===z));
   document.getElementById("z-liste").hidden=z!=="liste";document.getElementById("z-video").hidden=z!=="video";
-  if(z!=="video")document.getElementById("zvid").pause();
+  if(z!=="video"&&window.EV_stop)window.EV_stop();
   store.set("zsub",z);
 }
 document.getElementById("zseg").addEventListener("click",e=>{const b=e.target.closest("button");if(b)zshow(b.dataset.z)});
-const zvid=document.getElementById("zvid");
-document.querySelector(".chap").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;zvid.currentTime=+b.dataset.t;zvid.play().catch(()=>{})});
-zvid.addEventListener("timeupdate",()=>{let c=-1;VCH.forEach(([t],i)=>{if(zvid.currentTime>=t-.2)c=i});
-  document.querySelectorAll(".chap button").forEach((b,i)=>b.setAttribute("aria-current",i===c))});
 zshow(store.get("zsub","liste"));
 document.getElementById("v-zeit").addEventListener("click",e=>{const a=e.target.closest(".erachips a");if(!a)return;e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"})});
 
@@ -460,6 +499,7 @@ renderUeben();
 show(store.get("tab","zeit"));
 </script>
 
+<script src="erklaervideo.js"></script>
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
 </body>
 </html>
