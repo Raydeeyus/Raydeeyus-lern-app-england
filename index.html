@@ -41,7 +41,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .top .sub{font-size:.8rem;color:var(--muted);font-weight:600}
 main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px calc(96px + env(safe-area-inset-bottom,0px));max-width:720px;margin:0 auto}
 .view{display:flex;flex-direction:column;gap:18px}
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);
   padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
 nav.tabs button{font:inherit;border:0;background:transparent;color:var(--muted);padding:9px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.78rem;font-weight:700;cursor:pointer}
 nav.tabs svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -129,6 +129,18 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .done{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;padding:20px 0}
 .done .big{font-family:var(--display);font-size:2.6rem;line-height:1}
 .tip{font-size:.85rem;color:var(--muted)}
+
+/* Kurz */
+.sum{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:n}
+.sum li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 14px 13px 52px;position:relative;counter-increment:n}
+.sum li::before{content:counter(n);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--fg);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.sum h3,.step h3{margin:0 0 4px;font-size:1.02rem}
+.sum p,.step p{margin:0;font-size:.95rem}
+.sec{margin:6px 0 0;font-family:var(--display);font-weight:400;font-size:1.5rem;border-bottom:2px solid var(--fg);line-height:1.2}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 14px;display:flex;flex-direction:column;gap:6px}
+.step .afb{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.step ol,.step ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:5px;font-size:.95rem}
+.ex{font-size:.9rem;background:var(--gold-soft);border-radius:8px;padding:8px 10px}
 </style>
 </head>
 <body>
@@ -142,10 +154,12 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   <section class="view" id="v-zeit"></section>
   <section class="view" id="v-lex" hidden></section>
   <section class="view" id="v-ueben" hidden></section>
+  <section class="view" id="v-kurz" hidden></section>
 </main>
 <nav class="tabs" role="tablist">
   <button role="tab" data-v="zeit" aria-selected="true" type="button"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="15" r="2"/><path d="M14 7h6M4 15h6"/></svg>Zeitstrahl</button>
   <button role="tab" data-v="lex" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6"/></svg>Lexikon</button>
+  <button role="tab" data-v="kurz" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>Kurz</button>
   <button role="tab" data-v="ueben" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>Üben</button>
 </nav>
 
@@ -268,10 +282,10 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const EVENTS=ERAS.flatMap(e=>e.ev.map(([y,t,w,d,s,big])=>({y,t,w,d,s,big,era:e.name})));
 
 /* ---------- Tabs ---------- */
-const TITLES={zeit:["Zeitstrahl","England 1509–1714 · Krone gegen Parlament"],lex:["Lexikon",`${T.length} Begriffe · Bedeutung und Entstehung`],ueben:["Üben","Karteikarten und Jahreszahlen-Quiz"]};
+const TITLES={zeit:["Zeitstrahl","England 1509–1714 · Krone gegen Parlament"],lex:["Lexikon",`${T.length} Begriffe · Bedeutung und Entstehung`],ueben:["Üben","Karteikarten und Jahreszahlen-Quiz"],kurz:["Kurz","Das Wichtigste und die Quellenanalyse"]};
 function show(v){
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
-  ["zeit","lex","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
+  ["zeit","lex","kurz","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.getElementById("ttl").textContent=TITLES[v][0];document.getElementById("sub").textContent=TITLES[v][1];
   window.scrollTo(0,0);store.set("tab",v);
 }
@@ -288,6 +302,43 @@ document.getElementById("v-zeit").innerHTML=`
   </section>`).join("")}
   <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>`;
 document.getElementById("v-zeit").addEventListener("click",e=>{const a=e.target.closest(".erachips a");if(!a)return;e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"})});
+
+document.getElementById("v-kurz").innerHTML=`<h2 class="sec">Das Wichtigste in 5 Punkten</h2>
+<ol class="sum">
+<li><h3>Der Grundkonflikt</h3><p>Die Stuarts (Jakob I., Karl I.) berufen sich auf das <b>Gottesgnadentum</b>: Der König ist nur Gott Rechenschaft schuldig. Das Parlament, vor allem das Unterhaus, pocht auf seine <b>ererbten Rechte</b>. Zwei Konfliktlinien: <b>Religion</b> (Angst vor dem Katholizismus, Streit um die anglikanische Kirche) und <b>Politik</b> (Wer hat die Macht?).</p></li>
+<li><h3>Geld ist der Hebel</h3><p>Das <b>Budgetrecht</b> ist die wichtigste Waffe des Parlaments. Der König braucht Geld für Kriege, das Parlament bewilligt es nur gegen Rechte: <b>Petition of Right 1628</b>. Karl antwortet mit der <b>elfjährigen Tyrannei</b> (1629–40, Ship Money).</p></li>
+<li><h3>Eskalation und Bruch</h3><p>1637 Gebetbuch für Schottland, Bischofskriege. Karl braucht Geld, 1640 Langes Parlament. 1642 stürmt er das Unterhaus, der <b>Bürgerkrieg</b> beginnt (Kavaliere gegen Rundköpfe). Cromwells New Model Army siegt. <b>1649 Hinrichtung Karls I.</b>, dann Republik und Cromwells Militärdiktatur, 1660 Restauration.</p></li>
+<li><h3>Der Sieg des Parlaments</h3><p>1679 <b>Habeas-Corpus-Akte</b> (Schutz vor willkürlicher Haft). Der katholische Jakob II. führt 1688 zur <b>Glorreichen Revolution</b>, 1689 zur <b>Bill of Rights</b>: keine Steuern, Gesetze oder Armee ohne Parlament. Aus der <b>absoluten</b> wird eine <b>konstitutionelle Monarchie</b>.</p></li>
+<li><h3>Quellenanalyse beherrschen</h3><p>Kenne die beiden Quellen: <b>Jakob I. 1598</b> (M5: Der König macht die Gesetze und steht über ihnen) und das <b>Unterhaus 1604</b> (M6: Unsere Rechte sind ererbt, kein Geschenk). Die Schritte stehen unten.</p></li>
+</ol>
+
+<h2 class="sec">Quellenanalyse Schritt für Schritt</h2>
+<p class="tip">Immer im Fließtext schreiben und genau auf die Operatoren der Aufgabe achten.</p>
+
+<div class="step"><span class="afb">AFB I · Beschreiben (Reproduktion)</span><h3>1. Einleitung mit dem TATT-Satz</h3>
+<ul><li><b>T</b>itel/Thema: Überschrift, worum geht es grob?</li><li><b>A</b>utor: Wer hat es geschrieben, welche Rolle hatte er?</li><li><b>T</b>extart: Rede, Brief, Gesetz, Abhandlung? Traditionsquelle (für die Nachwelt) oder Überrest (unabsichtlich überliefert)?</li><li><b>T</b>ime/Ort: Wann und wo entstanden?</li></ul>
+<p class="ex">Beispiel: „Bei der vorliegenden Quelle handelt es sich um einen Auszug aus der Abhandlung ‚The True Law of Free Monarchies‘, die Jakob I., damals König von Schottland, 1598 verfasste. Thema ist die Rechtsgrundlage des Königtums.“</p></div>
+
+<div class="step"><span class="afb">AFB I</span><h3>2. Adressat und Intention</h3>
+<ul><li>An wen richtet sich die Quelle? (z. B. Öffentlichkeit, Stände, Parlament, König)</li><li>Was will der Autor? Überzeugen, rechtfertigen, anklagen, informieren?</li></ul></div>
+
+<div class="step"><span class="afb">AFB I</span><h3>3. Inhalt nach Sinnabschnitten</h3>
+<ul><li>Text in Abschnitte gliedern, mit Zeilenangaben (Z. 1–5 …)</li><li>Hauptaussagen in eigenen Worten wiedergeben</li><li>Im <b>Präsens</b> schreiben, fremde Aussagen im <b>Konjunktiv I</b>: „Jakob behauptet, der König stehe über dem Gesetz.“</li><li><b>Noch keine</b> Erklärungen und keine eigene Meinung!</li></ul></div>
+
+<div class="step"><span class="afb">AFB II · Erklären (Reorganisation)</span><h3>4. Historischer Kontext</h3>
+<ul><li>Was geschah vorher, was gleichzeitig? In welche Phase gehört die Quelle?</li><li>Beispiel M5: Jakob ist noch König von Schottland, 1603 wird er König von England und bringt das Gottesgnadentum mit. Das führt zum Konflikt mit dem Unterhaus (M6, 1604).</li></ul></div>
+
+<div class="step"><span class="afb">AFB II</span><h3>5. Aussagen und Argumentation erklären</h3>
+<ul><li>Begriffe, Forderungen und Anspielungen mit Fachwissen erklären</li><li>Wie argumentiert der Autor? Von welchen Grundannahmen geht er aus? Sachargumente, Appelle, historische Vergleiche?</li><li><b>Textlogik mit dem Kontext verbinden:</b> Warum argumentiert er genau jetzt so? (Das ist der wichtigste Schritt!)</li><li>Jede Aussage belegen: direktes Zitat „…“ (Z. 12) oder indirekt (vgl. Z. 14 f.)</li></ul></div>
+
+<div class="step"><span class="afb">AFB III · Beurteilen (Reflexion)</span><h3>6. Sachurteil (Sicht von damals)</h3>
+<ul><li>Nur aus der Sicht der Zeitgenossen urteilen, <b>keine</b> heutigen Maßstäbe</li><li>Waren Forderungen und Handeln damals nachvollziehbar, typisch für die Zeit, erfolgreich?</li></ul></div>
+
+<div class="step"><span class="afb">AFB III</span><h3>7. Werturteil (Sicht von heute)</h3>
+<ul><li>Mit heutigen Normen bewerten: Menschenrechte, Grundgesetz, Demokratie</li><li>War das Handeln legitim, moralisch vertretbar oder Unrecht? Beispiel: Gottesgnadentum gegen Volkssouveränität (Art. 20 GG)</li></ul></div>
+
+<div class="step"><span class="afb">AFB III</span><h3>8. Fazit zur Leitfrage</h3>
+<ul><li>Pro- und Kontra-Argumente aus Sach- und Werturteil zusammenführen</li><li>Klares, begründetes Schlussfazit: die Leitfrage direkt beantworten</li></ul></div>`;
 
 /* ---------- Lexikon ---------- */
 T.sort((a,b)=>a[0].localeCompare(b[0],"de"));
