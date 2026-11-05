@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lern-App England</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="England">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14171d" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px)} body{margin:0} /* Layout: phone app — sticky title bar, one scrolling view, fixed bottom tab bar (Zeitstrahl / Lexikon / Üben) */
+:root{
+  --bg:#f6f7f4; --surface:#ffffff; --fg:#1d2330; --muted:#5d6472; --line:#d9dcd4;
+  --crown:#a3242f; --crown-soft:#f6e3e4; --parl:#1f6b4a; --parl-soft:#dff0e7; --gold:#9a7a1e; --gold-soft:#f3ecd8;
+  --e1:#e9e2cf; --e2:#e4dde9; --e3:#f0dcd8; --e4:#d9e6e4; --e5:#dfe5f1;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#14171d; --surface:#1c2028; --fg:#e8e9e4; --muted:#a3a8b2; --line:#343a46;
+  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18;
+  --e1:#37321f; --e2:#2f2a3a; --e3:#3c2725; --e4:#21332f; --e5:#232c3d; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#14171d; --surface:#1c2028; --fg:#e8e9e4; --muted:#a3a8b2; --line:#343a46;
+  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18;
+  --e1:#37321f; --e2:#2f2a3a; --e3:#3c2725; --e4:#21332f; --e5:#232c3d; color-scheme:dark }
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--bg);border-bottom:1px solid var(--line);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;display:flex;flex-direction:column;gap:8px}
+.top h1{margin:0;font-family:var(--display);font-weight:400;font-size:1.55rem;line-height:1.1}
+.top .sub{font-size:.8rem;color:var(--muted);font-weight:600}
+main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px calc(96px + env(safe-area-inset-bottom,0px));max-width:720px;margin:0 auto}
+.view{display:flex;flex-direction:column;gap:18px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);
+  padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.tabs button{font:inherit;border:0;background:transparent;color:var(--muted);padding:9px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.78rem;font-weight:700;cursor:pointer}
+nav.tabs svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-selected="true"]{color:var(--fg)}
+nav.tabs button[aria-selected="true"] svg{stroke:var(--gold)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Zeitstrahl */
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.dot.k{background:var(--crown)} .dot.p{background:var(--parl)} .dot.n{background:var(--muted)}
+.erachips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.erachips::-webkit-scrollbar{display:none}
+.erachips a{flex:none;font-size:.82rem;font-weight:700;padding:6px 11px;border-radius:999px;color:var(--fg);text-decoration:none;background:var(--ec);white-space:nowrap}
+.era{display:flex;flex-direction:column;scroll-margin-top:120px}
+.era-head{background:var(--eb);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:2px;position:relative;z-index:1}
+.era-head h2{margin:0;font-family:var(--display);font-weight:400;font-size:1.4rem;line-height:1.15}
+.era-head .span{font-weight:700;font-size:.88rem;font-variant-numeric:tabular-nums}
+.era-head p{margin:0;font-size:.92rem}
+.spine{list-style:none;margin:0;padding:14px 0 6px;position:relative;display:flex;flex-direction:column;gap:14px}
+.spine::before{content:"";position:absolute;top:0;bottom:0;left:9px;width:3px;background:var(--line)}
+.ev{display:grid;grid-template-columns:22px 1fr;gap:0 10px;align-items:start}
+.node{width:17px;height:17px;border-radius:50%;margin:14px 0 0 2px;border:3px solid var(--bg);box-shadow:0 0 0 1px var(--line);position:relative}
+.node.k{background:var(--crown)} .node.p{background:var(--parl)} .node.n{background:var(--muted)}
+.card{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 13px;display:flex;flex-direction:column;gap:3px}
+.card .yr{font-family:var(--serif);font-weight:700;font-size:1.1rem;font-variant-numeric:tabular-nums;line-height:1.2}
+.ev.k .yr,.ev.k .score{color:var(--crown)} .ev.p .yr,.ev.p .score{color:var(--parl)} .ev.n .yr,.ev.n .score{color:var(--muted)}
+.card h3{margin:0;font-size:1rem;line-height:1.3}
+.ev.big h3::before{content:"★ ";color:var(--gold)}
+.card p{margin:0;font-size:.94rem}
+.who{font-size:.76rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.score{font-size:.78rem;font-weight:700}
+.result{font-family:var(--serif);background:var(--surface);border:2px solid var(--fg);border-radius:10px;padding:12px 14px}
+
+/* Lexikon */
+.search{position:relative}
+#q{width:100%;font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.toggle{font:inherit;font-size:.85rem;font-weight:700;padding:7px 12px;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer}
+.toggle[aria-pressed="true"]{background:var(--gold);color:var(--bg)}
+.count{font-size:.82rem;color:var(--muted)}
+.az{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.az::-webkit-scrollbar{display:none}
+.az a{flex:none;min-width:30px;text-align:center;padding:4px 6px;border-radius:6px;font-weight:700;font-size:.85rem;color:var(--fg);text-decoration:none;border:1px solid var(--line);background:var(--surface)}
+.letter{display:flex;flex-direction:column;gap:10px;scroll-margin-top:170px}
+.letter>h2{margin:0;font-family:var(--display);font-weight:400;font-size:1.7rem;border-bottom:2px solid var(--fg);line-height:1.2}
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.entry summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.entry summary::-webkit-details-marker{display:none}
+.entry summary h3{margin:0;font-family:var(--serif);font-size:1.05rem;line-height:1.3}
+.entry summary .yr{font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.entry summary::after{content:"+";font-weight:700;color:var(--gold);font-size:1.2rem;line-height:1}
+.entry[open] summary::after{content:"–"}
+.entry .inner{padding:0 14px 14px;display:flex;flex-direction:column;gap:8px}
+.lbl{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.lbl.d{color:var(--parl)} .lbl.o{color:var(--gold)}
+.entry p{margin:0;font-size:.95rem}
+.see{font-size:.84rem;color:var(--muted)}
+.see button{font:inherit;font-weight:700;color:var(--fg);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+
+/* Üben */
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}
+.seg button{font:inherit;font-weight:700;font-size:.9rem;border:0;border-radius:8px;padding:8px;background:transparent;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.flash{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 18px;min-height:300px;display:flex;flex-direction:column;gap:12px;cursor:pointer}
+.flash .kind{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.flash .front{font-family:var(--display);font-size:1.8rem;line-height:1.15;text-wrap:balance}
+.flash .hint{margin-top:auto;font-size:.85rem;color:var(--muted)}
+.flash .back{display:flex;flex-direction:column;gap:10px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{font:inherit;font-weight:700;padding:13px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.btn.no{border-color:var(--crown);color:var(--crown)} .btn.yes{border-color:var(--parl);color:var(--parl)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.progress{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:3px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.q .ask{font-family:var(--display);font-size:1.45rem;line-height:1.2;text-wrap:balance}
+.q .opts{display:flex;flex-direction:column;gap:8px}
+.q .opts button{font:inherit;text-align:left;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;font-weight:600}
+.q .opts button.right{border-color:var(--parl);background:var(--parl-soft);color:var(--parl)}
+.q .opts button.wrong{border-color:var(--crown);background:var(--crown-soft);color:var(--crown)}
+.q .expl{font-size:.92rem;color:var(--fg);background:var(--gold-soft);border-radius:8px;padding:10px 12px}
+.done{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;padding:20px 0}
+.done .big{font-family:var(--display);font-size:2.6rem;line-height:1}
+.tip{font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <h1 id="ttl">Zeitstrahl</h1>
+  <span class="sub" id="sub">England 1509–1714 · Krone gegen Parlament</span>
+</header>
+<main>
+  <section class="view" id="v-zeit"></section>
+  <section class="view" id="v-lex" hidden></section>
+  <section class="view" id="v-ueben" hidden></section>
+</main>
+<nav class="tabs" role="tablist">
+  <button role="tab" data-v="zeit" aria-selected="true" type="button"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="15" r="2"/><path d="M14 7h6M4 15h6"/></svg>Zeitstrahl</button>
+  <button role="tab" data-v="lex" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6"/></svg>Lexikon</button>
+  <button role="tab" data-v="ueben" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>Üben</button>
+</nav>
+
+<script>
+const ERAS=[
+ {name:"Die Tudors",span:"1509–1603",bg:"--e1",note:"Höhepunkt der Königsmacht. Das Parlament wird gebraucht, aber kontrolliert.",ev:[
+  ["1509","Heinrich VIII. wird König","Heinrich VIII.","Regiert bis 1547. Er braucht einen männlichen Erben.",4],
+  ["1534","Suprematsakte","Heinrich VIII.","Bruch mit Rom: Das Parlament macht den König zum Oberhaupt der neuen anglikanischen Kirche.",5,1],
+  ["1536–40","Auflösung der Klöster","Heinrich VIII.","Kirchenland geht günstig an den Adel. Damit sichert sich der König dessen Treue.",4],
+  ["1558","Elisabeth I. wird Königin","Elisabeth I.","Regiert bis 1603. Religiöser Kompromiss (Via Media). Parlament nur 13-mal einberufen.",4,1],
+  ["1588","Sieg über die Armada","Elisabeth I.","England wird führende Seemacht.",5],
+  ["1600","East India Company","Elisabeth I.","Beginn des Welthandels. Das Bürgertum wird reicher und selbstbewusster.",4]
+ ]},
+ {name:"Die frühen Stuarts",span:"1603–1642",bg:"--e2",note:"Gottesgnadentum gegen das Unterhaus. Der Streit dreht sich ums Geld.",ev:[
+  ["1603","Jakob I.: Beginn der Stuarts","Jakob I.","Der schottische König bringt das Gottesgnadentum mit: Er ist nur Gott Rechenschaft schuldig (Quelle M5).",4,1],
+  ["1604","Unterhaus verteidigt Privilegien","Parlament","Die Rechte des Parlaments sind ererbt, kein Geschenk des Königs (Quelle M6).",2],
+  ["1610","Streit um Steuern und Proklamationen","Richter / Parlament","Der König darf kein neues Recht per Proklamation schaffen. Das Unterhaus will frei über Abgaben debattieren (M7, M8).",2],
+  ["1625","Karl I. wird König","Karl I.","Teure, erfolglose Kriege führen zu Geldnot.",4],
+  ["1628","Petition of Right","Parlament","Geld gibt es nur gegen Rechte: keine Steuern ohne Parlament, keine willkürliche Haft.",1,1],
+  ["1629–40","Elfjährige Tyrannei","Karl I.","Der König regiert ohne Parlament und treibt Ship Money im ganzen Land ein.",5,1],
+  ["1637","Gebetbuch für Schottland","Karl I.","Aufstand der Presbyterianer, Bischofskriege. Karl braucht Geld für eine Armee.",4],
+  ["1640","Kurzes und Langes Parlament","Parlament","April: nach 3 Wochen aufgelöst. November: Das Lange Parlament ist radikal und stellt Forderungen.",0,1],
+  ["1641","Das Parlament schlägt zurück","Parlament","Sondergerichte abgeschafft, Karls engster Berater (Strafford) hingerichtet.",-2],
+  ["1642","Karl stürmt das Unterhaus","Karl I.","Er versucht, 5 Abgeordnete zu verhaften, und scheitert. Gewalt gegen das Parlament ist der Auslöser des Bürgerkriegs.",3,1]
+ ]},
+ {name:"Englischer Bürgerkrieg",span:"1642–1649",bg:"--e3",note:"Kavaliere (König) gegen Rundköpfe (Parlament).",ev:[
+  ["1644/45","Marston Moor und New Model Army","Oliver Cromwell","Die Berufsarmee des Parlaments (Beförderung nach Leistung) besiegt den König.",-2],
+  ["1646","König gefangen","Parlament","Karl I. wird ausgeliefert und verhaftet.",-3],
+  ["1648","Zweite Phase","Oliver Cromwell","Karl verbündet sich heimlich mit den Schotten. Cromwell schlägt das nieder.",-3],
+  ["1649","Hinrichtung Karls I.","Parlament","Am 30. Januar wegen Hochverrats enthauptet. Ein Tabubruch für ganz Europa.",-5,1]
+ ]},
+ {name:"Republik und Restauration",span:"1649–1685",bg:"--e4",note:"Erst Republik, dann Militärdiktatur, dann kommt der König zurück.",ev:[
+  ["1649","Commonwealth of England","Parlament","Republik: Monarchie und House of Lords abgeschafft. Tatsächlich herrscht die Armee.",-4,1],
+  ["1651","Navigationsakte","Commonwealth","Schützt den englischen Seehandel und bricht die Macht der Niederländer.",-3],
+  ["1653","Cromwell wird Lordprotektor","Oliver Cromwell","Er jagt das Parlament davon. Militärdiktatur mit puritanischen Regeln.",4,1],
+  ["1658","Cromwell stirbt","Richard Cromwell","Sein Sohn scheitert, es droht Anarchie.",0],
+  ["1660","Restauration: Karl II.","Karl II.","Krone, House of Lords und anglikanische Kirche kehren zurück.",2,1],
+  ["1679","Habeas-Corpus-Akte","Parlament","Keine Haft ohne richterlichen Haftbefehl und schnelle Prüfung.",-1,1]
+ ]},
+ {name:"Glorreiche Revolution",span:"1685–1714",bg:"--e5",note:"Der letzte Versuch des Absolutismus scheitert. Das Parlament siegt.",ev:[
+  ["1685","Jakob II. wird König","Jakob II.","Katholisch und absolutistisch, stellt ein stehendes Heer auf.",5],
+  ["1688","Katholischer Thronfolger geboren","Jakob II.","Im Juni. Es droht eine dauerhafte katholische Dynastie.",4],
+  ["1688","Glorreiche Revolution","Wilhelm von Oranien","Im November: Landung mit 20.000 Soldaten, Jakob flieht. Fast unblutig.",-3,1],
+  ["1689","Bill of Rights","Wilhelm III. & Maria II.","Keine Steuern, Gesetzesaussetzung oder Armee ohne Parlament. Ab jetzt konstitutionelle Monarchie.",-4,1],
+  ["1701","Act of Settlement","Parlament","Katholiken von der Thronfolge ausgeschlossen, Richter unabhängig.",-4],
+  ["1707","Act of Union","Parlament","England und Schottland werden Großbritannien.",-4]
+ ]}
+];
+const T=[
+["Absolutismus","17./18. Jh.","Herrschaftsform, in der der Monarch die gesamte Staatsgewalt allein ausübt. Er ist an keine Gesetze und kein Parlament gebunden und nur Gott verantwortlich.","Von lat. „legibus absolutus“ = von den Gesetzen losgelöst. Entstand nach den Religionskriegen, weil man glaubte, nur ein starker Herrscher könne Frieden und Ordnung sichern (Staatstheoretiker Jean Bodin). Vorbild war Ludwig XIV. von Frankreich. In England versuchten die Stuarts so zu regieren und scheiterten am Parlament.","Gottesgnadentum"],
+["Absolute Monarchie","","Monarchie, in der der König uneingeschränkt herrscht, ohne Verfassung und ohne Kontrolle durch ein Parlament.","Die klassische Form des Absolutismus. In England kam sie unter den Tudors am nächsten heran, die Stuarts wollten sie durchsetzen. Gegenbegriff: konstitutionelle Monarchie.","Konstitutionelle Monarchie"],
+["Act of Settlement","1701","Gesetz zur Thronfolge: Katholiken dürfen nicht König werden, Richter sind unabhängig vom König und können nur vom Parlament abgesetzt werden.","Wilhelm III. und Anna hatten keine überlebenden Kinder. Das Parlament wollte verhindern, dass der katholische Sohn Jakobs II. zurückkommt. Deshalb legte es die Thronfolge selbst fest (an das protestantische Haus Hannover). Das zeigt: Jetzt bestimmt das Parlament sogar, wer König wird.","Glorreiche Revolution"],
+["Act of Union","1707","Vereinigung von England und Schottland zum Königreich Großbritannien mit einem gemeinsamen Parlament in London.","Beide Länder hatten seit 1603 denselben König (Personalunion), aber getrennte Parlamente. England wollte sicherstellen, dass Schottland nicht einen eigenen, vielleicht katholischen König wählt. Schottland bekam dafür Zugang zum englischen Handel.","Personalunion"],
+["AFB I / II / III","Methode","Anforderungsbereiche in Klausuren: I = Reproduktion (wiedergeben, beschreiben), II = Reorganisation (erklären, einordnen, analysieren), III = Reflexion (beurteilen, bewerten).","Entstanden aus den einheitlichen Prüfungsanforderungen (EPA) der Kultusministerkonferenz, damit Aufgaben nach Schwierigkeit gestuft werden. Die Operatoren (z. B. „nennen“, „erläutern“, „beurteilen“) zeigen, zu welchem Bereich eine Aufgabe gehört.","Sachurteil, Werturteil"],
+["Anglikanische Kirche (Church of England)","1534","Englische Staatskirche mit dem König als Oberhaupt. Die Lehre ist protestantisch, Gottesdienst und Bischofsamt erinnern an die katholische Kirche.","Heinrich VIII. wollte seine Ehe mit Katharina von Aragon annullieren lassen, weil sie ihm keinen Sohn gebar. Der Papst lehnte ab. Darauf löste Heinrich mit der Suprematsakte die englische Kirche von Rom. Name von „Anglia“ = lat. für England.","Suprematsakte, Via Media"],
+["Aufklärung","17./18. Jh.","Geistige Bewegung, die auf Vernunft, Freiheit, Toleranz und Menschenrechte setzt. Motto: „Sapere aude – Habe Mut, dich deines eigenen Verstandes zu bedienen“ (Kant).","Vorbereitet durch Renaissance, Humanismus und naturwissenschaftliche Entdeckungen. Die englischen Konflikte des 17. Jh. regten Denker wie John Locke an. Die Aufklärung lieferte später die Begründung gegen das Gottesgnadentum.","Locke, Volkssouveränität"],
+["Bill of Rights","1689","Gesetz über die Rechte des Parlaments: Der König darf ohne Zustimmung des Parlaments keine Gesetze aussetzen, keine Steuern erheben und kein stehendes Heer im Frieden halten. Freie Wahlen und Redefreiheit im Parlament.","Nach der Flucht Jakobs II. 1688 war der Thron frei. Das Parlament nutzte diese Lage: Wilhelm III. und Maria II. wurden nur König und Königin, weil sie vorher zustimmten. Die Bill fasst die Forderungen zusammen, für die das Parlament seit 1604 kämpfte. Danach ist England eine konstitutionelle Monarchie.","Glorreiche Revolution"],
+["Bischofskirche","","Kirche, die von Bischöfen hierarchisch von oben geleitet wird, z. B. die anglikanische und die katholische Kirche.","Die Könige hielten an Bischöfen fest, weil diese vom König ernannt wurden und so die Kontrolle über die Kirche sicherten. Jakob I.: „No bishop, no king“ (ohne Bischof kein König).","Presbyterianismus"],
+["Bischofskriege","1639–1640","Zwei Kriege zwischen Karl I. und den Schotten.","Karl I. wollte 1637 der schottischen, presbyterianischen Kirche das anglikanische Gebetbuch (Book of Common Prayer) und Bischöfe aufzwingen. Die Schotten wehrten sich. Weil Karl für den Krieg Geld brauchte, musste er nach 11 Jahren wieder das Parlament einberufen. So führten die Kriege direkt zum Bürgerkrieg.","Kurzes Parlament, Langes Parlament"],
+["Budgetrecht / Steuerbewilligungsrecht","","Recht des Parlaments, über Steuern und Staatsausgaben zu entscheiden. Ohne seine Zustimmung darf der König kein Geld erheben.","Geht auf die Magna Carta 1215 zurück. Weil die Könige für Kriege immer mehr Geld brauchten, wurde es zum stärksten Druckmittel des Parlaments: Geld gab es nur gegen Rechte (1628 Petition of Right). Endgültig gesichert in der Bill of Rights 1689.","Petition of Right, Ship Money"],
+["Bürgerkrieg, Englischer","1642–1649","Krieg zwischen dem König (Kavaliere) und dem Parlament (Rundköpfe). Endet mit dem Sieg des Parlaments und der Hinrichtung Karls I.","Ursachen: Gottesgnadentum gegen Parlamentsrechte, Geldstreit, religiöse Spannungen. Auslöser: Im Januar 1642 drang Karl I. mit Soldaten ins Unterhaus ein, um fünf Abgeordnete zu verhaften.","Kavaliere, Rundköpfe, New Model Army"],
+["Commonwealth of England","1649–1660","Die englische Republik: ohne König und ohne House of Lords. Formell regiert das Unterhaus, tatsächlich die Armee unter Cromwell.","Nach der Hinrichtung Karls I. erklärte das Parlament die Monarchie für abgeschafft. „Commonwealth“ heißt „Gemeinwohl, Gemeinwesen“, also ein Staat, der allen gehört, entsprechend dem lat. „res publica“.","Lordprotektor, Restauration"],
+["Common Law","","Englisches Gewohnheitsrecht: ungeschriebenes Recht, das aus Urteilen der Gerichte über Jahrhunderte entstanden ist. Daneben gibt es Statute Law (Gesetze des Parlaments) und Custom (Bräuche).","Entstand im Mittelalter durch königliche Richter, die im ganzen Land ein „gemeinsames“ (common) Recht sprachen. Die Richter um Edward Coke argumentierten 1610: Auch der König ist an dieses Recht gebunden (Quelle M7).","Proklamation, Prärogative"],
+["Eleven Years' Tyranny (Elfjährige Tyrannei)","1629–1640","Zeit, in der Karl I. ohne Parlament regierte.","Nach der Petition of Right 1628 stritt das Parlament weiter mit dem König. Karl löste es 1629 auf und berief es nicht mehr ein. Um trotzdem an Geld zu kommen, nutzte er alte Gesetze wie das Ship Money. Die Gegner nannten diese Zeit „Tyrannei“. Karl selbst sprach von „Personal Rule“.","Ship Money"],
+["Evolution","","Sehr langsamer, natürlicher Entwicklungsprozess über lange Zeit.","Von lat. „evolvere“ = herauswickeln, entfalten. Gegenbegriff zur Revolution, die schnell und bewusst geschieht.","Revolution"],
+["Gentry","","Niederer Landadel ohne besondere Adelsrechte. Grundbesitzer, oft Friedensrichter, im Unterhaus vertreten.","Von altfranz. „genterie“ = vornehme Herkunft. Die Gentry wurde im 16. Jh. reich, u. a. durch den Kauf von Klosterland nach 1536. Dadurch wuchs ihr Selbstbewusstsein, und sie forderte mehr Mitsprache.","House of Commons"],
+["Glorreiche Revolution (Glorious Revolution)","1688/89","Sturz Jakobs II. durch Wilhelm von Oranien, fast ohne Blutvergießen. Danach folgt die Bill of Rights.","Jakob II. war katholisch und regierte absolutistisch. Als 1688 sein Sohn geboren wurde, drohte eine katholische Dynastie. Sieben Adlige (die Immortal Seven) riefen Wilhelm zu Hilfe. „Glorreich“ heißt sie, weil kaum Blut floss und das Parlament dauerhaft siegte.","Bill of Rights, Immortal Seven"],
+["Gottesgnadentum (Divine Right of Kings)","","Lehre, dass der König sein Amt direkt von Gott hat. Deshalb muss er sich nur vor Gott, nicht vor dem Volk oder dem Parlament verantworten.","Die Idee stammt aus dem Mittelalter (Könige „von Gottes Gnaden“, lat. „Dei gratia“). Jakob I. machte daraus ein politisches Programm in seiner Schrift „The True Law of Free Monarchies“ (1598, Quelle M5). Damit wollte er seine Macht gegen das Parlament begründen. Hauptursache des Konflikts unter den Stuarts.","Absolutismus, Volkssouveränität"],
+["Habeas-Corpus-Akte","1679","Gesetz: Niemand darf ohne richterlichen Haftbefehl eingesperrt werden, und jeder Gefangene muss schnell vor einen Richter gebracht werden.","Lat. „habeas corpus“ = „du sollst den Körper haben“, der Anfang einer alten Anordnung, den Gefangenen dem Gericht vorzuführen. Nach Erfahrungen mit willkürlichen Verhaftungen unter Karl I. sicherte das Parlament unter Karl II. dieses Recht per Gesetz. Grundlage heutiger Grundrechte.","Petition of Right, Magna Carta"],
+["House of Commons (Unterhaus)","","Gewählte Kammer des Parlaments: Vertreter der Grafschaften und Städte, vor allem Gentry und Bürgertum.","„Commons“ = die Gemeinen, also das Volk ohne Hochadel. Entstand im 13./14. Jh., als der König Vertreter der Grafschaften und Städte zur Steuerbewilligung rief. Wurde durch den wachsenden Reichtum des Bürgertums zum Hauptgegner der Stuarts.","House of Lords, Gentry"],
+["House of Lords (Oberhaus)","","Kammer des Parlaments, in der man durch Geburt oder Amt sitzt: Hochadel (Lords) und Bischöfe.","Geht auf den Rat der großen Barone des Königs im Mittelalter zurück. 1649 von der Republik abgeschafft, 1660 bei der Restauration wiederhergestellt.","House of Commons"],
+["Immortal Seven","1688","Sieben englische Adlige und Politiker, die Wilhelm von Oranien heimlich nach England riefen.","„Die unsterblichen Sieben“: so genannt, weil sie mit ihrem Brief Hochverrat riskierten und die Glorreiche Revolution möglich machten.","Glorreiche Revolution"],
+["Instrument of Government","1653","Die erste und einzige geschriebene Verfassung Englands. Machte Oliver Cromwell zum Lordprotektor.","Nachdem Cromwell das Parlament aufgelöst hatte, entwarfen Offiziere der Armee diese Verfassung, um seine Macht rechtlich zu begründen. Nach der Restauration 1660 galt sie nicht mehr.","Lordprotektor"],
+["Kavaliere (Cavaliers)","1642","Anhänger und Truppen des Königs im Bürgerkrieg.","Ursprünglich ein Schimpfwort der Gegner, von span. „caballero“ = Reiter, Ritter. Gemeint waren adlige, prächtig gekleidete Reiter mit langen Haaren.","Rundköpfe"],
+["Konstitutionelle Monarchie","ab 1689","Monarchie, in der die Macht des Königs durch eine Verfassung bzw. Gesetze und durch das Parlament begrenzt ist.","Von lat. „constitutio“ = Verfassung, Einrichtung. In England entstand sie nicht durch eine einzige Verfassung, sondern Schritt für Schritt: Magna Carta, Petition of Right, Habeas Corpus, Bill of Rights. Der König herrscht nun „durch die Gnade des Parlaments“.","Bill of Rights, Absolute Monarchie"],
+["Kurzes Parlament (Short Parliament)","April 1640","Parlament, das Karl I. für Geld gegen Schottland einberief und nach etwa 3 Wochen wieder auflöste.","Die Abgeordneten wollten erst über ihre Beschwerden der letzten 11 Jahre sprechen, bevor sie Geld bewilligen. Karl lehnte das ab. Nach seiner kurzen Dauer benannt.","Langes Parlament, Bischofskriege"],
+["Langes Parlament (Long Parliament)","ab Nov. 1640","Parlament, das nach der Niederlage gegen Schottland einberufen wurde. Es schaffte die Sondergerichte ab, ließ Karls Berater Strafford hinrichten und führte den Krieg gegen den König.","Karl war nach dem Sieg der Schotten so in Geldnot, dass er es einberufen musste. Es setzte durch, dass es nur mit eigener Zustimmung aufgelöst werden darf, und tagte deshalb (mit Unterbrechungen) bis 1660. Daher der Name.","Bürgerkrieg"],
+["Lordprotektor (Lord Protector)","1653–1659","Titel Oliver Cromwells (und kurz seines Sohnes Richard) als Staatsoberhaupt der Republik.","Cromwell lehnte die Königskrone ab, wollte aber eine starke Führung. „Protector“ = Schützer, ein alter Titel für Regenten. Faktisch war es eine Militärdiktatur.","Instrument of Government"],
+["Magna Carta","1215","„Große Urkunde“: König Johann gesteht dem Adel Rechte zu. Der König steht nicht über dem Gesetz, keine Haft ohne Gerichtsurteil, Abgaben nur mit Zustimmung.","Der Adel war wütend über hohe Steuern und verlorene Kriege von König Johann („Ohneland“) und zwang ihn, die Urkunde zu besiegeln. Im 17. Jh. beriefen sich die Parlamentarier auf sie als „alte Rechte der Engländer“.","Budgetrecht, Habeas Corpus"],
+["Navigationsakte","1651","Gesetz: Waren dürfen nur auf englischen Schiffen oder Schiffen des Herkunftslandes nach England gebracht werden.","Die Niederländer beherrschten damals den Seehandel. Das Commonwealth wollte die eigene Flotte und den Handel stärken. Die Akte führte zu Kriegen mit den Niederlanden und legte den Grundstein des Empire.","Commonwealth"],
+["New Model Army","1645","Erste Berufsarmee Englands, aufgestellt vom Parlament. Offiziere werden nach Leistung befördert, nicht nach adliger Herkunft.","Die Parlamentstruppen kämpften anfangs schlecht. Oliver Cromwell setzte eine neu geordnete („new model“) Armee aus disziplinierten, oft puritanischen Soldaten durch. Sie gewann den Bürgerkrieg und wurde danach selbst zur Macht im Staat.","Oliver Cromwell, Puritaner"],
+["Parlament","","Volksvertretung aus zwei Kammern (House of Lords und House of Commons). Muss Gesetzen und Steuern zustimmen.","Von franz. „parler“ = sprechen, also Versammlung zum Beraten. Entstand im 13. Jh. aus dem Rat des Königs, weil die Könige Geld brauchten und die Zustimmung der Großen und Städte einholten.","House of Commons, House of Lords"],
+["Personalunion","1603","Zwei Staaten haben denselben Herrscher, bleiben aber sonst getrennt.","Als Elisabeth I. 1603 kinderlos starb, wurde der schottische König Jakob VI. als Jakob I. auch König von England. Bis 1707 blieben beide Länder getrennte Staaten.","Act of Union"],
+["Petition of Right","1628","Bittschrift, die das Parlament Karl I. aufzwang: keine Steuern ohne Parlament, keine willkürliche Verhaftung, keine Einquartierung von Soldaten in Privathäusern.","Karl I. brauchte Geld für seine Kriege gegen Spanien und Frankreich und erhob Zwangsanleihen. Wer nicht zahlte, kam ohne Urteil ins Gefängnis. Das Parlament bewilligte Geld erst, nachdem er unterschrieb. Den Namen hatte das Unterhaus schon 1610 für eine Bittschrift zum Steuerrecht benutzt (Quelle M8).","Budgetrecht, Eleven Years' Tyranny"],
+["Prärogative","","Sonderrechte des Königs, über die er allein entscheidet, z. B. Krieg und Frieden, Außenpolitik, Heirat, Thronfolge, Einberufen des Parlaments.","Von lat. „praerogativa“ = Vorrecht. Elisabeth I. verbot dem Parlament, darüber zu reden. Unter Jakob I. wurde gestritten, wie weit die Prärogative reichen. Die Richter entschieden 1610: Der König hat nur die Vorrechte, die ihm das Recht gibt.","Proklamation, Common Law"],
+["Presbyterianismus","","Kirchenform ohne Bischöfe: Jede Gemeinde wird von gewählten Ältesten (Presbytern) und Pastoren geleitet. Herrschende Kirchenform in Schottland.","Von griech. „presbyteros“ = Ältester. Geht auf den Reformator Johannes Calvin zurück und kam über John Knox nach Schottland. Weil sie dezentral ist, passt sie nicht zum Machtanspruch des Königs. Daraus entstand der Konflikt von 1637.","Bischofskriege, Bischofskirche"],
+["Proklamation","","Öffentliche Anordnung des Königs.","Könige nutzten Proklamationen, um ohne Parlament zu regieren. Die Richter um Edward Coke stellten 1610 fest: Der König darf damit kein neues Recht schaffen, sondern nur an bestehende Gesetze erinnern (Quelle M7).","Prärogative"],
+["Puritaner","","Strenge Protestanten (Calvinisten), die die anglikanische Kirche von allem Katholischen „reinigen“ wollten. Sie lebten sehr streng: kein Theater, kein Glücksspiel, Sonntag nur für Gott.","Von lat. „purus“ = rein. Erst ein Spottname im 16. Jh. Unter Elisabeth I. waren sie unzufrieden mit dem Kompromiss der Via Media. Im Parlament und in der New Model Army stark vertreten. Cromwell war Puritaner.","Rundköpfe, New Model Army"],
+["Quellenarten: Tradition und Überrest","Methode","Traditionsquelle: bewusst für die Nachwelt geschrieben (z. B. Chronik, Memoiren, Rede). Überrest: ohne Absicht überliefert (z. B. Urkunde, Gesetz, Brief).","Unterscheidung des Historikers Johann Gustav Droysen (19. Jh.). Sie ist wichtig, weil Traditionsquellen absichtlich ein bestimmtes Bild erzeugen wollen und deshalb kritischer gelesen werden müssen.","TATT-Satz"],
+["Reform","","Planmäßige, schrittweise Veränderung eines Systems von oben, durch die Regierung, um es zu verbessern, ohne es abzuschaffen.","Von lat. „reformare“ = umgestalten, wiederherstellen.","Revolution"],
+["Restauration","1660","Wiederherstellung der Monarchie unter Karl II. Die Krone, das House of Lords und die anglikanische Bischofskirche kamen zurück.","Von lat. „restaurare“ = wiederherstellen. Nach Cromwells Tod 1658 drohte Chaos, weil sein Sohn sich nicht durchsetzen konnte. General George Monck holte Karl II. aus dem Exil zurück. Viele sehnten sich nach Ruhe und Ordnung.","Commonwealth"],
+["Revolte / Rebellion","","Spontaner, oft gewaltsamer Aufstand, der nicht unbedingt das ganze politische System abschaffen will.","Von lat. „revolvere“ (zurückwälzen) bzw. „rebellare“ (den Krieg erneuern). Anders als eine Revolution fehlt meist ein Plan für eine neue Ordnung.","Revolution"],
+["Revolution","","Grundlegender, meist schneller Umsturz der Ordnung. Fünf Kriterien: Strukturwandel (Totalität), Austausch der Eliten, Schnelligkeit, Aktionsform (Massen, oft Gewalt), Intention (Wille zu einer neuen Ordnung).","Von lat. „revolutio“ = Umdrehung. Zuerst ein Begriff der Astronomie für den Umlauf der Planeten. Im 17./18. Jh. wurde er wegen der Umbrüche in England und Frankreich auf die Politik übertragen. Im 19. Jh. auch auf die Wirtschaft (Industrielle Revolution).","Reform, Evolution, Glorreiche Revolution"],
+["Rundköpfe (Roundheads)","1642","Anhänger und Truppen des Parlaments im Bürgerkrieg.","Spottname der Königstreuen, weil viele Puritaner und Londoner Lehrlinge die Haare kurz geschoren trugen, im Gegensatz zu den langen Locken der Kavaliere.","Kavaliere, Puritaner"],
+["Sachurteil","Methode","Beurteilung aus der Sicht der damaligen Zeit: War das Handeln damals nachvollziehbar, typisch, erfolgreich? Ohne heutige Maßstäbe.","Aus der Geschichtsdidaktik (u. a. Karl-Ernst Jeismann). Es soll verhindern, dass man die Vergangenheit nur mit heutigen Augen misst.","Werturteil"],
+["Ship Money","1634–1640","Abgabe zur Finanzierung der Flotte, eigentlich nur von Küstenstädten im Kriegsfall zu zahlen.","Ein altes mittelalterliches Recht des Königs. Karl I. erhob es während der elfjährigen Tyrannei auch im Binnenland und im Frieden, um ohne Parlament an Geld zu kommen. Der Grundbesitzer John Hampden weigerte sich und wurde zum Symbol des Widerstands.","Eleven Years' Tyranny, Budgetrecht"],
+["Sondergerichte (z. B. Star Chamber)","bis 1641","Königliche Gerichte außerhalb des normalen Rechts, ohne Geschworene. Sie wurden gegen politische und religiöse Gegner eingesetzt.","Die „Sternkammer“ war nach den Sternen an der Decke ihres Sitzungsraums benannt. Unter Karl I. wurde sie zum Symbol der Willkür. 1641 schaffte das Lange Parlament sie ab.","Langes Parlament"],
+["Stehendes Heer","","Dauerhafte Berufsarmee, die auch im Frieden besteht.","Absolutistische Herrscher nutzten stehende Heere, um ihre Macht auch gegen das eigene Volk zu sichern. Jakob II. ließ eines vor London lagern. Deshalb verbot die Bill of Rights 1689 ein stehendes Heer im Frieden ohne Zustimmung des Parlaments.","Bill of Rights"],
+["Stuart-Dynastie","1603–1714","Königshaus aus Schottland, das England regierte: Jakob I., Karl I., (Republik), Karl II., Jakob II., Maria II. mit Wilhelm III., Anna.","Der Name kommt von „Steward“ (Verwalter). Die Familie war ursprünglich Hofverwalter der schottischen Könige. Über die Urgroßmutter Margarete Tudor erbte Jakob VI. 1603 den englischen Thron.","Personalunion, Tudor-Dynastie"],
+["Suprematsakte (Act of Supremacy)","1534","Gesetz, das den König zum „einzigen obersten Haupt“ der Kirche von England erklärt.","Von lat. „supremus“ = der Oberste. Heinrich VIII. brauchte einen Sohn und wollte seine Ehe annullieren. Als der Papst ablehnte, ließ er sich vom Parlament zum Kirchenoberhaupt machen. Folge: Bruch mit Rom und mehr Macht für den König.","Anglikanische Kirche"],
+["TATT-Satz","Methode","Einleitungssatz einer Quellenanalyse: Titel/Thema, Autor, Textart, Time (Zeit und Ort).","Eine Merkhilfe aus dem Unterricht (Abkürzung der vier Bestandteile), damit man bei AFB I nichts vergisst.","AFB, Quellenarten"],
+["Tudor-Dynastie","1485–1603","Englisches Königshaus, u. a. Heinrich VII., Heinrich VIII., Eduard VI., Maria I., Elisabeth I. Höhepunkt der Königsmacht.","Benannt nach der walisischen Familie Tudor. Heinrich VII. kam 1485 nach den Rosenkriegen an die Macht. Mit dem kinderlosen Tod Elisabeths I. 1603 endete die Dynastie.","Stuart-Dynastie"],
+["Via Media","ab 1559","„Mittlerer Weg“: religiöser Kompromiss Elisabeths I. Protestantische Lehre mit katholisch wirkenden Formen (Bischöfe, Gewänder, feste Gebete).","Lat. für „mittlerer Weg“. Vor Elisabeth gab es blutige Religionskämpfe: Unter Maria I. („Bloody Mary“) wurden Protestanten verbrannt. Elisabeth wollte das Land beruhigen, so dass sich möglichst viele Untertanen in der Kirche wiederfinden.","Anglikanische Kirche, Puritaner"],
+["Volkssouveränität","","Alle Staatsgewalt geht vom Volk aus. Herrschaft braucht die Zustimmung der Bürger.","Von franz. „souverain“ = oberster Herr. Von Aufklärern wie Locke und Rousseau entwickelt, als Gegenmodell zum Gottesgnadentum. Heute z. B. in Art. 20 des Grundgesetzes.","Gottesgnadentum, Aufklärung"],
+["Werturteil","Methode","Beurteilung aus heutiger Sicht mit heutigen Normen (Menschenrechte, Grundgesetz, Demokratie): War das Handeln legitim oder ein Unrecht?","Ergänzt das Sachurteil. Man soll zeigen, dass man die eigenen Maßstäbe bewusst einsetzt und sie offenlegt.","Sachurteil"],
+// Personen
+["Cromwell, Oliver","1599–1658","Puritaner, Abgeordneter und Heerführer des Parlaments, ab 1653 Lordprotektor.","Ein Landadliger (Gentry), der im Bürgerkrieg mit der New Model Army aufstieg. Er setzte die Hinrichtung Karls I. durch und regierte am Ende fast wie ein König. Nicht verwechseln mit Thomas Cromwell (Berater Heinrichs VIII.).","New Model Army, Lordprotektor"],
+["Elisabeth I.","reg. 1558–1603","Tochter Heinrichs VIII., die „Virgin Queen“. Via Media, Sieg über die Armada 1588, East India Company 1600.","Tochter von Anna Boleyn. Kam nach den kurzen Regierungen ihrer Geschwister auf den Thron. Sie kontrollierte das Parlament geschickt und rief es selten ein. Da sie unverheiratet und kinderlos blieb, endeten mit ihr die Tudors.","Tudor-Dynastie"],
+["Heinrich VIII.","reg. 1509–1547","Tudor-König, gründete die anglikanische Kirche und löste die Klöster auf. Sechs Ehen.","Brauchte unbedingt einen männlichen Erben. Das führte zum Bruch mit Rom. Er nutzte das Parlament als Werkzeug, um seinen Willen gesetzlich abzusichern.","Suprematsakte"],
+["Jakob I. (James I)","reg. 1603–1625","Erster Stuart-König in England, vorher als Jakob VI. König von Schottland. Vertrat das Gottesgnadentum.","Sohn Maria Stuarts. Erbte 1603 über seine Urgroßmutter den englischen Thron. Sein Absolutismus-Anspruch (Quelle M5) traf auf ein selbstbewusstes Unterhaus (Quelle M6).","Gottesgnadentum, Personalunion"],
+["Jakob II. (James II)","reg. 1685–1688","Katholischer König, regierte absolutistisch. Floh 1688 nach Frankreich.","Bruder Karls II., offen zum Katholizismus übergetreten und Bewunderer Ludwigs XIV. Die Geburt seines Sohnes 1688 löste die Glorreiche Revolution aus.","Glorreiche Revolution"],
+["Karl I. (Charles I)","reg. 1625–1649","König, der ohne Parlament regieren wollte. Verlor den Bürgerkrieg und wurde am 30. Januar 1649 hingerichtet.","Sohn Jakobs I., glaubte wie sein Vater an das Gottesgnadentum. Geldnot durch Kriege, Petition of Right, elfjährige Tyrannei, Sturm aufs Unterhaus. Seine Hinrichtung war ein Tabubruch für ganz Europa.","Bürgerkrieg"],
+["Karl II. (Charles II)","reg. 1660–1685","König nach der Restauration. Lebenslustig, gab dem Volk Theater und Feste zurück.","Sohn Karls I., lebte während der Republik im Exil in Frankreich. Wurde 1660 zurückgeholt. In seiner Zeit sicherte das Parlament die Habeas-Corpus-Akte.","Restauration"],
+["Wilhelm III. von Oranien und Maria II.","reg. ab 1689","Protestantisches Herrscherpaar, gemeinsam gekrönt nach der Glorreichen Revolution.","Wilhelm war Statthalter der Niederlande und mit Maria, der protestantischen Tochter Jakobs II., verheiratet. Er landete 1688 mit 20.000 Soldaten in England. Beide mussten vor der Krönung der Bill of Rights zustimmen.","Bill of Rights"]
+];
+const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cls=s=>s>0?"k":s<0?"p":"n";
+const sc=s=>s>0?`+${s} König`:s<0?`−${-s} Parlament`:"0 Gleichgewicht";
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const EVENTS=ERAS.flatMap(e=>e.ev.map(([y,t,w,d,s,big])=>({y,t,w,d,s,big,era:e.name})));
+
+/* ---------- Tabs ---------- */
+const TITLES={zeit:["Zeitstrahl","England 1509–1714 · Krone gegen Parlament"],lex:["Lexikon",`${T.length} Begriffe · Bedeutung und Entstehung`],ueben:["Üben","Karteikarten und Jahreszahlen-Quiz"]};
+function show(v){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
+  ["zeit","lex","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
+  document.getElementById("ttl").textContent=TITLES[v][0];document.getElementById("sub").textContent=TITLES[v][1];
+  window.scrollTo(0,0);store.set("tab",v);
+}
+document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.v)});
+
+/* ---------- Zeitstrahl ---------- */
+document.getElementById("v-zeit").innerHTML=`
+  <div class="legend"><span><i class="dot k"></i>König stärker</span><span><i class="dot p"></i>Parlament stärker</span><span><i class="dot n"></i>Gleichgewicht</span><span><b style="color:var(--gold)">★</b> unbedingt lernen</span></div>
+  <div class="erachips">${ERAS.map((e,i)=>`<a href="#era${i}" style="--ec:var(${e.bg})">${e.span}</a>`).join("")}</div>
+  ${ERAS.map((e,i)=>`<section class="era" id="era${i}" style="--eb:var(${e.bg})">
+    <div class="era-head"><h2>${e.name}</h2><span class="span">${e.span}</span><p>${e.note}</p></div>
+    <ol class="spine">${e.ev.map(([y,t,w,d,s,big])=>`<li class="ev ${cls(s)}${big?" big":""}"><span class="node ${cls(s)}"></span>
+      <div class="card"><span class="yr">${y}</span><h3>${t}</h3><p>${d}</p><span class="who">${w}</span><span class="score">Machtskala ${sc(s)}</span></div></li>`).join("")}</ol>
+  </section>`).join("")}
+  <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>`;
+document.getElementById("v-zeit").addEventListener("click",e=>{const a=e.target.closest(".erachips a");if(!a)return;e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"})});
+
+/* ---------- Lexikon ---------- */
+T.sort((a,b)=>a[0].localeCompare(b[0],"de"));
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase();
+const lex=document.getElementById("v-lex");
+lex.innerHTML=`<div class="search"><input id="q" type="search" placeholder="Begriff suchen, z. B. Habeas" aria-label="Begriff suchen" autocomplete="off"></div>
+  <div class="row"><button id="openall" class="toggle" aria-pressed="false" type="button">Alle aufklappen</button><span class="count" id="count"></span></div>
+  <nav class="az" id="az"></nav><div id="list" class="view" style="gap:22px"></div>`;
+function renderLex(q){
+  const f=q?T.filter(t=>t.join(" ").toLowerCase().includes(q)):T;
+  const g={};f.forEach(t=>{const L=norm(t[0])[0];(g[L]=g[L]||[]).push(t)});
+  const Ls=Object.keys(g).sort();const open=document.getElementById("openall").getAttribute("aria-pressed")==="true"||(q&&f.length<=3);
+  document.getElementById("az").innerHTML=Ls.map(L=>`<a href="#b-${L}">${L}</a>`).join("");
+  document.getElementById("count").textContent=`${f.length} von ${T.length}`;
+  document.getElementById("list").innerHTML=Ls.length?Ls.map(L=>`<section class="letter" id="b-${L}"><h2>${L}</h2>${g[L].map(([n,y,d,o,s])=>`
+    <details class="entry"${open?" open":""}><summary><h3>${n}</h3>${y?`<span class="yr">${y}</span>`:""}</summary>
+      <div class="inner"><div><span class="lbl d">Bedeutung</span><p>${d}</p></div><div><span class="lbl o">Entstehung</span><p>${o}</p></div>
+      ${s?`<span class="see">Siehe auch: ${s.split(", ").map(x=>`<button type="button" data-s="${x}">${x}</button>`).join(", ")}</span>`:""}</div></details>`).join("")}</section>`).join(""):`<p class="count">Nichts gefunden. Versuch ein anderes Wort.</p>`;
+}
+renderLex("");
+const qIn=document.getElementById("q");
+qIn.addEventListener("input",()=>renderLex(qIn.value.trim().toLowerCase()));
+document.getElementById("openall").addEventListener("click",e=>{const b=e.currentTarget;b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true");b.textContent=b.getAttribute("aria-pressed")==="true"?"Alle zuklappen":"Alle aufklappen";renderLex(qIn.value.trim().toLowerCase())});
+lex.addEventListener("click",e=>{
+  const s=e.target.closest(".see button");if(s){qIn.value=s.dataset.s;renderLex(s.dataset.s.toLowerCase());window.scrollTo(0,0);return}
+  const a=e.target.closest(".az a");if(a){e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"})}
+});
+
+/* ---------- Üben ---------- */
+const U=document.getElementById("v-ueben");
+let mode=store.get("mode","karten");
+function renderUeben(){
+  U.innerHTML=`<div class="seg"><button type="button" data-m="karten" aria-pressed="${mode==="karten"}">Karteikarten</button><button type="button" data-m="quiz" aria-pressed="${mode==="quiz"}">Jahreszahlen-Quiz</button></div><div id="ue" class="view"></div>`;
+  mode==="karten"?startCards():startQuiz();
+}
+U.addEventListener("click",e=>{const b=e.target.closest(".seg button");if(b){mode=b.dataset.m;store.set("mode",mode);renderUeben()}});
+
+// Karteikarten: Begriffe; "Wusste ich nicht" kommt später nochmal
+let deck=[],known=0,total=0;
+function startCards(){deck=shuffle(T);known=0;total=deck.length;cardView()}
+function cardView(){
+  const box=document.getElementById("ue");
+  if(!deck.length){box.innerHTML=`<div class="done"><span class="big">Geschafft!</span><p>Du hast alle ${total} Begriffe gewusst.</p><button class="btn primary" type="button" id="again">Nochmal von vorn</button></div>`;document.getElementById("again").onclick=startCards;return}
+  const [n,y,d,o]=deck[0];
+  box.innerHTML=`<div class="progress"><span>${known} von ${total} gewusst</span><span>noch ${deck.length}</span></div><div class="bar"><i style="width:${known/total*100}%"></i></div>
+   <div class="flash" id="fc" role="button" tabindex="0" aria-label="Karte umdrehen"><span class="kind">Begriff${y?" · "+y:""}</span><div class="front">${n}</div><span class="hint">Was bedeutet das? Überleg kurz, dann tippen zum Umdrehen.</span></div>
+   <div class="btns" id="rate" hidden><button class="btn no" type="button" id="no">Wusste ich nicht</button><button class="btn yes" type="button" id="yes">Wusste ich</button></div>`;
+  const fc=document.getElementById("fc");
+  const flip=()=>{if(fc.dataset.f)return;fc.dataset.f=1;fc.innerHTML=`<span class="kind">${n}</span><div class="back"><div><span class="lbl d">Bedeutung</span><p>${d}</p></div><div><span class="lbl o">Entstehung</span><p>${o}</p></div></div>`;document.getElementById("rate").hidden=false};
+  fc.onclick=flip;fc.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip()}};
+  document.getElementById("yes").onclick=()=>{deck.shift();known++;cardView()};
+  document.getElementById("no").onclick=()=>{const c=deck.shift();deck.splice(Math.min(3,deck.length),0,c);cardView()};
+}
+
+// Quiz: Jahreszahl → Ereignis und umgekehrt, 10 Fragen
+let qs=[],qi=0,pts=0;
+function startQuiz(){
+  qs=shuffle(EVENTS).slice(0,10).map(ev=>{
+    const others=shuffle(EVENTS.filter(x=>x.y!==ev.y&&x.t!==ev.t));
+    if(Math.random()<.5){
+      const opts=shuffle([ev.t,...[...new Set(others.map(o=>o.t))].slice(0,3)]);
+      return {ask:`Was geschah ${/^\d/.test(ev.y)?"":"im Jahr "}${ev.y}?`,opts,right:ev.t,ev};
+    } else {
+      const opts=shuffle([ev.y,...[...new Set(others.map(o=>o.y))].filter(y=>y!==ev.y).slice(0,3)]);
+      return {ask:`In welchem Jahr? „${ev.t}“`,opts,right:ev.y,ev};
+    }
+  });qi=0;pts=0;quizView();
+}
+function quizView(){
+  const box=document.getElementById("ue");
+  if(qi>=qs.length){const best=Math.max(store.get("best",0),pts);store.set("best",best);
+    box.innerHTML=`<div class="done"><span class="big">${pts} / ${qs.length}</span><p>${pts>=9?"Super, das sitzt!":pts>=6?"Gut! Schau dir die falschen Daten im Zeitstrahl nochmal an.":"Lies den Zeitstrahl nochmal durch und versuch es dann erneut."}</p><span class="tip">Dein Bestwert: ${best} / ${qs.length}</span><button class="btn primary" type="button" id="again">Neue 10 Fragen</button></div>`;
+    document.getElementById("again").onclick=startQuiz;return}
+  const q=qs[qi];
+  box.innerHTML=`<div class="progress"><span>Frage ${qi+1} von ${qs.length}</span><span>${pts} richtig</span></div><div class="bar"><i style="width:${qi/qs.length*100}%"></i></div>
+   <div class="q"><div class="ask">${q.ask}</div><div class="opts">${q.opts.map(o=>`<button type="button" data-o="${o.replace(/"/g,"&quot;")}">${o}</button>`).join("")}</div><div id="ex"></div></div>`;
+  box.querySelector(".opts").onclick=e=>{const b=e.target.closest("button");if(!b||box.dataset.lock==="1")return;box.dataset.lock="1";
+    const ok=b.dataset.o===q.right;if(ok)pts++;
+    box.querySelectorAll(".opts button").forEach(x=>{if(x.dataset.o===q.right)x.classList.add("right");else if(x===b)x.classList.add("wrong")});
+    document.getElementById("ex").innerHTML=`<div class="expl"><b>${q.ev.y}: ${q.ev.t.replace(/\.$/,"")}.</b> ${q.ev.d}</div><button class="btn primary" type="button" id="nx" style="width:100%;margin-top:10px">${qi+1<qs.length?"Weiter":"Ergebnis anzeigen"}</button>`;
+    document.getElementById("nx").onclick=()=>{box.dataset.lock="0";qi++;quizView()}};
+}
+renderUeben();
+show(store.get("tab","zeit"));
+</script>
+
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
+</body>
+</html>
