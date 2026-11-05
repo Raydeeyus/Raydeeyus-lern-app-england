@@ -41,7 +41,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .top .sub{font-size:.8rem;color:var(--muted);font-weight:600}
 main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px calc(96px + env(safe-area-inset-bottom,0px));max-width:720px;margin:0 auto}
 .view{display:flex;flex-direction:column;gap:18px}
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);
   padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
 nav.tabs button{font:inherit;border:0;background:transparent;color:var(--muted);padding:9px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.78rem;font-weight:700;cursor:pointer}
 nav.tabs svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -115,6 +115,15 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .merk-x{font:inherit;font-size:1.6rem;line-height:1;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;flex:none}
 .merk-body{overflow-y:auto;padding:12px 16px 20px;-webkit-overflow-scrolling:touch}
 @media (prefers-reduced-motion:reduce){.merk-sheet{animation:none}}
+
+
+/* Text */
+.tx{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 15px;scroll-margin-top:120px}
+.tx-y{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-variant-numeric:tabular-nums}
+.tx h2{margin:2px 0 8px;font-family:var(--display);font-weight:400;font-size:1.35rem;line-height:1.2;text-wrap:balance}
+.tx p{margin:0 0 10px;font-size:.98rem;line-height:1.6;hyphens:auto}
+.tx p:last-child{margin-bottom:0}
+.tx-chips a{--ec:var(--gold-soft)}
 
 /* Lexikon */
 .search{position:relative}
@@ -200,11 +209,13 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   <section class="view" id="v-zeit"></section>
   <section class="view" id="v-lex" hidden></section>
   <section class="view" id="v-ueben" hidden></section>
+  <section class="view" id="v-text" hidden></section>
   <section class="view" id="v-kurz" hidden></section>
 </main>
 <nav class="tabs" role="tablist">
   <button role="tab" data-v="zeit" aria-selected="true" type="button"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="15" r="2"/><path d="M14 7h6M4 15h6"/></svg>Zeitstrahl</button>
   <button role="tab" data-v="lex" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6"/></svg>Lexikon</button>
+  <button role="tab" data-v="text" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>Text</button>
   <button role="tab" data-v="kurz" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>Kurz</button>
   <button role="tab" data-v="ueben" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>Üben</button>
 </nav>
@@ -371,10 +382,10 @@ function spineItems(e,i){ // Herrscherkarten vor dem ersten Ereignis im selben o
 const EVENTS=ERAS.flatMap(e=>e.ev.map(([y,t,w,d,s,big])=>({y,t,w,d,s,big,era:e.name})));
 
 /* ---------- Tabs ---------- */
-const TITLES={zeit:["Zeitstrahl","England 1509–1714 · Krone gegen Parlament"],lex:["Lexikon",`${T.length} Begriffe · Bedeutung und Entstehung`],ueben:["Üben","Karteikarten und Jahreszahlen-Quiz"],kurz:["Kurz","Das Wichtigste und die Quellenanalyse"]};
+const TITLES={zeit:["Zeitstrahl","England 1509–1714 · Krone gegen Parlament"],lex:["Lexikon",`${T.length} Begriffe · Bedeutung und Entstehung`],ueben:["Üben","Karteikarten und Jahreszahlen-Quiz"],text:["Ablauf als Text","England 1509–1714 im Zusammenhang"],kurz:["Kurz","Das Wichtigste und die Quellenanalyse"]};
 function show(v){
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
-  ["zeit","lex","kurz","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
+  ["zeit","lex","text","kurz","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.getElementById("ttl").textContent=TITLES[v][0];document.getElementById("sub").textContent=TITLES[v][1];
   window.scrollTo(0,0);store.set("tab",v);
 }
@@ -403,6 +414,27 @@ function onlyRu(on){document.getElementById("v-zeit").classList.toggle("only",on
 document.getElementById("onlyru").onclick=e=>onlyRu(e.currentTarget.getAttribute("aria-pressed")!=="true");
 onlyRu(store.get("onlyru",false));
 document.getElementById("v-zeit").addEventListener("click",e=>{const a=e.target.closest(".erachips a");if(!a)return;e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"})});
+
+document.getElementById("v-text").innerHTML=`<p class="tip" style="margin:0">Die ganze Epoche als zusammenhängender Text. Fett gedruckt ist, was du im Test nennen solltest.</p>
+<div class="erachips tx-chips"><a href="#tx0">1509–1603</a><a href="#tx1">1603–1640</a><a href="#tx2">1637–1642</a><a href="#tx3">1642–1649</a><a href="#tx4">1649–1660</a><a href="#tx5">1660–1688</a><a href="#tx6">1685–1689</a><a href="#tx7">1689–1714</a><a href="#tx8">Fazit</a></div>
+<section class="tx" id="tx0"><span class="tx-y">1509–1603</span><h2>Die Tudors: Der König ist stark</h2><p><b>Heinrich VIII.</b> (1509–1547) regiert fast unumschränkt. Weil der Papst seine Ehe mit Katharina von Aragon nicht auflöst, bricht er mit Rom. Mit der <b>Suprematsakte 1534</b> wird der König Oberhaupt der englischen Kirche. Wichtig für später: Heinrich setzt diese Reformation <b>mit Gesetzen des Parlaments</b> durch. Das Parlament ist zwar sein Werkzeug, wird dadurch aber unentbehrlich und gewinnt an Bedeutung.</p>
+<p>Nach den kurzen Regierungen von Eduard VI. (protestantisch) und Maria I. (katholisch, Verfolgung der Protestanten) findet <b>Elisabeth I.</b> (1558–1603) einen religiösen Mittelweg: die anglikanische Kirche. Der Sieg über die <b>spanische Armada 1588</b> macht sie populär. Sie geht klug mit dem Parlament um und vermeidet offenen Streit. Weil sie 1603 kinderlos stirbt, enden die Tudors.</p></section>
+<section class="tx" id="tx1"><span class="tx-y">1603–1640</span><h2>Die frühen Stuarts: Streit um Macht und Geld</h2><p>Neuer König wird <b>Jakob I.</b>, schon König von Schottland (Personalunion). Er vertritt offen das <b>Gottesgnadentum</b>: Der König stehe über dem Gesetz und sei nur Gott verantwortlich (so schon in seiner Schrift von 1598). Das Unterhaus hält 1604 dagegen: Seine Rechte seien <b>ererbt</b> und kein Geschenk des Königs. Damit ist der <b>Grundkonflikt</b> da. Er läuft auf zwei Linien: <b>Macht und Geld</b> (der König braucht Steuern, nur das Parlament darf sie bewilligen) und <b>Religion</b> (die Puritaner wollen eine strengere protestantische Kirche, die Stuarts gelten als katholikenfreundlich).</p>
+<p><b>Karl I.</b> (ab 1625) führt teure, erfolglose Kriege und treibt Geld mit Zwangsanleihen ein. Das Parlament bewilligt Geld nur gegen Rechte: Die <b>Petition of Right 1628</b> verbietet Steuern ohne Zustimmung des Parlaments und Haft ohne Grund. Karl unterschreibt, hält sich aber nicht daran, löst 1629 das Parlament auf und regiert <b>elf Jahre ohne Parlament</b> („persönliche Herrschaft“). Geld beschafft er mit alten Abgaben wie dem <b>Ship Money</b>, Erzbischof Laud setzt eine hochkirchliche Linie durch.</p></section>
+<section class="tx" id="tx2"><span class="tx-y">1637–1642</span><h2>Die Eskalation: Warum es zum Krieg kommt</h2><p>1637 will Karl den presbyterianischen <b>Schotten</b> das anglikanische Gebetbuch aufzwingen. Die Schotten wehren sich, es kommt zu den <b>Bischofskriegen</b> (1639/40). Jetzt braucht Karl dringend Geld und muss das Parlament einberufen. Das <b>Kurze Parlament</b> (April 1640) will erst über seine Beschwerden reden, Karl löst es nach drei Wochen auf. Nach einer Niederlage gegen die Schotten muss er im November das <b>Lange Parlament</b> einberufen.</p>
+<p>Dieses nutzt Karls Notlage aus: Sein wichtigster Berater <b>Strafford</b> wird 1641 hingerichtet, das Parlament darf nicht mehr ohne eigene Zustimmung aufgelöst werden, Ship Money wird verboten. Mit der <b>Grand Remonstrance</b> (1641) listet es alle Missstände auf. Ein Aufstand in <b>Irland</b> verschärft den Streit: Beide Seiten wollen den Oberbefehl über das neue Heer, weil keiner dem anderen traut. Im <b>Januar 1642</b> dringt Karl mit Soldaten ins Unterhaus ein, um fünf Abgeordnete zu verhaften. Sie sind gewarnt und geflohen. Damit ist das Vertrauen endgültig zerstört, Karl verlässt London.</p></section>
+<section class="tx" id="tx3"><span class="tx-y">1642–1649</span><h2>Bürgerkrieg und Hinrichtung des Königs</h2><p>Im August 1642 beginnt der <b>Bürgerkrieg</b>: <b>Kavaliere</b> (König, Adel, Anglikaner, Norden und Westen) gegen <b>Rundköpfe</b> (Parlament, Puritaner, London, Kaufleute, Süden und Osten). Die Wende bringt <b>Oliver Cromwell</b> mit der <b>New Model Army</b>, einer disziplinierten Berufsarmee mit Beförderung nach Leistung und starkem puritanischem Glauben. Sie siegt 1645 bei <b>Naseby</b> entscheidend.</p>
+<p>Karl verhandelt weiter und verbündet sich mit den Schotten, das führt 1648 zu einem zweiten Bürgerkrieg, den die Armee ebenfalls gewinnt. Nun handelt die Armee selbst: Bei <b>Pride's Purge</b> (Dezember 1648) entfernt sie alle kompromissbereiten Abgeordneten. Das übrige <b>Rumpfparlament</b> stellt den König wegen Hochverrats vor Gericht. Am <b>30. Januar 1649</b> wird Karl I. hingerichtet. Ein König, vom eigenen Volk verurteilt, ist ein Schock für ganz Europa.</p></section>
+<section class="tx" id="tx4"><span class="tx-y">1649–1660</span><h2>Republik und Militärdiktatur</h2><p>England wird <b>Republik</b> (Commonwealth): Monarchie und Oberhaus werden abgeschafft. Cromwell unterwirft Irland und Schottland brutal. Doch die Republik bleibt instabil. 1653 jagt Cromwell das Rumpfparlament davon und wird nach der Verfassung „Instrument of Government“ <b>Lordprotektor</b>. Tatsächlich ist das eine <b>Militärdiktatur</b>, zeitweise regieren Generalmajore die Regionen, puritanische Sittengesetze sind unbeliebt. Die Macht liegt also weder beim König noch beim Parlament, sondern bei der Armee.</p>
+<p>Nach Cromwells Tod 1658 scheitert sein Sohn <b>Richard</b>, es droht Chaos. General <b>Monck</b> marschiert nach London und sorgt für freie Wahlen. Das neue Parlament holt den Sohn des hingerichteten Königs zurück.</p></section>
+<section class="tx" id="tx5"><span class="tx-y">1660–1688</span><h2>Restauration: Der König kommt zurück, das Parlament passt auf</h2><p>Mit <b>Karl II.</b> wird 1660 die Monarchie wiederhergestellt (<b>Restauration</b>), auch das Oberhaus und die anglikanische Kirche kehren zurück. Aber die Rückkehr ist <b>nicht bedingungslos</b>: Die Gesetze des Langen Parlaments von 1641 gelten weiter, der König bleibt auf das Geld des Parlaments angewiesen. Das Parlament schützt die anglikanische Kirche, z. B. durch den <b>Test Act 1673</b> (Staatsämter nur für Anglikaner).</p>
+<p>Da Karl keine ehelichen Kinder hat, wird sein <b>katholischer Bruder Jakob</b> Thronfolger. Im Streit, ob man ihn ausschließen soll (Exclusion Crisis 1679–1681), entstehen die ersten Parteien: <b>Whigs</b> (für Ausschluss, für Parlamentsrechte) und <b>Tories</b> (für die Erbfolge des Königs). Gleichzeitig beschließt das Parlament die <b>Habeas-Corpus-Akte 1679</b>: Niemand darf ohne richterliche Prüfung festgehalten werden.</p></section>
+<section class="tx" id="tx6"><span class="tx-y">1685–1689</span><h2>Die Glorreiche Revolution</h2><p><b>Jakob II.</b> (ab 1685) will wieder absolutistisch regieren: Er baut ein <b>stehendes Heer</b> auf, setzt Katholiken in Ämter und Offiziersstellen ein und hebt mit seinen Toleranzerklärungen eigenmächtig Gesetze auf. Viele nehmen das hin, solange ihm seine protestantischen Töchter folgen werden. Doch im <b>Juni 1688</b> wird ihm ein <b>Sohn</b> geboren. Jetzt droht eine dauerhafte katholische Dynastie.</p>
+<p>Sieben führende Politiker aus Whigs und Tories (die <b>Immortal Seven</b>) laden den protestantischen <b>Wilhelm von Oranien</b> ein, den Ehemann von Jakobs Tochter Maria. Im November 1688 landet Wilhelm mit einem Heer. Jakobs Unterstützer laufen über, Jakob flieht im Dezember nach Frankreich. Weil der Machtwechsel fast <b>ohne Blutvergießen</b> gelingt, heißt er „Glorreiche Revolution“.</p>
+<p>Das Parlament erklärt, Jakob habe den Thron verlassen, und bietet <b>Wilhelm III. und Maria II.</b> 1689 die Krone an, aber nur gegen Anerkennung der <b>Declaration of Rights</b>, die als <b>Bill of Rights 1689</b> Gesetz wird: <b>keine Steuern, keine Gesetze, kein stehendes Heer ohne das Parlament</b>, freie Wahlen, Redefreiheit im Parlament, regelmäßige Sitzungen, kein katholischer Monarch. Der Unterschied zu 1660: Diesmal setzt <b>das Parlament</b> den König ein und legt vorher seine Bedingungen fest.</p></section>
+<section class="tx" id="tx7"><span class="tx-y">1689–1714</span><h2>Die Sicherung des Ergebnisses</h2><p>Der <b>Toleration Act 1689</b> erlaubt protestantischen Abweichlern freie Religionsausübung. Der <b>Act of Settlement 1701</b> regelt die Thronfolge: Nach Anna soll nur ein Protestant aus dem Haus <b>Hannover</b> König werden. Damit bestimmt sogar die Thronfolge das Parlament. Der <b>Act of Union 1707</b> vereinigt England und Schottland zu <b>Großbritannien</b> mit einem gemeinsamen Parlament. Als Königin <b>Anna</b> 1714 ohne überlebende Kinder stirbt, folgt Georg I. von Hannover, die Stuarts enden.</p></section>
+<section class="tx" id="tx8"><span class="tx-y">Fazit</span><h2>Was du dir merken musst</h2><p>England entwickelt sich von der <b>absoluten</b> zur <b>konstitutionellen Monarchie</b>. Der rote Faden ist das <b>Geld</b>: Weil der König Steuern braucht, kann das Parlament dafür Rechte verlangen (1628, 1640, 1689). Der Versuch der Stuarts, ohne oder gegen das Parlament zu regieren, endet zweimal mit dem Sturz des Königs: 1649 gewaltsam durch Hinrichtung, 1688 unblutig durch Flucht. Die Republik zeigt aber auch, dass ein Land ohne König in einer Militärdiktatur enden kann. Darum bleibt England eine Monarchie, doch seit 1689 gilt: <b>Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</b></p></section>
+`;
 
 document.getElementById("v-kurz").innerHTML=`<h2 class="sec">Das Wichtigste in 5 Punkten</h2>
 <ol class="sum">
