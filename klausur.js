@@ -172,7 +172,7 @@ kOnly(store.get("konly",false));
 
 /* Lernzettel */
 $("k-lern").innerHTML=`<p class="tip" style="margin:0">Die ganze Geschichte von 1603 bis 1660 am Stück. Fett ist, was du in der Klausur nennen solltest. Unten: Ursachen, Personen und die Gründe auf einen Blick.</p>
-<div class="erachips tx-chips"><a href="#kl0">1603–1625</a><a href="#kl1">1625–1629</a><a href="#kl2">1629–1640</a><a href="#kl3">1637–1642</a><a href="#kl4">1642–1646</a><a href="#kl5">1646–1649</a><a href="#kl6">Cromwell</a><a href="#kl7">Ursachen</a><a href="#kl8">Personen</a></div>
+<div class="erachips tx-chips"><a href="#kl0">1603–1625</a><a href="#kl1">1625–1629</a><a href="#kl2">1629–1640</a><a href="#kl3">1637–1642</a><a href="#kl4">1642–1646</a><a href="#kl5">1646–1649</a><a href="#kl6">Cromwell</a><a href="#kl7">Ursachen</a><a href="#kl8">Personen</a><a href="#kl9">Kurz</a></div>
 
 <section class="tx" id="kl0"><span class="tx-y">1603–1625 · Jakob I.</span><h2>Gottesgnadentum gegen ererbte Rechte</h2>
 <p>1603 stirbt Elisabeth I. kinderlos, die Tudors enden. Ihr Nachfolger ist der schottische König <b>Jakob VI.</b>, der als <b>Jakob I.</b> nun beide Länder regiert (Personalunion). Er bringt aus Schottland eine feste Überzeugung mit: das <b>Gottesgnadentum (Divine Right of Kings)</b>. Der König hat seine Macht direkt von Gott, steht über den Gesetzen und ist nur Gott Rechenschaft schuldig. Das Parlament darf beraten, aber nicht mitbestimmen.</p>
@@ -223,7 +223,22 @@ $("k-lern").innerHTML=`<p class="tip" style="margin:0">Die ganze Geschichte von 
 <li>Nach Cromwells Tod gibt es keinen starken Nachfolger, es droht Chaos. Die Rückkehr des Königs verspricht Ordnung.</li></ul></div></section>
 
 <section class="tx" id="kl8"><span class="tx-y">Wer ist wer?</span><h2>Personen</h2>
-<div class="pers">${KP.map(([n,r,x])=>`<div><b>${n}</b><span>${r}</span>${x}</div>`).join("")}</div></section>`;
+<div class="pers">${KP.map(([n,r,x])=>`<div><b>${n}</b><span>${r}</span>${x}</div>`).join("")}</div></section>
+
+<section class="tx" id="kl9" style="border:2px solid var(--gold)"><span class="tx-y">Kurz und knapp</span><h2>Karl I. in 10 Punkten</h2>
+<ol class="chk" style="padding-left:1.3em;gap:7px">
+<li><b>1625</b> König. Glaubt fest an das <b>Gottesgnadentum</b>, katholische Frau, Favorit Buckingham.</li>
+<li><b>Geldnot</b> durch teure, erfolglose Kriege gegen Spanien und Frankreich. Hilft sich mit <b>Zwangsanleihe</b>, Haft ohne Anklage und Einquartierung.</li>
+<li><b>1628 Petition of Right:</b> Geld nur gegen Rechte (keine Steuern ohne Parlament, keine willkürliche Haft). Karl unterschreibt aus Geldnot, hält sich nicht daran.</li>
+<li><b>1629–1640 elfjährige Tyrannei:</b> regiert ohne Parlament, Geld über <b>Ship Money</b>, Laud verfolgt Puritaner.</li>
+<li><b>1637</b> Gebetbuch für Schottland, <b>Bischofskriege</b> verloren. Er muss das Parlament einberufen.</li>
+<li><b>1640 Langes Parlament</b> (Pym): Strafford hingerichtet, Ship Money verboten, Triennial Act.</li>
+<li><b>1641</b> Aufstand in Irland, <b>Grand Remonstrance</b> spaltet das Parlament.</li>
+<li><b>4. Jan. 1642</b> Sturm aufs Unterhaus (5 Abgeordnete), <b>22. Aug. 1642</b> Bürgerkrieg: Kavaliere gegen Rundköpfe.</li>
+<li>Cromwells <b>New Model Army</b> siegt (Marston Moor 1644, <b>Naseby 1645</b>). Karl verbündet sich mit den Schotten, <b>zweiter Bürgerkrieg 1648</b> verloren.</li>
+<li><b>Pride's Purge</b> (Dez. 1648), Rumpfparlament klagt ihn wegen Hochverrats an. <b>30. Jan. 1649 hingerichtet.</b></li></ol>
+<p style="margin-top:10px"><b>Danach:</b> Republik (1649), Cromwell Lordprotektor (1653) = Militärdiktatur, stirbt 1658, <b>1660 Restauration</b> mit Karl II.</p>
+<p class="ex"><b>Merksatz:</b> Karl wollte ohne Parlament regieren, brauchte aber dessen Geld. Seine Wortbrüche führten erst zum Krieg und dann zu seiner Hinrichtung.</p></section>`;
 
 /* Test & Musterlösung (nach dem Erwartungshorizont der Leistungskontrolle) */
 const be=n=>` <span class="be">${n} BE</span>`;
