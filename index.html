@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Lern-App England</title>
+<title>Klausuren</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="England">
+<meta name="apple-mobile-web-app-title" content="Klausuren">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14171d" media="(prefers-color-scheme: dark)">
@@ -189,13 +189,72 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .step .afb{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
 .step ol,.step ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:5px;font-size:.95rem}
 .ex{font-size:.9rem;background:var(--gold-soft);border-radius:8px;padding:8px 10px}
+
+/* Klausuren: Startseite, Fach, Kategorien */
+.back{font:inherit;font-weight:700;font-size:.85rem;color:var(--gold);background:none;border:0;padding:4px 0;margin:0;cursor:pointer;align-self:flex-start;display:flex;align-items:center;gap:4px}
+.back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.folders{display:flex;flex-direction:column;gap:12px}
+.folder{display:flex;align-items:center;gap:14px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--fg)}
+.folder .fi{width:52px;height:44px;flex:none}
+.folder .fi path{fill:var(--fs);stroke:var(--fc);stroke-width:1.6;stroke-linejoin:round}
+.folder .ft{display:flex;flex-direction:column;gap:3px;min-width:0}
+.folder h2{margin:0;font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.1}
+.folder p{margin:0;font-size:.86rem;color:var(--muted)}
+.chev{margin-left:auto;color:var(--muted);font-size:1.5rem;line-height:1;flex:none}
+.badge{align-self:flex-start;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--crown-soft);color:var(--crown)}
+.kat{display:flex;flex-direction:column;gap:6px;padding:18px 16px;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--kc);border-radius:14px;text-decoration:none;color:var(--fg)}
+.kat .kh{display:flex;align-items:center;gap:10px}
+.kat svg{width:28px;height:28px;stroke:var(--kc);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.kat h2{margin:0;font-family:var(--display);font-weight:400;font-size:1.45rem;line-height:1.1}
+.kat p{margin:0;font-size:.9rem;color:var(--muted)}
+.kat .leer-l{font-style:italic}
+.leer{text-align:center;color:var(--muted);padding:48px 10px;display:flex;flex-direction:column;gap:8px;align-items:center}
+.leer b{font-family:var(--display);font-weight:400;font-size:1.5rem;color:var(--fg)}
+#navK{grid-template-columns:repeat(4,1fr)}
+#k-zeit.only .ev:not(.big){display:none}
+.seg.three{grid-template-columns:repeat(3,1fr)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.be{display:inline-block;font-size:.72rem;font-weight:700;color:var(--parl);background:var(--parl-soft);border-radius:999px;padding:1px 7px;white-space:nowrap;vertical-align:1px;font-family:var(--sans)}
+.src{font-family:var(--serif);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px 12px 8px;font-size:.95rem;line-height:1.55}
+.src ol{margin:0;padding-left:2em}
+.src li::marker{font-family:var(--sans);font-size:.75rem;color:var(--muted)}
+.meta{font-size:.84rem;color:var(--muted)}
+.aufg{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 14px;display:flex;flex-direction:column;gap:6px}
+.aufg h3{margin:0;font-size:1.02rem}
+.aufg p{margin:0;font-size:.95rem}
+.ml p{margin:0 0 10px;font-family:var(--serif);font-size:1rem;line-height:1.6;hyphens:auto}
+.ml p:last-child{margin:0}
+.chk{margin:0;padding-left:1.2em;font-size:.92rem;display:flex;flex-direction:column;gap:4px}
+.pk{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pk>div{border-radius:8px;padding:8px 10px;font-size:.9rem}
+.pk .pro{background:var(--parl-soft)} .pk .con{background:var(--crown-soft)}
+.pk b{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.pk .pro b{color:var(--parl)} .pk .con b{color:var(--crown)}
+.pk ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:3px}
+@media (max-width:420px){.pk{grid-template-columns:1fr}}
+.pers{display:grid;gap:8px}
+.pers div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.93rem}
+.pers b{font-family:var(--serif);font-size:1.02rem}
+.pers span{display:block;font-size:.76rem;font-weight:700;color:var(--muted)}
+.mtab{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:.9rem}
+.mtab td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top}
+.mtab td:first-child{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--gold);width:1%}
+.mtab tr.ph td{white-space:normal;width:auto;color:var(--bg);background:var(--fg);color:var(--bg);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.ord button{display:flex;gap:10px;align-items:center}
+.ord .num{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+.ord button.pick .num{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ordres{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ordres li{border-radius:8px;padding:8px 10px;font-size:.93rem;background:var(--parl-soft)}
+.ordres li.wrong{background:var(--crown-soft)}
+.ordres b{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
 
 
 <header class="top">
-  <button type="button" class="merk-btn" id="merkBtn" aria-haspopup="dialog" aria-controls="merk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18l-1.5-10-4.5 4-3-7-3 7-4.5-4z"/></svg>Merken</button>
+  <button type="button" class="back" id="back" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span id="backLbl">Klausuren</span></button>
+  <button type="button" class="merk-btn" id="merkBtn" hidden aria-haspopup="dialog" aria-controls="merk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18l-1.5-10-4.5 4-3-7-3 7-4.5-4z"/></svg>Merken</button>
   <h1 id="ttl">Zeitstrahl</h1>
   <span class="sub" id="sub">England 1509–1714 · Krone gegen Parlament</span>
 </header>
@@ -206,18 +265,31 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   </div>
 </div>
 <main>
-  <section class="view" id="v-zeit"></section>
+  <section class="view" id="v-home" hidden></section>
+  <section class="view" id="v-fach" hidden></section>
+  <section class="view" id="v-leer" hidden></section>
+  <section class="view" id="k-zeit" hidden></section>
+  <section class="view" id="k-lern" hidden></section>
+  <section class="view" id="k-test" hidden></section>
+  <section class="view" id="k-ueben" hidden></section>
+  <section class="view" id="v-zeit" hidden></section>
   <section class="view" id="v-lex" hidden></section>
   <section class="view" id="v-ueben" hidden></section>
   <section class="view" id="v-text" hidden></section>
   <section class="view" id="v-kurz" hidden></section>
 </main>
-<nav class="tabs" role="tablist">
+<nav class="tabs" id="navU" role="tablist" hidden>
   <button role="tab" data-v="zeit" aria-selected="true" type="button"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="15" r="2"/><path d="M14 7h6M4 15h6"/></svg>Zeitstrahl</button>
   <button role="tab" data-v="lex" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6"/></svg>Lexikon</button>
   <button role="tab" data-v="text" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>Text</button>
   <button role="tab" data-v="kurz" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>Kurz</button>
   <button role="tab" data-v="ueben" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>Üben</button>
+</nav>
+<nav class="tabs" id="navK" role="tablist" hidden>
+  <button role="tab" data-v="kzeit" aria-selected="true" type="button"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="15" r="2"/><path d="M14 7h6M4 15h6"/></svg>Zeitstrahl</button>
+  <button role="tab" data-v="klern" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>Lernzettel</button>
+  <button role="tab" data-v="ktest" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9z"/><path d="M9 5H6v16h12V5h-3"/><path d="M9 13l2 2 4-4"/></svg>Test</button>
+  <button role="tab" data-v="kueben" aria-selected="false" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>Üben</button>
 </nav>
 
 <script>
@@ -383,13 +455,7 @@ const EVENTS=ERAS.flatMap(e=>e.ev.map(([y,t,w,d,s,big])=>({y,t,w,d,s,big,era:e.n
 
 /* ---------- Tabs ---------- */
 const TITLES={zeit:["Zeitstrahl","England 1509–1714 · Krone gegen Parlament"],lex:["Lexikon",`${T.length} Begriffe · Bedeutung und Entstehung`],ueben:["Üben","Karteikarten und Jahreszahlen-Quiz"],text:["Ablauf als Text","England 1509–1714 im Zusammenhang"],kurz:["Kurz","Das Wichtigste und die Quellenanalyse"]};
-function show(v){
-  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
-  ["zeit","lex","text","kurz","ueben"].forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
-  document.getElementById("ttl").textContent=TITLES[v][0];document.getElementById("sub").textContent=TITLES[v][1];
-  window.scrollTo(0,0);store.set("tab",v);
-}
-document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.v)});
+function show(v){location.hash="#/geschichte/unterricht/"+v}
 
 /* ---------- Zeitstrahl ---------- */
 document.getElementById("v-zeit").innerHTML=`
@@ -403,7 +469,7 @@ document.getElementById("v-zeit").innerHTML=`
   <section class="rtab-wrap" id="rtab"><h2>Herrscher auf einen Blick</h2>
   ${rtabHTML()}</section>
   <div class="result"><b>Ergebnis:</b> Aus der absoluten Monarchie ist eine konstitutionelle Monarchie geworden. Der König herrscht nicht mehr von Gottes Gnaden, sondern von Gnaden des Parlaments.</div>`;
-document.getElementById("merkBody").innerHTML=rtabHTML()+`<p class="tip" style="margin:10px 0 0">Ausführlich mit Erklärungen: Zeitstrahl, goldene Karten „Herrscherwechsel“.</p>`;
+const MERK_U=rtabHTML()+`<p class="tip" style="margin:10px 0 0">Ausführlich mit Erklärungen: Zeitstrahl, goldene Karten „Herrscherwechsel“.</p>`;
 const merk=document.getElementById("merk");
 function merkOpen(o){merk.hidden=!o;document.body.style.overflow=o?"hidden":"";if(o)document.getElementById("merkX").focus();else document.getElementById("merkBtn").focus()}
 document.getElementById("merkBtn").onclick=()=>merkOpen(true);
@@ -555,8 +621,8 @@ function quizView(){
     document.getElementById("nx").onclick=()=>{box.dataset.lock="0";qi++;quizView()}};
 }
 renderUeben();
-show(store.get("tab","zeit"));
 </script>
+<script src="klausur.js"></script>
 
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
 </body>
