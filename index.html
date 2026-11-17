@@ -16,7 +16,7 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px)} body{margin:0} /* Layout: phone app — sticky title bar, one scrolling view, fixed bottom tab bar (Zeitstrahl / Lexikon / Üben) */
 :root{
   --bg:#f6f7f4; --surface:#ffffff; --fg:#1d2330; --muted:#5d6472; --line:#d9dcd4;
-  --crown:#a3242f; --crown-soft:#f6e3e4; --parl:#1f6b4a; --parl-soft:#dff0e7; --gold:#9a7a1e; --gold-soft:#f3ecd8;
+  --crown:#a3242f; --crown-soft:#f6e3e4; --parl:#1f6b4a; --parl-soft:#dff0e7; --gold:#9a7a1e; --gold-soft:#f3ecd8; --psy:#2f5d8a; --psy-soft:#e2ebf5;
   --e1:#e9e2cf; --e2:#e4dde9; --e3:#f0dcd8; --e4:#d9e6e4; --e5:#dfe5f1;
   --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
@@ -24,11 +24,11 @@
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#14171d; --surface:#1c2028; --fg:#e8e9e4; --muted:#a3a8b2; --line:#343a46;
-  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18;
+  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18; --psy:#7fb0e0; --psy-soft:#1e2a3a;
   --e1:#37321f; --e2:#2f2a3a; --e3:#3c2725; --e4:#21332f; --e5:#232c3d; color-scheme:dark }}
 :root[data-theme="dark"]{
   --bg:#14171d; --surface:#1c2028; --fg:#e8e9e4; --muted:#a3a8b2; --line:#343a46;
-  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18;
+  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18; --psy:#7fb0e0; --psy-soft:#1e2a3a;
   --e1:#37321f; --e2:#2f2a3a; --e3:#3c2725; --e4:#21332f; --e5:#232c3d; color-scheme:dark }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -247,6 +247,28 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .ordres li{border-radius:8px;padding:8px 10px;font-size:.93rem;background:var(--parl-soft)}
 .ordres li.wrong{background:var(--crown-soft)}
 .ordres b{font-variant-numeric:tabular-nums}
+
+/* Psychologie (psychologie.js) */
+.ps-def{border-left:4px solid var(--psy);padding:4px 0 4px 12px;margin:10px 0;font-size:.97rem;line-height:1.55}
+.ps-def b{display:block;font-family:var(--serif);font-size:1.05rem}
+.ps-h{margin:16px 0 6px;font-size:1.02rem}
+.ps-ul{margin:6px 0 10px;padding-left:1.2em;display:flex;flex-direction:column;gap:4px;font-size:.96rem}
+.ps-tab{width:100%;border-collapse:collapse;font-size:.88rem;line-height:1.4;background:var(--surface)}
+.ps-tab th{text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px;border-bottom:2px solid var(--line)}
+.ps-tab td{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.ps-tag{display:inline-block;font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:999px;background:var(--psy-soft);color:var(--psy);vertical-align:2px}
+.ps-tag.ext{background:var(--gold-soft);color:var(--gold)}
+.ps-sach{color:var(--psy)} .ps-selbst{color:var(--parl)} .ps-bez{color:var(--crown)} .ps-app{color:var(--gold)}
+.tx svg,.step svg{width:100%;height:auto;display:block;margin:8px 0}
+.tx svg text{font-family:var(--sans);fill:var(--fg)}
+.ps-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+@media (max-width:560px){.ps-grid2{grid-template-columns:1fr}}
+.ps-mini{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.92rem}
+.ps-chk label{display:flex;gap:10px;align-items:flex-start;padding:4px 0;font-size:.95rem;cursor:pointer}
+.ps-chk input{margin-top:4px;width:18px;height:18px;accent-color:var(--parl);flex:none}
+.ps-q{width:100%;font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg)}
+.q .opts button b{font-weight:700}
+#m-view .erachips a{--ec:var(--psy-soft)}
 </style>
 </head>
 <body>
@@ -277,6 +299,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   <section class="view" id="v-ueben" hidden></section>
   <section class="view" id="v-text" hidden></section>
   <section class="view" id="v-kurz" hidden></section>
+  <section class="view" id="m-view" hidden></section>
 </main>
 <nav class="tabs" id="navU" role="tablist" hidden>
   <button role="tab" data-v="zeit" aria-selected="true" type="button"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="15" r="2"/><path d="M14 7h6M4 15h6"/></svg>Zeitstrahl</button>
@@ -622,6 +645,8 @@ function quizView(){
 }
 renderUeben();
 </script>
+<nav class="tabs" id="navM" role="tablist" hidden></nav>
+<script src="psychologie.js"></script>
 <script src="klausur.js"></script>
 
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>

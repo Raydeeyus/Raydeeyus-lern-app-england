@@ -6,13 +6,17 @@
 /* ---------- Fächer ----------
    Jedes Fach hat IMMER die beiden Kategorien "unterricht" und "klausur".
    tabs: "U" = bisherige England-App, "K" = Klausurvorbereitung Karl I.
+   mod: eigenes Modul mit eigenen Reitern (siehe MODS, z. B. in psychologie.js).
    Leere Kategorie = kein Eintrag in kat. Neues Fach: einfach hier ergänzen. */
 const FAECHER=[
  {id:"geschichte",name:"Geschichte",c:"--crown",cs:"--crown-soft",klausur:"2026-11-17",thema:"Karl I. und Cromwell",
   kat:{unterricht:{tabs:"U",desc:"England 1509–1714 · Krone gegen Parlament"},
        klausur:{tabs:"K",desc:"Karl I. 1603–1649 · danach Cromwell"}}},
  {id:"kunst",name:"Kunst",c:"--gold",cs:"--gold-soft",kat:{}},
- {id:"sport",name:"Sport",c:"--parl",cs:"--parl-soft",kat:{}}
+ {id:"sport",name:"Sport",c:"--parl",cs:"--parl-soft",kat:{}},
+ {id:"psychologie",name:"Psychologie",c:"--psy",cs:"--psy-soft",klausur:"2026-11-18",thema:"System, Interaktion & Kommunikation",
+  kat:{unterricht:{mod:"psyU",desc:"Mitschrift: Systeme, Kommunikation, Vier-Seiten-Modell"},
+       klausur:{mod:"psyK",desc:"Ablauf, Fachbegriffe, Modelle, Probeklausur, Üben"}}}
 ];
 const KATS={
  unterricht:{name:"Unterricht",c:"--parl",icon:`<svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6M9 12h6"/></svg>`},
@@ -419,7 +423,8 @@ function setMerk(k){
    #/geschichte/unterricht/zeit     Bereich mit Reitern */
 const UTABS=["zeit","lex","text","kurz","ueben"],KTABS=["kzeit","klern","ktest","kueben"];
 const KTITLES={kzeit:["Zeitstrahl","Karl I. 1603–1649 · danach Cromwell"],klern:["Lernzettel","Die ganze Geschichte zum Auswendiglernen"],ktest:["Test","Probe-Klausur, Musterlösung, Quellen"],kueben:["Üben","Karteikarten, Daten-Quiz, Reihenfolge"]};
-const navU=$("navU"),navK=$("navK");
+const navU=$("navU"),navK=$("navK"),navM=$("navM");
+const MODS_=typeof MODS==="undefined"?{}:MODS;
 function renderHome(){
   $("v-home").innerHTML=`<div class="folders">${FAECHER.map(F=>{const info=klausurInfo(F.klausur);const n=Object.keys(F.kat).length;
     return `<a class="folder" href="#/${F.id}" style="--fc:var(${F.c});--fs:var(${F.cs})">${FOLDER_SVG}<span class="ft"><h2>${F.name}</h2>${info?`<span class="badge">${info}</span>`:""}<p>${n?(F.thema?F.thema:"Unterricht und Klausurvorbereitung"):"Noch leer"}</p></span><span class="chev">›</span></a>`}).join("")}</div>`;
@@ -435,13 +440,25 @@ function route(){
   const p=location.hash.replace(/^#\/?/,"").split("/").filter(Boolean);
   const F=FAECHER.find(x=>x.id===p[0]),k=p[1],t=p[2];
   document.querySelectorAll("main>section").forEach(s=>s.hidden=true);
-  navU.hidden=navK.hidden=true;$("merkBtn").hidden=true;
+  navU.hidden=navK.hidden=navM.hidden=true;$("merkBtn").hidden=true;
   let vis;
   if(!F){vis="v-home";renderHome();hdr("Klausuren","Wähle ein Fach");back();document.title="Klausuren"}
   else if(!KATS[k]){vis="v-fach";renderFach(F);hdr(F.name,"Unterricht oder Klausurvorbereitung?");back("Klausuren","#/");document.title=F.name+" · Klausuren"}
   else{
     const A=F.kat[k];back(F.name,"#/"+F.id);document.title=KATS[k].name+" · "+F.name;
     if(!A){vis="v-leer";hdr(KATS[k].name,F.name);$("v-leer").innerHTML=`<div class="leer"><b>Noch leer</b><span>Hier kommt bald der Stoff für ${F.name} rein.</span></div>`}
+    else if(A.mod&&MODS_[A.mod]){
+      const M=MODS_[A.mod],ids=M.tabs.map(x=>x[0]),key="mtab_"+A.mod;
+      let v=ids.includes(t)?t:store.get(key,ids[0]);if(!ids.includes(v))v=ids[0];
+      if(v!==t)history.replaceState(null,"",`#/${F.id}/${k}/${v}`);
+      store.set(key,v);
+      navM.style.gridTemplateColumns=`repeat(${ids.length},1fr)`;
+      navM.innerHTML=M.tabs.map(([id,l,ic])=>`<button role="tab" data-v="${id}" aria-selected="${id===v}" type="button">${PS_ICON[ic]||""}${l}</button>`).join("");
+      navM.hidden=false;
+      vis="m-view";$("m-view").innerHTML="";M.views[v]($("m-view"));
+      hdr(M.titles[v][0],M.titles[v][1]);
+      if(M.merk){$("merkBtn").hidden=false;document.querySelector(".merk-kick").textContent=M.merk[0];$("merkTtl").textContent=M.merk[1];$("merkBody").innerHTML=M.merk[2]}
+    }
     else{
       const U_=A.tabs==="U",tabs=U_?UTABS:KTABS,key=U_?"tab":"ktab";
       let v=tabs.includes(t)?t:store.get(key,tabs[0]);if(!tabs.includes(v))v=tabs[0];
@@ -456,7 +473,7 @@ function route(){
   }
   $(vis).hidden=false;window.scrollTo(0,0);
 }
-[navU,navK].forEach(n=>n.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+[navU,navK,navM].forEach(n=>n.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
   const p=location.hash.replace(/^#\/?/,"").split("/");location.hash=`#/${p[0]}/${p[1]}/${b.dataset.v}`}));
 // Sprungmarken innerhalb einer Seite (#era0, #tx3 …) scrollen, statt die Route zu ändern
 document.addEventListener("click",e=>{if(e.defaultPrevented)return;const a=e.target.closest('a[href^="#"]');if(!a)return;
