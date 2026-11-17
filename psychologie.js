@@ -7,6 +7,7 @@
 /* ---------- Fachbegriffe ---------- */
 // p = Pflicht (aus dem Unterricht), e = Ergänzung
 const PS_BEGRIFFE=[
+ {g:'System',t:'Ganzheitspsychologie',d:'Grundgedanke über dem ganzen Thema: Ein Mensch wird nicht isoliert betrachtet, sondern nur im Ganzen verstanden – mit seinen Beziehungen und dem System, in dem er lebt. Steckt in der Übersummation („Das Ganze ist mehr als die Summe seiner Teile“) und in der Interdependenz (alles hängt zusammen).',p:1},
  {g:'System',t:'System',d:'Ein Aggregat (eine Ansammlung) von Objekten, die alle miteinander in Wechselbeziehung stehen.',p:1},
  {g:'System',t:'Soziales System',d:'System aus Menschen (z. B. Familie, Klasse, Freundeskreis), die über Interaktions- und Kommunikationsprozesse wechselseitig verbunden sind. Menschen leben immer in Systemen – und meist in mehreren gleichzeitig.',p:1},
  {g:'System',t:'Systemgrenze',d:'Grenze, die festlegt, wer zum System gehört. Soziale Systeme haben offene Systemgrenzen: Äußere und innere Einflüsse wirken hinein und heraus.',p:1},
@@ -103,6 +104,7 @@ const PS_SEITEN={sach:['Sachinhalt','ps-sach'],selbst:['Selbstoffenbarung','ps-s
 
 /* ---------- Quiz ---------- */
 const PS_QUIZ=[
+ {q:'Was ist der Kerngedanke der Ganzheitspsychologie?',o:['Ein Mensch wird nur im Ganzen verstanden – mit seinen Beziehungen und seinem System.','Jeder Mensch wird für sich allein untersucht.','Nur das Verhalten zählt, nicht die Beziehungen.','Kommunikation verläuft immer linear.'],r:0},
  {q:'Was versteht man unter „Interdependenz“?',o:['Verändert sich Erleben/Verhalten eines Systemmitglieds, verändern sich Erleben/Verhalten aller anderen.','Jedes Systemmitglied ist vom System unabhängig.','Das System hat eine geschlossene Grenze.','Das System bleibt immer im Normalzustand.'],r:0},
  {q:'Eine positive Rückkopplung liegt vor, wenn …',o:['das System sich von seinem Normzustand entfernt.','das System in seinem Normalzustand bleibt.','sich alle gut verstehen.','die Kommunikation linear verläuft.'],r:0},
  {q:'Was kann eine positive Rückkopplung im Extremfall bewirken?',o:['den Zerfall des Systems','ein absolutes Gleichgewicht','eine geschlossene Systemgrenze','nichts, sie ist immer harmlos'],r:0},
@@ -211,6 +213,17 @@ const PS_SIDE={sach:'<b class="ps-sach">Sachinhalt</b>',selbst:'<b class="ps-sel
 /* ---------- Unterricht: Mitschrift ---------- */
 function psMitschrift(el){
   el.innerHTML=`
+  <section class="tx"><span class="tx-y">Der Rahmen für alles</span><h2>Ganzheitspsychologie</h2>
+   <p><b>Kerngedanke:</b> Man betrachtet einen Menschen nicht isoliert. Man versteht ihn nur <b>im Ganzen</b> – mit seinen Beziehungen und dem System, in dem er lebt. Die Systemtheorie ist genau diese ganzheitliche Sichtweise.</p>
+   ${psTable(["Verbindung zu …","Warum?"],[
+     ["<b>Übersummation</b>","Die Ganzheitsidee schlechthin: „Das Ganze ist mehr als die Summe seiner Teile.“ Ein System versteht man nicht, wenn man nur die einzelnen Personen anschaut – sondern wie sie miteinander umgehen."],
+     ["<b>Interdependenz</b>","Weil alles zusammenhängt, betrifft der Streit zwischen zwei Personen das ganze System (im Probefall leidet Tim mit, obwohl er nicht beteiligt war)."]])}
+   <h3 class="ps-h">So nutzt du sie in der Klausur</h3>
+   <ul class="ps-ul"><li><b>Aufgabe 2 – Einstiegssatz:</b> „Aus Sicht der Ganzheitspsychologie bzw. Systemtheorie lässt sich das Verhalten der Familienmitglieder nur verstehen, wenn man die Familie als Ganzes betrachtet …“</li>
+   <li><b>Aufgabe 3 – Begründung:</b> Erfolgreiche Kommunikation muss alle Systemmitglieder einbeziehen, weil das System nur als Ganzes ins Gleichgewicht zurückfindet.</li></ul>
+   <p class="ex">Steht nicht auf dem Zettel „Klausurrelevant“ – eine eigene Aufgabe dazu ist unwahrscheinlich. Die Grundidee reicht, keine Namen oder Geschichte lernen.</p>
+  </section>
+
   <section class="tx"><span class="tx-y">Prüfungsrelevant</span><h2>Soziale Systeme</h2>
    <p class="meta">Einführung in die Ganzheitspsychologie – soziale Systeme und Kommunikation</p>
    <p><b>Menschen leben immer in Systemen.</b> Es gibt immer mehrere Systeme (Familie, Klasse, Freundeskreis …). Wenn einer Bewegung in das System bringt, werden alle Systemteilnehmer in Bewegung gebracht (wie beim Modell im Raum gezeigt).</p>
@@ -337,7 +350,7 @@ function psAblauf(el){
    <li><b>Zeilenangaben</b>: (Z. 12), (Z. 20–23), (vgl. Z. 5 f.) – <b>mindestens 3 pro Seite</b>.</li></ul></div>
   <div class="step"><span class="afb">Aufgabe 2 · AFB II · Anwendung</span><h3>Systemskizze + positive Rückkopplung erklären</h3><ol>
    <li>Mit einer <b>großzügigen Systemskizze</b> beginnen (halbe Seite, vollständig beschriftet). <a href="#/psychologie/klausur/modelle">→ Anleitung bei Modelle</a></li>
-   <li>Kurz <b>System definieren</b> und auf den Fall übertragen (Wer gehört dazu? Welche Einflüsse?).</li>
+   <li>Kurz <b>System definieren</b> und auf den Fall übertragen (Wer gehört dazu? Welche Einflüsse?). Guter Einstieg: „Aus Sicht der <b>Ganzheitspsychologie</b> bzw. Systemtheorie lässt sich das Verhalten nur verstehen, wenn man die Familie als Ganzes betrachtet …“</li>
    <li><b>Positive Rückkopplung definieren</b>: System entfernt sich vom Normzustand, im Extremfall Zerfall.</li>
    <li><b>Vier-Seiten-Modell kurz vorstellen</b> (Schulz von Thun, 4 Seiten, 4 Ohren).</li>
    <li><b>Am Fall erklären</b>: Äußerung → gemeint vs. gehört → Reaktion → Aufschaukeln. Jede Behauptung mit <b>Zeile</b> belegen!</li>
@@ -353,7 +366,7 @@ function psAblauf(el){
      ["<b>Metakommunikation</b>: über das Reden reden („Wie hast du das gemeint?“)","Gegenmaßnahme im System"],
      ["<b>Wertschätzung & Respekt</b> auf der Beziehungsebene","Beziehungsseite / Watzlawick"],
      ["<b>Kongruenz</b>: Worte, Tonfall, Körpersprache passen zusammen","Watzlawick (digital/analog)"],
-     ["<b>Alle Systemmitglieder einbeziehen</b>, gemeinsame Vereinbarungen","Interdependenz, Fließgleichgewicht"],
+     ["<b>Alle Systemmitglieder einbeziehen</b>, gemeinsame Vereinbarungen","Ganzheitspsychologie, Interdependenz, Fließgleichgewicht"],
      ["<b>Passender Zeitpunkt & Rahmen</b> (nicht im Stress zwischen Tür und Angel)","Übermittlung (Kanal, Situation)"]])}
    <p class="ex" style="margin-top:8px"><b>Aufbau:</b> Merkmal nennen → mit Modell begründen → <b>auf den Fall beziehen</b> (Was lief schief? Was hilft? mit Zeile) → am Ende <b>Fazit</b>: Welche Merkmale sind besonders wichtig und warum? Auch Grenzen nennen (im Stress schwer umzusetzen, Machtgefälle).</p></div>
 
