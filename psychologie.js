@@ -42,12 +42,19 @@ const PS_BEGRIFFE=[
  {g:'Vier-Seiten-Modell',t:'Beziehung',d:'Aufschluss über das Verhältnis zwischen Sender und Empfänger. Fragen: „Wie stehe ich zu dir? Was halte ich von dir?“',p:1},
  {g:'Vier-Seiten-Modell',t:'Appell',d:'Einflussnahme auf den Empfänger. Frage: „Wozu möchte ich dich veranlassen?“',p:1},
  {g:'Vier-Seiten-Modell',t:'Vier Ohren / vier Schnäbel',d:'Der Sender sendet auf allen vier Ebenen zugleich; der Empfänger kann mit jedem der vier Ohren hören. Hört er mit einem anderen Ohr, als gemeint war (oft mit dem Beziehungsohr), entsteht ein Missverständnis.',p:1},
- {g:'Ergänzung',t:'Metakommunikation',d:'Kommunikation über die Kommunikation: „Wie hast du das gemeint?“, „Wie reden wir eigentlich miteinander?“ Wichtigste Gegenmaßnahme bei Störungen.',p:0},
- {g:'Ergänzung',t:'Ich-Botschaft',d:'Der Sprecher äußert eigene Gefühle und Wünsche („Ich mache mir Sorgen, wenn …“) statt Vorwürfe („Du bist immer …“). Macht die Selbstoffenbarung klar und entlastet die Beziehungsseite.',p:0},
- {g:'Ergänzung',t:'Aktives Zuhören',d:'Aufmerksam zuhören, ausreden lassen, nachfragen und das Gehörte mit eigenen Worten wiedergeben, um zu prüfen, ob man richtig verstanden hat.',p:0},
- {g:'Ergänzung',t:'Kongruenz',d:'Übereinstimmung von Gesagtem, Tonfall und Körpersprache (Echtheit). Inkongruente Nachrichten („Ist schon gut!“ mit wütendem Blick) führen zu Missverständnissen.',p:0},
- {g:'Ergänzung',t:'Axiome nach Paul Watzlawick',d:'Fünf Grundregeln der Kommunikation, z. B. „Man kann nicht nicht kommunizieren“ und „Jede Kommunikation hat einen Inhalts- und einen Beziehungsaspekt“. Im Unterricht als zweites Modell zur Erklärung positiver Rückkopplung genannt.',p:0},
- {g:'Ergänzung',t:'Interpunktion',d:'Watzlawick: Jeder setzt den „Anfang“ eines Streits woanders („Ich meckere, weil du dich zurückziehst“ – „Ich ziehe mich zurück, weil du meckerst“). Passt zum Regelkreis: Kommunikation hat keinen Anfang und kein Ende.',p:0}
+ {g:'Aufgabe 3',t:'Metakommunikation',d:'Kommunikation über die Kommunikation: „Wie hast du das gemeint?“, „Wie reden wir eigentlich miteinander?“ Wichtigste Gegenmaßnahme bei Störungen.',p:0},
+ {g:'Aufgabe 3',t:'Ich-Botschaft',d:'Der Sprecher äußert eigene Gefühle und Wünsche („Ich mache mir Sorgen, wenn …“) statt Vorwürfe („Du bist immer …“). Macht die Selbstoffenbarung klar und entlastet die Beziehungsseite.',p:0},
+ {g:'Aufgabe 3',t:'Aktives Zuhören',d:'Aufmerksam zuhören, ausreden lassen, nachfragen und das Gehörte mit eigenen Worten wiedergeben, um zu prüfen, ob man richtig verstanden hat.',p:0},
+ {g:'Aufgabe 3',t:'Kongruenz',d:'Übereinstimmung von Gesagtem, Tonfall und Körpersprache (Echtheit). Inkongruente Nachrichten („Ist schon gut!“ mit wütendem Blick) führen zu Missverständnissen.',p:0},
+ {g:'Aufgabe 3',t:'Axiome nach Paul Watzlawick',d:'Fünf Grundregeln der Kommunikation, z. B. „Man kann nicht nicht kommunizieren“ und „Jede Kommunikation hat einen Inhalts- und einen Beziehungsaspekt“. Im Unterricht als zweites Modell zur Erklärung positiver Rückkopplung genannt.',p:0},
+ {g:'Aufgabe 3',t:'Interpunktion',d:'Watzlawick: Jeder setzt den „Anfang“ eines Streits woanders („Ich meckere, weil du dich zurückziehst“ – „Ich ziehe mich zurück, weil du meckerst“). Passt zum Regelkreis: Kommunikation hat keinen Anfang und kein Ende.',p:0},
+ {g:'Aufgabe 3',t:'Gelingende (erfolgreiche) Kommunikation',d:'Die Nachricht kommt so an, wie sie gemeint war; beide fühlen sich verstanden und respektiert, die Beziehung bleibt intakt. Im System: negative Rückkopplung – das Fließgleichgewicht bleibt erhalten.',p:0},
+ {g:'Aufgabe 3',t:'Misslingende Kommunikation',d:'Die Nachricht wird anders verstanden als gemeint oder verletzt die Beziehung. Es entstehen Konflikte, die sich aufschaukeln – positive Rückkopplung, das System entfernt sich vom Normzustand.',p:0},
+ {g:'Aufgabe 3',t:'Du-Botschaft',d:'Aussage, die den anderen bewertet oder beschuldigt („Du bist immer …“). Führt zu Verteidigung und Gegenangriff. Gegenstück: Ich-Botschaft.',p:0},
+ {g:'Aufgabe 3',t:'Implizite (versteckte) Botschaft',d:'Das Eigentliche wird nicht ausgesprochen, sondern steckt zwischen den Zeilen (Tonfall, Andeutung). Der Empfänger muss raten. Gegenstück: explizite (klare) Botschaft.',p:0},
+ {g:'Aufgabe 3',t:'Einseitige Empfangsgewohnheiten',d:'Schulz von Thun: Jemand hört gewohnheitsmäßig mit einem „übergroßen“ Ohr – z. B. Beziehungsohr (nimmt alles persönlich), Sachohr (überhört Gefühle), Selbstoffenbarungsohr (deutet alles nur beim anderen), Appellohr (will es allen recht machen).',p:0},
+ {g:'Aufgabe 3',t:'Symmetrische Eskalation',d:'Watzlawick: Beide wollen „oben“ sein, jeder setzt noch einen drauf – der Streit schaukelt sich hoch (= positive Rückkopplung).',p:0},
+ {g:'Aufgabe 3',t:'Grundhaltungen nach Carl Rogers',d:'Drei Haltungen für gelingende Kommunikation: Empathie (einfühlendes Verstehen), Wertschätzung (Akzeptanz ohne Bedingungen) und Echtheit (Kongruenz).',p:0}
 ];
 
 /* ---------- Fallbeispiel (fiktiv, mit Zeilen) ---------- */
@@ -104,6 +111,10 @@ const PS_SEITEN={sach:['Sachinhalt','ps-sach'],selbst:['Selbstoffenbarung','ps-s
 
 /* ---------- Quiz ---------- */
 const PS_QUIZ=[
+ {q:'Welche Aussage ist eine Ich-Botschaft?',o:['„Ich mache mir Sorgen, wenn du so spät kommst.“','„Du kommst immer zu spät!“','„Du bist echt unzuverlässig.“','„Kannst du nicht einmal pünktlich sein?“'],r:0},
+ {q:'Welches Merkmal gehört zu misslingender Kommunikation?',o:['Verallgemeinerungen wie „immer“ und „nie“','Metakommunikation','Aktives Zuhören','Kongruenz'],r:0},
+ {q:'Welche drei Grundhaltungen nennt Carl Rogers für gelingende Kommunikation?',o:['Empathie, Wertschätzung, Echtheit','Sachinhalt, Beziehung, Appell','Kodierung, Übermittlung, Decodierung','Interdependenz, Übersummation, Rückkopplung'],r:0},
+ {q:'Was ist Metakommunikation?',o:['Kommunikation über die Kommunikation („Wie hast du das gemeint?“)','Kommunikation ohne Worte','Ein Streit, der eskaliert','Kommunikation über das Handy'],r:0},
  {q:'Was ist der Kerngedanke der Ganzheitspsychologie?',o:['Ein Mensch wird nur im Ganzen verstanden – mit seinen Beziehungen und seinem System.','Jeder Mensch wird für sich allein untersucht.','Nur das Verhalten zählt, nicht die Beziehungen.','Kommunikation verläuft immer linear.'],r:0},
  {q:'Was versteht man unter „Interdependenz“?',o:['Verändert sich Erleben/Verhalten eines Systemmitglieds, verändern sich Erleben/Verhalten aller anderen.','Jedes Systemmitglied ist vom System unabhängig.','Das System hat eine geschlossene Grenze.','Das System bleibt immer im Normalzustand.'],r:0},
  {q:'Eine positive Rückkopplung liegt vor, wenn …',o:['das System sich von seinem Normzustand entfernt.','das System in seinem Normalzustand bleibt.','sich alle gut verstehen.','die Kommunikation linear verläuft.'],r:0},
@@ -337,7 +348,7 @@ function psModelle(el){
 }
 
 /* ---------- Klausurvorbereitung: Ablauf ---------- */
-const PS_CHECK=["Definition System, Interdependenz, Übersummation auswendig","Positive vs. negative Rückkopplung sicher erklären","Fließgleichgewicht + Gegenmaßnahmen","Definition soziale Kommunikation & soziale Interaktion","Regelkreis aufzählen (Sender → Absicht → Kodierung → Übermittlung → Empfänger → Decodierung → Reaktion)","6 Funktionen der Kommunikation","Vier Seiten mit Leitfragen","Systemskizze einmal frei auf Papier gezeichnet","Probeklausur Aufgabe 2 selbst versucht","Merkmale erfolgreicher Kommunikation (mind. 5)"];
+const PS_CHECK=["Definition System, Interdependenz, Übersummation auswendig","Positive vs. negative Rückkopplung sicher erklären","Fließgleichgewicht + Gegenmaßnahmen","Definition soziale Kommunikation & soziale Interaktion","Regelkreis aufzählen (Sender → Absicht → Kodierung → Übermittlung → Empfänger → Decodierung → Reaktion)","6 Funktionen der Kommunikation","Vier Seiten mit Leitfragen","Systemskizze einmal frei auf Papier gezeichnet","Probeklausur Aufgabe 2 selbst versucht","Merkmale erfolgreicher und misslingender Kommunikation (je mind. 5, mit Beispiel)"];
 function psAblauf(el){
   el.innerHTML=`
   <h2 class="sec">So ist die Klausur aufgebaut</h2>
@@ -356,19 +367,12 @@ function psAblauf(el){
    <li><b>Am Fall erklären</b>: Äußerung → gemeint vs. gehört → Reaktion → Aufschaukeln. Jede Behauptung mit <b>Zeile</b> belegen!</li>
    <li><b>Interdependenz</b> zeigen: Was passiert mit den anderen Mitgliedern?</li>
    <li><b>Gegenmaßnahmen</b> → Fließgleichgewicht wird wiederhergestellt (falls im Text).</li></ol></div>
-  <div class="step"><span class="afb">Aufgabe 3 · AFB III</span><h3>Merkmale erfolgreicher Kommunikation</h3>
-   <p class="meta">Steht nicht in deinen Mitschriften – das sind die gängigen Merkmale, abgeleitet aus den Modellen:</p>
-   ${psTable(["Merkmal","Abgeleitet aus …"],[
-     ["<b>Klare, eindeutige Botschaften</b> – alle vier Seiten bewusst senden","Vier-Seiten-Modell"],
-     ["<b>Mit allen vier Ohren hören</b>, nicht nur mit dem Beziehungsohr","Vier-Seiten-Modell"],
-     ["<b>Ich-Botschaften statt Du-Vorwürfe</b> („Ich mache mir Sorgen …“)","Selbstoffenbarung klar machen"],
-     ["<b>Aktives Zuhören</b>: ausreden lassen, nachfragen, Gehörtes wiedergeben","Decodierung im Regelkreis prüfen"],
-     ["<b>Metakommunikation</b>: über das Reden reden („Wie hast du das gemeint?“)","Gegenmaßnahme im System"],
-     ["<b>Wertschätzung & Respekt</b> auf der Beziehungsebene","Beziehungsseite / Watzlawick"],
-     ["<b>Kongruenz</b>: Worte, Tonfall, Körpersprache passen zusammen","Watzlawick (digital/analog)"],
-     ["<b>Alle Systemmitglieder einbeziehen</b>, gemeinsame Vereinbarungen","Ganzheitspsychologie, Interdependenz, Fließgleichgewicht"],
-     ["<b>Passender Zeitpunkt & Rahmen</b> (nicht im Stress zwischen Tür und Angel)","Übermittlung (Kanal, Situation)"]])}
-   <p class="ex" style="margin-top:8px"><b>Aufbau:</b> Merkmal nennen → mit Modell begründen → <b>auf den Fall beziehen</b> (Was lief schief? Was hilft? mit Zeile) → am Ende <b>Fazit</b>: Welche Merkmale sind besonders wichtig und warum? Auch Grenzen nennen (im Stress schwer umzusetzen, Machtgefälle).</p></div>
+  <div class="step"><span class="afb">Aufgabe 3 · AFB III</span><h3>Merkmale erfolgreicher und misslingender Kommunikation</h3><ol>
+   <li><b>Einleitung:</b> gelingende und misslingende Kommunikation definieren, Bezug zum System (negative/positive Rückkopplung).</li>
+   <li><b>Misslingend:</b> 3–4 Merkmale nennen, mit Modell erklären, am Fall belegen (Zeilen!).</li>
+   <li><b>Erfolgreich:</b> jeweils das Gegenstück – am Fall belegen oder zeigen, wie man es besser hätte sagen können.</li>
+   <li><b>Fazit:</b> Welche Merkmale sind am wichtigsten und warum? Grenzen nennen.</li></ol>
+   <p class="ex" style="margin-top:8px"><a href="#/psychologie/klausur/aufgabe3"><b>→ Alle Merkmale mit Beispielen im Reiter „Aufgabe 3“</b></a></p></div>
 
   <h2 class="sec">Zeitplan und Satzbausteine</h2>
   <div class="step"><p><b>Vorschlag:</b> Text lesen & farbig markieren (Personen, Äußerungen, Folgen, Lösung) ca. 15 % der Zeit · Aufgabe 1 ca. 25 % · Aufgabe 2 ca. 40 % · Aufgabe 3 ca. 20 %.</p><ul>
@@ -411,7 +415,7 @@ function psProbe(el){
   <h2 class="sec">Aufgaben</h2>
   <div class="aufg"><h3>1. Fassen Sie das Fallbeispiel fachlich sinnvoll zusammen.</h3><p class="meta">AFB I</p></div>
   <div class="aufg"><h3>2. Stellen Sie die Familie Berger in einer Systemskizze dar und erklären Sie die positive Rückkopplung im Fallbeispiel anhand des Vier-Seiten-Modells.</h3><p class="meta">AFB II</p></div>
-  <div class="aufg"><h3>3. Erörtern Sie Merkmale erfolgreicher Kommunikation unter Bezug auf das Fallbeispiel.</h3><p class="meta">AFB III</p></div>
+  <div class="aufg"><h3>3. Erörtern Sie Merkmale erfolgreicher und misslingender Kommunikation unter Bezug auf das Fallbeispiel.</h3><p class="meta">AFB III</p></div>
   <h2 class="sec">Musterlösungen</h2>
   <details class="entry"><summary><h3>Aufgabe 1 · Zusammenfassung</h3></summary><div class="inner ml">
    <p>In dem fiktiven Fallbeispiel „Ein ganz normaler Montag“ geht es um einen Konflikt in der vierköpfigen Familie Berger, der sich aus einer alltäglichen Äußerung beim Frühstück entwickelt und erst durch ein gemeinsames Familiengespräch gelöst wird.</p>
@@ -429,28 +433,34 @@ function psProbe(el){
    <p><b>Interdependenz:</b> Der Konflikt verändert das Verhalten aller Mitglieder: Lena flieht aus dem Haus (Z. 16 f.) und zieht sich auch später zurück (Z. 21 f.), die Eltern reden nur noch das Nötigste (Z. 20 f.), und Tim, der gar nicht beteiligt war, wird übergangen (Z. 19) und bekommt Bauchschmerzen (Z. 22 f.). Das System hat sich deutlich von seinem Normzustand entfernt.</p>
    <p><b>Gegenmaßnahmen:</b> Tims Zettel (Z. 24 f.) wirkt als Gegenmaßnahme. Sabine und Jens klären, was sie eigentlich gemeint haben (Z. 26–30), und im Familiengespräch (Z. 31–36) werden neue Regeln vereinbart. So wird das Fließgleichgewicht wiederhergestellt.</p>
   </div></details>
-  <details class="entry"><summary><h3>Aufgabe 3 · Merkmale erfolgreicher Kommunikation</h3></summary><div class="inner ml">
-   <p>Erfolgreiche Kommunikation liegt vor, wenn die Nachricht so ankommt, wie sie gemeint war, und die Beziehung dabei nicht beschädigt wird.</p>
-   <p><b>1. Klare Selbstoffenbarung / Ich-Botschaften:</b> Hätte Sabine gesagt „Ich mache mir Sorgen, dass du Ärger in der Schule bekommst“, wäre ihre eigentliche Absicht (Z. 27 f.) deutlich geworden und Lena hätte sich weniger bevormundet gefühlt.</p>
-   <p><b>2. Mit vier Ohren hören / nachfragen:</b> Lena und Sabine hören beide vorwiegend mit dem Beziehungsohr. Nachfragen („Wie meinst du das?“) hätte die Eskalation stoppen können.</p>
-   <p><b>3. Metakommunikation:</b> Das Gespräch der Eltern (Z. 26–30) zeigt, wie hilfreich es ist, über die Kommunikation selbst zu sprechen.</p>
-   <p><b>4. Aktives Zuhören und Ausreden-Lassen:</b> Im Familiengespräch darf jeder sprechen, ohne unterbrochen zu werden (Z. 31 f.) – erst dadurch werden die Sichtweisen verstanden.</p>
-   <p><b>5. Alle Systemmitglieder einbeziehen:</b> Wegen der Interdependenz leidet auch Tim (Z. 22 f.). Erfolgreich ist die Lösung erst, als alle vier beteiligt sind und gemeinsam Vereinbarungen treffen (Z. 35 f.).</p>
-   <p><b>6. Passender Rahmen:</b> Der Streit entsteht im morgendlichen Stress (Z. 3), das klärende Gespräch findet in Ruhe am Wochenende statt (Z. 31).</p>
-   <p><b>Fazit:</b> Besonders wichtig sind Ich-Botschaften und Metakommunikation, weil sie direkt an der Beziehungsseite ansetzen, auf der der Konflikt entstanden ist. Allerdings sind diese Merkmale im Alltag, gerade unter Zeitdruck, schwer umzusetzen; Kommunikation lässt sich nie vollständig kontrollieren, da der Empfänger immer selbst entscheidet, mit welchem Ohr er hört.</p>
+  <details class="entry"><summary><h3>Aufgabe 3 · Erfolgreiche und misslingende Kommunikation</h3></summary><div class="inner ml">
+   <p><b>Einleitung:</b> Kommunikation gelingt, wenn eine Nachricht so ankommt, wie sie gemeint war, und die Beziehung dabei nicht beschädigt wird – im System bleibt das Fließgleichgewicht erhalten. Sie misslingt, wenn Missverständnisse oder Verletzungen entstehen, die sich – wie bei Familie Berger – zu einer positiven Rückkopplung aufschaukeln.</p>
+   <p><b>Merkmale misslingender Kommunikation</b></p>
+   <p><b>1. Versteckte Botschaften und das „falsche Ohr“:</b> Sabine sagt nur „Der Bus fährt in zehn Minuten“ (Z. 5), obwohl sie eigentlich Angst hat, dass Lena Ärger bekommt (Z. 27 f.). Ihre Selbstoffenbarung bleibt versteckt, und Lena hört mit dem übergroßen Beziehungsohr Bevormundung heraus (Z. 6 f.).</p>
+   <p><b>2. Du-Botschaften, Vorwürfe und Verallgemeinerungen:</b> „Dann benimm dich auch nicht wie eins“ (Z. 8), „Immer musst du an mir herummeckern!“ (Z. 10) und „Du sitzt ja nur da und liest“ (Z. 13 f.) greifen den anderen an. Sabine wärmt zudem alte Themen auf (Z. 8 f.). Jeder Vorwurf provoziert einen Gegenvorwurf – es kommt zur Eskalation (Z. 6–16).</p>
+   <p><b>3. Ironie und abwertende Körpersprache:</b> Augenverdrehen (Z. 6), die hart abgestellte Dose (Z. 7 f.), Jens’ „falls dir das entgangen ist“ (Z. 15 f.) und das Türknallen (Z. 17) senden auf der Beziehungsebene Abwertung.</p>
+   <p><b>4. Ignorieren und Rückzug:</b> Tims Frage bleibt unbeantwortet (Z. 18 f.), danach reden die Eltern nur noch das Nötigste (Z. 20 f.). Nach Watzlawick kann man nicht nicht kommunizieren – das Schweigen wird als Ablehnung verstanden. Wegen der Interdependenz reagiert Tim mit Bauchschmerzen (Z. 22 f.).</p>
+   <p><b>5. Ungünstiger Rahmen:</b> Der Konflikt beginnt im morgendlichen Stress (Z. 1–5).</p>
+   <p><b>Merkmale erfolgreicher Kommunikation</b></p>
+   <p><b>1. Metakommunikation und Ich-Botschaften:</b> Sabine und Jens sprechen später darüber, was sie eigentlich gemeint haben (Z. 26–30), und senden Ich-Botschaften: „Ich hatte einfach Angst …“ (Z. 27), „Ich wollte dir eigentlich helfen …“ (Z. 29).</p>
+   <p><b>2. Aktives Zuhören:</b> Im Familiengespräch darf jeder sprechen, ohne unterbrochen zu werden (Z. 31 f.).</p>
+   <p><b>3. Wertschätzung:</b> Lenas Gefühl, wie ein Kind behandelt zu werden, wird ernst genommen (Z. 32–34), und sie bekommt Verantwortung (Z. 34 f.).</p>
+   <p><b>4. Alle einbeziehen, konkrete Vereinbarungen:</b> Alle vier setzen sich zusammen (Z. 31) und treffen konkrete Absprachen (Z. 34–36). Tim wirkt erleichtert (Z. 36).</p>
+   <p><b>5. Passender Rahmen:</b> Das Gespräch findet in Ruhe am Wochenende statt (Z. 31).</p>
+   <p><b>Fazit:</b> Am wichtigsten sind Ich-Botschaften und Metakommunikation, weil der Konflikt auf der Beziehungsebene entstanden ist und genau dort gelöst werden muss. Der Fall zeigt außerdem, dass in einem System alle einbezogen werden müssen, da wegen der Interdependenz auch Unbeteiligte leiden. Allerdings sind diese Merkmale im Alltag, besonders unter Zeitdruck, schwer umzusetzen. Außerdem entscheidet der Empfänger selbst, mit welchem Ohr er hört, und gelingende Kommunikation braucht immer beide Seiten. Missverständnisse lassen sich daher nie ganz vermeiden – durch Metakommunikation lassen sie sich aber rechtzeitig auflösen.</p>
   </div></details>`;
 }
 
 /* ---------- Üben ---------- */
 function psUeben(el){
   let mode=store.get("psMode","karten");
-  el.innerHTML=`<div class="seg three"><button type="button" data-m="karten">Karteikarten</button><button type="button" data-m="quiz">Quiz</button><button type="button" data-m="vier">Vier Seiten</button></div><div id="psUe" class="view" style="gap:14px"></div>`;
-  const set=m=>{mode=m;store.set("psMode",m);el.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));({karten:psKarten,quiz:psQuiz,vier:psVier})[m](psEl("psUe"))};
+  el.innerHTML=`<div class="seg ps-four"><button type="button" data-m="karten">Karten</button><button type="button" data-m="quiz">Quiz</button><button type="button" data-m="vier">Vier Seiten</button><button type="button" data-m="a3">Aufgabe 3</button></div><div id="psUe" class="view" style="gap:14px"></div>`;
+  const set=m=>{mode=m;store.set("psMode",m);el.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));({karten:psKarten,quiz:psQuiz,vier:psVier,a3:psA3Trainer}[m]||psKarten)(psEl("psUe"))};
   el.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>set(b.dataset.m));
   set(mode);
 }
 function psKarten(box){
-  const only=store.get("psNurPflicht",true);
+  const only=store.get("psNurPflicht",false);
   let deck=shuffle(PS_BEGRIFFE.filter(b=>!only||b.p)),total=deck.length,known=0,flip=false;
   const draw=()=>{
     if(!deck.length){box.innerHTML=`<div class="done"><span class="big">${total} / ${total}</span><p>Alle Karten gewusst!</p><button class="btn primary" type="button" id="psAgain">Nochmal</button></div>`;psEl("psAgain").onclick=()=>psKarten(box);return}
@@ -477,7 +487,7 @@ function psQuizRun(box,items,bestKey,render){
     box.querySelector(".opts").onclick=e=>{const b=e.target.closest("button");if(!b||lock)return;lock=true;
       const j=+b.dataset.j;if(it.opts[j].r)pts++;
       box.querySelectorAll(".opts button").forEach((x,k)=>{if(it.opts[k].r)x.classList.add("right");else if(k===j)x.classList.add("wrong")});
-      psEl("psEx").innerHTML=`<button class="btn primary" type="button" id="psNx" style="width:100%">Weiter</button>`;
+      psEl("psEx").innerHTML=(it.after?`<div class="ps-better">${it.after}</div>`:"")+`<button class="btn primary" type="button" id="psNx" style="width:100%">Weiter</button>`;
       psEl("psNx").onclick=()=>{lock=false;i++;draw()}};
   };draw();
 }
@@ -489,6 +499,134 @@ function psVier(box){
   const items=shuffle(PS_VS.flatMap(v=>Object.keys(v.a).map(k=>({s:v.s,t:v.a[k],k})))).slice(0,12)
     .map(it=>({pre:`<p class="meta" style="margin:0">${it.s}</p>`,ask:`„${it.t}“`,opts:Object.keys(PS_SIDE).map(k=>({h:PS_SIDE[k],r:k===it.k}))}));
   psQuizRun(box,items,"psVierBest",psVier);
+}
+
+/* ---------- Aufgabe 3: erfolgreiche & misslingende Kommunikation ---------- */
+const PS_A3=[
+ {no:'Versteckte Botschaften',no_d:'Man sagt nicht direkt, was man meint oder fühlt. Das Eigentliche steckt zwischen den Zeilen – der Empfänger muss raten.',
+  ja:'Klare Botschaften',ja_d:'Offen sagen, was man meint, fühlt und möchte – Selbstoffenbarung und Appell werden ausgesprochen.',
+  m:'Vier-Seiten-Modell (Schulz von Thun): implizite vs. explizite Botschaften',
+  bn:'Sabine sagt nur „Der Bus fährt in zehn Minuten“ (Z. 5), meint aber ihre Sorge (Z. 27 f.).',bj:'Später spricht sie es aus: „Ich hatte einfach Angst …“ (Z. 27 f.).'},
+ {no:'Mit dem „falschen Ohr“ hören',no_d:'Der Empfänger hört einseitig, meist mit einem übergroßen Beziehungsohr: Er bezieht alles auf sich und fühlt sich angegriffen.',
+  ja:'Mit allen vier Ohren hören und nachfragen',ja_d:'Bewusst prüfen, was gemeint sein könnte, und bei Unklarheit nachfragen („Wie meinst du das?“).',
+  m:'Vier-Seiten-Modell: einseitige Empfangsgewohnheiten (übergroßes Ohr)',
+  bn:'Lena hört „Du traust mir nichts zu“ (Z. 6 f.); Sabine hört Jens’ Hilfe als Angriff (Z. 12–14).',bj:'Jens erkennt: „Das kam wohl anders bei dir an.“ (Z. 30)'},
+ {no:'Du-Botschaften und Vorwürfe',no_d:'Aussagen, die den anderen bewerten oder beschuldigen („Du bist …“, „Du machst nie …“). Der andere geht in die Verteidigung.',
+  ja:'Ich-Botschaften',ja_d:'Eigene Gefühle und Wünsche ausdrücken („Ich mache mir Sorgen, wenn …“, „Ich wünsche mir …“), ohne den anderen anzugreifen.',
+  m:'Thomas Gordon (Ich-Botschaften); Vier-Seiten-Modell: klare Selbstoffenbarung statt Angriff auf der Beziehungsseite',
+  bn:'„Du sitzt ja nur da und liest.“ (Z. 13 f.); „Dann benimm dich auch nicht wie eins.“ (Z. 8)',bj:'„Ich hatte einfach Angst, dass …“ (Z. 27 f.); „Ich wollte dir eigentlich helfen …“ (Z. 29)'},
+ {no:'Verallgemeinern und alte Themen aufwärmen',no_d:'„Immer“, „nie“, „ständig“ – und alte Konflikte werden mit in den Streit gezogen. Aus einem kleinen Anlass wird ein Grundsatzstreit.',
+  ja:'Konkret beim aktuellen Thema bleiben',ja_d:'Nur über die aktuelle Situation sprechen, konkret beschreiben, was stört, und eine konkrete Lösung suchen.',
+  m:'Regelkreis: Eine Verallgemeinerung provoziert eine Gegen-Verallgemeinerung → positive Rückkopplung',
+  bn:'„Immer musst du an mir herummeckern! Bei Tim sagst du nie was.“ (Z. 10 f.); Sabine bringt „gestern“ und das Zimmer ins Spiel (Z. 8 f.).',bj:'Konkrete Vereinbarung: Lena stellt ihren Wecker selbst (Z. 34 f.).'},
+ {no:'Ironie und Abwertung',no_d:'Sarkastische oder herablassende Bemerkungen verletzen auf der Beziehungsseite – auch wenn der Sachinhalt stimmt.',
+  ja:'Wertschätzung und Respekt',ja_d:'Den anderen als Person ernst nehmen und achten, auch wenn man in der Sache anderer Meinung ist (Rogers: Wertschätzung).',
+  m:'Vier-Seiten-Modell (Beziehungsseite); Watzlawick: Der Beziehungsaspekt bestimmt den Inhalt; Rogers: Wertschätzung',
+  bn:'„… falls dir das entgangen ist.“ (Z. 15 f.); „Schlachtfeld“ (Z. 9)',bj:'Lenas Gefühl wird ernst genommen (Z. 32–34), und sie bekommt Verantwortung (Z. 34 f.).'},
+ {no:'Widersprüchliche oder abwertende Körpersprache',no_d:'Worte und Körpersprache passen nicht zusammen (inkongruent), oder die Körpersprache wertet ab: Augenverdrehen, Türknallen, Seufzen.',
+  ja:'Kongruenz (Echtheit)',ja_d:'Worte, Tonfall, Mimik und Gestik passen zusammen; man ist ehrlich und meint, was man sagt (Rogers: Echtheit).',
+  m:'Watzlawick: analoge (nonverbale) Kommunikation; Schulz von Thun: kongruente/inkongruente Nachrichten; Rogers: Echtheit',
+  bn:'Lena verdreht die Augen (Z. 6), Sabine stellt die Dose hart ab (Z. 7 f.), Lena knallt die Tür (Z. 17).',bj:'Sabine sagt offen, wie gestresst sie morgens ist (Z. 34) – Worte und Gefühl stimmen überein.'},
+ {no:'Ignorieren, Schweigen, Rückzug',no_d:'Fragen bleiben unbeantwortet, man redet nur das Nötigste oder zieht sich zurück. Auch das ist eine Botschaft – meist: „Du bist mir nicht wichtig.“',
+  ja:'Aktiv zuhören und alle einbeziehen',ja_d:'Sich zuwenden, ausreden lassen, nachfragen und Gehörtes wiedergeben; alle Systemmitglieder kommen zu Wort (Rogers: Empathie).',
+  m:'Watzlawick: „Man kann nicht nicht kommunizieren.“; Systemtheorie: Interdependenz; Gordon/Rogers: aktives Zuhören',
+  bn:'Niemand antwortet Tim (Z. 18 f.); die Eltern reden nur das Nötigste (Z. 20 f.); Lena zieht sich zurück (Z. 21 f.).',bj:'Jeder darf sprechen, ohne unterbrochen zu werden (Z. 31 f.); Tim wirkt erleichtert (Z. 36).'},
+ {no:'Eskalation: jeder setzt einen drauf',no_d:'Auf jeden Angriff folgt ein Gegenangriff; jeder sieht die Schuld beim anderen („Du hast angefangen!“). Der Streit schaukelt sich hoch = positive Rückkopplung.',
+  ja:'Deeskalieren',ja_d:'Einer steigt aus dem Kreislauf aus: nicht zurückschlagen, Pause machen, ruhig bleiben, später in Ruhe weiterreden.',
+  m:'Watzlawick: symmetrische Eskalation, Interpunktion; Systemtheorie: positive Rückkopplung',
+  bn:'Lena ↔ Sabine (Z. 6–11), dann Sabine ↔ Jens (Z. 12–16).',bj:'Tims Zettel unterbricht den Kreislauf (Z. 24 f.); die Eltern reden in Ruhe (Z. 26–30).'},
+ {no:'Keine Metakommunikation',no_d:'Niemand spricht darüber, wie etwas gemeint war oder angekommen ist. Missverständnisse bleiben bestehen.',
+  ja:'Metakommunikation',ja_d:'Über die Kommunikation selbst sprechen: „Wie hast du das gemeint?“, „So kam das bei mir an …“, „Wie reden wir eigentlich miteinander?“',
+  m:'Watzlawick und Schulz von Thun: Metakommunikation als wichtigste Gegenmaßnahme',
+  bn:'Im ganzen Streit fragt niemand nach (Z. 5–17).',bj:'„Ich glaube, ich wollte Lena … gar nicht kritisieren.“ (Z. 26 f.); „Das kam wohl anders bei dir an.“ (Z. 30)'},
+ {no:'Ungünstiger Rahmen',no_d:'Heikle Themen werden unter Zeitdruck, im Stress oder „zwischen Tür und Angel“ angesprochen.',
+  ja:'Passender Zeitpunkt und Rahmen',ja_d:'Sich Zeit nehmen, Ruhe, alle Beteiligten dabei, klare Gesprächsregeln.',
+  m:'Regelkreis: Übermittlung (Situation, Kanal); äußere Einflüsse (Stress) wirken ins System',
+  bn:'Montagmorgen, Hektik, der Bus fährt gleich (Z. 1–5).',bj:'Familiengespräch am Wochenende mit der Regel „ausreden lassen“ (Z. 31 f.).'}
+];
+const PS_A3Q=[
+ {s:'„Immer musst du an mir herummeckern!“',k:3,b:'„Ich fühle mich gerade kritisiert. Was genau stört dich?“'},
+ {s:'„Du sitzt ja nur da und liest.“',k:2,b:'„Ich fühle mich morgens mit allem allein. Kannst du mir helfen?“'},
+ {s:'„Ich arbeite auch den ganzen Tag, falls dir das entgangen ist.“',k:4,b:'„Ich bin auch erschöpft. Lass uns die Aufgaben neu verteilen.“'},
+ {s:'Lena verdreht die Augen und knallt später die Haustür zu.',k:5,b:'Ruhig sagen, dass man sich ärgert: „Das nervt mich gerade.“'},
+ {s:'Tim fragt etwas – niemand antwortet ihm.',k:6,b:'Sich kurz zuwenden: „Gute Frage, Tim. Wir reden gleich darüber.“'},
+ {s:'Sabine sagt „Der Bus fährt in zehn Minuten“, meint aber: „Ich habe Angst, dass du Ärger bekommst.“',k:0,b:'„Ich mache mir Sorgen, dass du wieder zu spät kommst.“'},
+ {s:'Lena hört bei „Der Bus fährt in zehn Minuten“ nur: „Du traust mir nichts zu.“',k:1,b:'Nachfragen: „Meinst du, ich schaffe das nicht allein?“'},
+ {s:'„Gestern warst du zu spät, und dein Zimmer ist ein Schlachtfeld!“',k:3,b:'Beim Thema bleiben: „Mir geht es gerade nur um den Bus.“'},
+ {s:'Beide werden immer lauter, jeder setzt noch einen drauf.',k:7,b:'Einer steigt aus: „Stopp – lass uns heute Abend in Ruhe reden.“'},
+ {s:'„Ich streite doch nur, weil DU angefangen hast!“',k:7,b:'Die Schuldfrage weglassen: „Wie kommen wir da gemeinsam raus?“'},
+ {s:'Ein Grundsatzstreit beginnt mitten im Morgenstress.',k:9,b:'Einen ruhigen Zeitpunkt wählen, z. B. am Wochenende.'},
+ {s:'„Ist schon okay“, sagt sie mit zusammengebissenen Zähnen.',k:5,b:'Ehrlich sein: „Ehrlich gesagt ärgert mich das.“'},
+ {s:'Alle reden aneinander vorbei, keiner fragt, wie es gemeint war.',k:8,b:'„Wie hast du das gerade gemeint?“'},
+ {s:'Die Eltern reden tagelang nur noch das Nötigste.',k:6,b:'Das Gespräch suchen: „Ich merke, dass wir kaum noch reden. Können wir darüber sprechen?“'}
+];
+function psAufgabe3(el){
+  el.innerHTML=`
+  <p class="meta" style="margin:0">Gängige Merkmale aus den Modellen (Schulz von Thun, Watzlawick, Rogers, Gordon) – mit Beispielen aus der Probeklausur. Falls ihr im Unterricht andere Merkmale hattet, nimm die!</p>
+  <section class="tx"><span class="tx-y">Definitionen</span><h2>Wann gelingt Kommunikation – wann misslingt sie?</h2>
+   ${psDef("Gelingende (erfolgreiche) Kommunikation","Die Nachricht kommt so an, wie sie gemeint war; beide fühlen sich verstanden und respektiert, die Beziehung bleibt intakt. Im System: negative Rückkopplung – das Fließgleichgewicht bleibt erhalten.")}
+   ${psDef("Misslingende Kommunikation","Die Nachricht wird anders verstanden als gemeint oder verletzt die Beziehung. Es entstehen Konflikte, die sich aufschaukeln – positive Rückkopplung, das System entfernt sich vom Normzustand.")}
+   <p class="ex"><b>Lerntrick:</b> Jedes misslingende Merkmal hat ein erfolgreiches Gegenstück. Lerne sie als Paare – dann hast du in der Klausur automatisch beide Seiten.</p>
+  </section>
+  <h2 class="sec">Auf einen Blick</h2>
+  ${psTable(["✗ Misslingend","✓ Erfolgreich"],PS_A3.map(x=>[`<b class="ps-bez">${x.no}</b>`,`<b class="ps-selbst">${x.ja}</b>`]))}
+  <h2 class="sec">Die 10 Paare genau erklärt</h2>
+  ${PS_A3.map((x,i)=>`<details class="entry"><summary><h3>${i+1}. ${x.no} ↔ ${x.ja}</h3></summary><div class="inner">
+    <div class="ps-pair no"><b>✗ ${x.no}</b><p>${x.no_d}</p><p class="ps-bsp"><b>Im Fall:</b> ${x.bn}</p></div>
+    <div class="ps-pair ja"><b>✓ ${x.ja}</b><p>${x.ja_d}</p><p class="ps-bsp"><b>Im Fall:</b> ${x.bj}</p></div>
+    <p class="meta"><b>Modell:</b> ${x.m}</p></div></details>`).join("")}
+  <h2 class="sec">Die Modelle dahinter</h2>
+  <section class="tx"><span class="tx-y">Schulz von Thun</span><h2>Einseitige Empfangsgewohnheiten</h2>
+   <p>Missverständnisse entstehen oft, weil jemand gewohnheitsmäßig mit einem „übergroßen“ Ohr hört:</p>
+   ${psTable(["Übergroßes …","Folge"],[
+     ['<b class="ps-sach">Sach-Ohr</b>',"Gefühle und Beziehungsprobleme werden überhört und nur sachlich diskutiert."],
+     ['<b class="ps-bez">Beziehungs-Ohr</b>',"Alles wird persönlich genommen und als Angriff verstanden (Lena und Sabine im Fall)."],
+     ['<b class="ps-selbst">Selbstoffenbarungs-Ohr</b>',"Alles wird nur als Zustand des anderen gedeutet („Der hat ja nur schlechte Laune“) – nichts kommt wirklich an."],
+     ['<b class="ps-app">Appell-Ohr</b>',"Man will es allen recht machen und hört überall Aufforderungen heraus."]])}
+   <p class="meta" style="margin-top:8px">Außerdem: <b>explizite vs. implizite</b> Botschaften und <b>kongruente vs. inkongruente</b> Nachrichten.</p>
+  </section>
+  <section class="tx"><span class="tx-y">Paul Watzlawick</span><h2>Typische Störungen je Axiom</h2>
+   ${psTable(["Axiom","Typische Störung"],[
+     ["1 · Man kann nicht nicht kommunizieren","Schweigen und Ignorieren werden als Botschaft verstanden – meist als Ablehnung."],
+     ["2 · Inhalts- und Beziehungsaspekt","Ein Beziehungskonflikt wird auf der Sachebene ausgetragen (man streitet über den Bus, meint aber die Beziehung)."],
+     ["3 · Interpunktion","Jeder sieht die Ursache beim anderen („Du hast angefangen!“) → Teufelskreis."],
+     ["4 · Digital und analog","Worte und Körpersprache widersprechen sich; Ironie wird falsch verstanden."],
+     ["5 · Symmetrisch / komplementär","Symmetrische Eskalation (jeder will gewinnen) oder starre Komplementarität (einer ist immer unterlegen)."]])}
+  </section>
+  <section class="tx"><span class="tx-y">Carl Rogers · Thomas Gordon</span><h2>Was Kommunikation gelingen lässt</h2>
+   <p><b>Drei Grundhaltungen nach Rogers:</b></p>
+   <ul class="ps-ul"><li><b>Empathie</b> – einfühlendes Verstehen: sich in den anderen hineinversetzen.</li><li><b>Wertschätzung</b> – den anderen ohne Bedingungen als Person akzeptieren.</li><li><b>Echtheit (Kongruenz)</b> – ehrlich sein; Worte, Gefühle und Körpersprache passen zusammen.</li></ul>
+   <p><b>Gordon:</b> <b>Ich-Botschaften</b> statt Du-Botschaften und <b>aktives Zuhören</b> (zuhören, nachfragen, mit eigenen Worten wiedergeben).</p>
+  </section>
+  <h2 class="sec">So schreibst du Aufgabe 3</h2>
+  <div class="step"><span class="afb">Aufbau</span><ol>
+   <li><b>Einleitung:</b> gelingende und misslingende Kommunikation definieren, Bezug zum System (negative/positive Rückkopplung).</li>
+   <li><b>Misslingend:</b> 3–4 Merkmale nennen, mit Modell erklären, am Fall belegen (Zeilen!).</li>
+   <li><b>Erfolgreich:</b> jeweils das Gegenstück – am Fall belegen oder zeigen, wie die Person es besser hätte sagen können.</li>
+   <li><b>Fazit / Urteil:</b> Welche Merkmale sind am wichtigsten und warum? Grenzen nennen.</li></ol></div>
+  <div class="step"><span class="afb">Grenzen fürs Fazit</span><ul>
+   <li>Im Stress und bei starken Gefühlen schwer umzusetzen.</li>
+   <li>Der Empfänger entscheidet selbst, mit welchem Ohr er hört – Missverständnisse lassen sich nie ganz vermeiden.</li>
+   <li>Gelingende Kommunikation braucht beide Seiten; einer allein kann sie nicht erzwingen.</li>
+   <li>Ungleiche Machtverhältnisse (Eltern – Kind, komplementäre Beziehung) erschweren Gespräche auf Augenhöhe.</li>
+   <li>Techniken wie Ich-Botschaften wirken unecht, wenn die Haltung (Wertschätzung, Echtheit) fehlt.</li></ul></div>
+  <div class="step"><span class="afb">Satzbausteine</span><ul>
+   <li>„Ein Merkmal misslingender Kommunikation ist …. Dies zeigt sich im Fallbeispiel, als … (Z. …).“</li>
+   <li>„Nach dem Vier-Seiten-Modell lässt sich das so erklären: …“</li>
+   <li>„Erfolgreicher wäre es gewesen, wenn … eine Ich-Botschaft gesendet hätte, z. B.: ‚…‘.“</li>
+   <li>„Dass dies wirkt, zeigt sich am Ende des Falls: … (Z. …).“</li>
+   <li>„Einerseits …, andererseits …“</li>
+   <li>„Abschließend lässt sich festhalten, dass … besonders wichtig ist, weil …“</li></ul></div>
+  <p class="ex"><a href="#/psychologie/klausur/ueben" onclick="store.set('psMode','a3')"><b>→ Üben: Merkmale im Text erkennen</b></a></p>`;
+}
+function psA3Trainer(box){
+  const items=shuffle(PS_A3Q).slice(0,10).map(it=>{
+    const others=shuffle(PS_A3.map((x,i)=>i).filter(i=>i!==it.k)).slice(0,3);
+    return {pre:'<p class="meta" style="margin:0">Welches Merkmal misslingender Kommunikation zeigt sich hier?</p>',ask:it.s,
+      opts:shuffle([it.k,...others]).map(i=>({h:PS_A3[i].no,r:i===it.k})),
+      after:`<b>✓ Besser (${PS_A3[it.k].ja}):</b> ${it.b}`};
+  });
+  psQuizRun(box,items,"psA3Best",psA3Trainer);
 }
 
 /* ---------- Merken ---------- */
@@ -509,12 +647,24 @@ const PS_MERK=`<table class="mtab"><tbody>
 <tr><td>Selbstoffenbarung</td><td>Was gebe ich von mir preis?</td></tr>
 <tr><td>Beziehung</td><td>Wie stehe ich zu dir? Was halte ich von dir?</td></tr>
 <tr><td>Appell</td><td>Wozu möchte ich dich veranlassen?</td></tr>
-</tbody></table><p class="tip" style="margin:10px 0 0">Klausur: AFB I zusammenfassen (Zeilen!) · AFB II Systemskizze + positive Rückkopplung mit Vier-Seiten-Modell · AFB III Merkmale erfolgreicher Kommunikation.</p>`;
+<tr class="ph"><td colspan="2">Aufgabe 3: misslingend → erfolgreich</td></tr>
+<tr><td>Versteckte Botschaft</td><td>→ klar sagen, was man meint</td></tr>
+<tr><td>Falsches Ohr</td><td>→ mit vier Ohren hören, nachfragen</td></tr>
+<tr><td>Du-Botschaft, Vorwurf</td><td>→ Ich-Botschaft</td></tr>
+<tr><td>„Immer“, „nie“, alte Themen</td><td>→ konkret beim Thema bleiben</td></tr>
+<tr><td>Ironie, Abwertung</td><td>→ Wertschätzung, Respekt</td></tr>
+<tr><td>Abwertende Körpersprache</td><td>→ Kongruenz (Echtheit)</td></tr>
+<tr><td>Ignorieren, Rückzug</td><td>→ aktiv zuhören, alle einbeziehen</td></tr>
+<tr><td>Eskalation</td><td>→ deeskalieren, Pause</td></tr>
+<tr><td>Keine Metakommunikation</td><td>→ Metakommunikation</td></tr>
+<tr><td>Stress, Zeitdruck</td><td>→ passender Rahmen</td></tr>
+</tbody></table><p class="tip" style="margin:10px 0 0">Klausur: AFB I zusammenfassen (Zeilen!) · AFB II Systemskizze + positive Rückkopplung mit Vier-Seiten-Modell · AFB III Merkmale erfolgreicher und misslingender Kommunikation.</p>`;
 
 /* ---------- Module für die Navigation ----------
    Ein Fach kann statt tabs:"U"/"K" ein eigenes Modul haben (mod:"psyU" / "psyK").
    Jedes Modul bringt seine Reiter, Titel, Ansichten und den Merken-Inhalt mit. */
 const PS_ICON={
+  a3:`<svg viewBox="0 0 24 24"><path d="M3 12l3 3 5-6"/><path d="M14 9l6 6M20 9l-6 6"/></svg>`,
   text:`<svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>`,
   modell:`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/><circle cx="9" cy="10" r="1.6"/><circle cx="15" cy="10" r="1.6"/><circle cx="12" cy="15" r="1.6"/></svg>`,
   ablauf:`<svg viewBox="0 0 24 24"><path d="M9 4h6v3H9z"/><path d="M9 5H6v16h12V5h-3"/><path d="M9 13l2 2 4-4"/></svg>`,
@@ -527,8 +677,8 @@ const MODS={
     titles:{mitschrift:["Mitschrift","System, Interaktion & Kommunikation"],modelle:["Modelle","Übersicht zu jedem Modell"]},
     views:{mitschrift:psMitschrift,modelle:psModelle},
     merk:["Das Wichtigste auf einen Blick","System & Kommunikation",PS_MERK]},
-  psyK:{tabs:[["ablauf","Ablauf","ablauf"],["begriffe","Begriffe","lex"],["modelle","Modelle","modell"],["probe","Probe","probe"],["ueben","Üben","ueben"]],
-    titles:{ablauf:["Ablauf","Klausuraufbau, Tipps, Checkliste"],begriffe:["Fachbegriffe",`${PS_BEGRIFFE.length} Begriffe zum Lernen`],modelle:["Modelle","Übersicht zu jedem Modell"],probe:["Probeklausur","Fallbeispiel mit Musterlösung"],ueben:["Üben","Karteikarten, Quiz, Vier-Seiten-Trainer"]},
-    views:{ablauf:psAblauf,begriffe:psBegriffe,modelle:psModelle,probe:psProbe,ueben:psUeben},
+  psyK:{tabs:[["ablauf","Ablauf","ablauf"],["begriffe","Begriffe","lex"],["modelle","Modelle","modell"],["aufgabe3","Aufgabe 3","a3"],["probe","Probe","probe"],["ueben","Üben","ueben"]],
+    titles:{ablauf:["Ablauf","Klausuraufbau, Tipps, Checkliste"],begriffe:["Fachbegriffe",`${PS_BEGRIFFE.length} Begriffe zum Lernen`],modelle:["Modelle","Übersicht zu jedem Modell"],aufgabe3:["Aufgabe 3","Erfolgreiche & misslingende Kommunikation"],probe:["Probeklausur","Fallbeispiel mit Musterlösung"],ueben:["Üben","Karteikarten, Quiz, Vier-Seiten-Trainer"]},
+    views:{ablauf:psAblauf,begriffe:psBegriffe,modelle:psModelle,aufgabe3:psAufgabe3,probe:psProbe,ueben:psUeben},
     merk:["Das Wichtigste auf einen Blick","System & Kommunikation",PS_MERK]}
 };
