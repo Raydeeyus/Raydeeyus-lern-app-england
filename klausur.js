@@ -6,7 +6,7 @@
 /* ---------- Fächer ----------
    Jedes Fach hat IMMER die beiden Kategorien "unterricht" und "klausur".
    tabs: "U" = bisherige England-App, "K" = Klausurvorbereitung Karl I.
-   mod: eigenes Modul mit eigenen Reitern (siehe MODS, z. B. in psychologie.js).
+   mod: eigenes Modul mit eigenen Reitern (siehe MODS, z. B. in psychologie.js, deutsch.js).
    Leere Kategorie = kein Eintrag in kat. Neues Fach: einfach hier ergänzen. */
 const FAECHER=[
  {id:"geschichte",name:"Geschichte",c:"--crown",cs:"--crown-soft",klausur:"2026-11-17",thema:"Karl I. und Cromwell",
@@ -16,7 +16,10 @@ const FAECHER=[
  {id:"sport",name:"Sport",c:"--parl",cs:"--parl-soft",kat:{}},
  {id:"psychologie",name:"Psychologie",c:"--psy",cs:"--psy-soft",klausur:"2026-11-18",thema:"System, Interaktion & Kommunikation",
   kat:{unterricht:{mod:"psyU",desc:"Mitschrift: Systeme, Kommunikation, Vier-Seiten-Modell"},
-       klausur:{mod:"psyK",desc:"Ablauf, Fachbegriffe, Modelle, Probeklausur, Üben"}}}
+       klausur:{mod:"psyK",desc:"Ablauf, Fachbegriffe, Modelle, Probeklausur, Üben"}}},
+ {id:"deutsch",name:"Deutsch",c:"--de",cs:"--de-soft",klausur:"2026-11-20",thema:"Materialgestützt argumentieren · Sprachwandel",
+  kat:{unterricht:{mod:"deU",desc:"Sprachwandel, Varietäten, Polenz & Co., Internetsprache, Medien, Hate Speech"},
+       klausur:{mod:"deK",desc:"Ablauf, Vertreter, Material, Argumente, Musteraufsätze, Üben"}}}
 ];
 const KATS={
  unterricht:{name:"Unterricht",c:"--parl",icon:`<svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6M9 12h6"/></svg>`},

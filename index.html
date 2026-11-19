@@ -16,7 +16,7 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px)} body{margin:0} /* Layout: phone app — sticky title bar, one scrolling view, fixed bottom tab bar (Zeitstrahl / Lexikon / Üben) */
 :root{
   --bg:#f6f7f4; --surface:#ffffff; --fg:#1d2330; --muted:#5d6472; --line:#d9dcd4;
-  --crown:#a3242f; --crown-soft:#f6e3e4; --parl:#1f6b4a; --parl-soft:#dff0e7; --gold:#9a7a1e; --gold-soft:#f3ecd8; --psy:#2f5d8a; --psy-soft:#e2ebf5;
+  --crown:#a3242f; --crown-soft:#f6e3e4; --parl:#1f6b4a; --parl-soft:#dff0e7; --gold:#9a7a1e; --gold-soft:#f3ecd8; --psy:#2f5d8a; --psy-soft:#e2ebf5; --de:#6a4c93; --de-soft:#ece6f4;
   --e1:#e9e2cf; --e2:#e4dde9; --e3:#f0dcd8; --e4:#d9e6e4; --e5:#dfe5f1;
   --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
@@ -24,11 +24,11 @@
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#14171d; --surface:#1c2028; --fg:#e8e9e4; --muted:#a3a8b2; --line:#343a46;
-  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18; --psy:#7fb0e0; --psy-soft:#1e2a3a;
+  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18; --psy:#7fb0e0; --psy-soft:#1e2a3a; --de:#b89be0; --de-soft:#2a2336;
   --e1:#37321f; --e2:#2f2a3a; --e3:#3c2725; --e4:#21332f; --e5:#232c3d; color-scheme:dark }}
 :root[data-theme="dark"]{
   --bg:#14171d; --surface:#1c2028; --fg:#e8e9e4; --muted:#a3a8b2; --line:#343a46;
-  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18; --psy:#7fb0e0; --psy-soft:#1e2a3a;
+  --crown:#e2717a; --crown-soft:#3b2226; --parl:#5cc596; --parl-soft:#173328; --gold:#d6b45a; --gold-soft:#332c18; --psy:#7fb0e0; --psy-soft:#1e2a3a; --de:#b89be0; --de-soft:#2a2336;
   --e1:#37321f; --e2:#2f2a3a; --e3:#3c2725; --e4:#21332f; --e5:#232c3d; color-scheme:dark }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -275,6 +275,32 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .ps-better{background:var(--parl-soft);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:.95rem;line-height:1.5}
 .seg.ps-four{grid-template-columns:repeat(4,1fr)} .seg.ps-four button{font-size:.82rem;padding:8px 2px}
 #navM button{font-size:.72rem;white-space:nowrap}
+
+/* Deutsch (deutsch.js) */
+.de-b{display:inline-block;font-family:var(--sans);font-style:normal;font-size:.66rem;font-weight:800;letter-spacing:.03em;padding:0 6px;border-radius:999px;vertical-align:2px;margin:0 1px;line-height:1.55}
+.de-b.m{background:var(--psy-soft);color:var(--psy)} .de-b.u{background:var(--parl-soft);color:var(--parl)} .de-b.e{background:var(--gold-soft);color:var(--gold)}
+.de-nomark .de-b{display:none}
+.de-nb{white-space:nowrap}
+.de-must a,#m-view .ex a{color:var(--de)}
+#m-view .erachips.de-chips a{--ec:var(--de-soft)}
+.de-def{border-left-color:var(--de)}
+.de-def b{display:inline;font-family:inherit;font-size:inherit}
+.de-def b.de-dt{display:block;font-family:var(--serif);font-size:1.05rem}
+.de-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0}
+.de-tw .ps-tab td,.de-tw .ps-tab th{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.de-chip{display:inline-block;font-size:.84rem;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--de-soft);color:var(--fg)}
+.de-quote{font-family:var(--serif);font-style:italic;border-left:3px solid var(--de);padding-left:10px}
+.de-must{border:2px solid var(--de);background:var(--de-soft)}
+.de-must .afb{color:var(--de)}
+.de-arg{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--parl);border-radius:10px;padding:11px 13px;display:flex;flex-direction:column;gap:6px}
+.de-arg.con{border-left-color:var(--crown)}
+.de-arg h3{margin:0;font-size:1rem;line-height:1.35}
+.de-arg p{margin:0;font-size:.94rem;line-height:1.5}
+.de-arg ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px;font-size:.92rem;line-height:1.45}
+.de-ent{font-size:.9rem!important;background:var(--gold-soft);border-radius:8px;padding:7px 10px}
+.de-text .ml p{font-size:1.02rem}
+.q .ask .de-ask{font-size:1.15rem;display:block;line-height:1.3}
+.row .toggle{font-size:.82rem}
 
 </style>
 </head>
@@ -654,6 +680,7 @@ renderUeben();
 </script>
 <nav class="tabs" id="navM" role="tablist" hidden></nav>
 <script src="psychologie.js"></script>
+<script src="deutsch.js"></script>
 <script src="klausur.js"></script>
 
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
