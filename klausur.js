@@ -13,7 +13,7 @@ const FAECHER=[
   kat:{unterricht:{tabs:"U",desc:"England 1509–1714 · Krone gegen Parlament"},
        klausur:{tabs:"K",desc:"Karl I. 1603–1649 · danach Cromwell"}}},
  {id:"kunst",name:"Kunst",c:"--gold",cs:"--gold-soft",kat:{}},
- {id:"sport",name:"Sport",c:"--parl",cs:"--parl-soft",thema:"Trainingsmethoden · Superkompensation · Belastungssteigerung",
+ {id:"sport",name:"Sport",c:"--parl",cs:"--parl-soft",klausur:"2026-11-26",thema:"Trainingsmethoden · Superkompensation · Belastungssteigerung",
   kat:{unterricht:{mod:"spU",desc:"Trainingsmethoden, Anpassung & Superkompensation, Trainingsprinzipien, Begriffe"},
        klausur:{mod:"spK",desc:"Was drankommt, 4 Methoden, Superkompensation mit Skizze, Belastungssteigerung, Probe, Üben"}}},
  {id:"psychologie",name:"Psychologie",c:"--psy",cs:"--psy-soft",klausur:"2026-11-18",thema:"System, Interaktion & Kommunikation",
