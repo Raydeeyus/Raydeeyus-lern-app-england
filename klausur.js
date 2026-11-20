@@ -6,13 +6,15 @@
 /* ---------- Fächer ----------
    Jedes Fach hat IMMER die beiden Kategorien "unterricht" und "klausur".
    tabs: "U" = bisherige England-App, "K" = Klausurvorbereitung Karl I.
-   mod: eigenes Modul mit eigenen Reitern (siehe MODS, z. B. in psychologie.js, deutsch.js, sport.js).
+   mod: eigenes Modul mit eigenen Reitern (siehe MODS, z. B. in psychologie.js, deutsch.js, sport.js, kunst.js).
    Leere Kategorie = kein Eintrag in kat. Neues Fach: einfach hier ergänzen. */
 const FAECHER=[
  {id:"geschichte",name:"Geschichte",c:"--crown",cs:"--crown-soft",klausur:"2026-11-17",thema:"Karl I. und Cromwell",
   kat:{unterricht:{tabs:"U",desc:"England 1509–1714 · Krone gegen Parlament"},
        klausur:{tabs:"K",desc:"Karl I. 1603–1649 · danach Cromwell"}}},
- {id:"kunst",name:"Kunst",c:"--gold",cs:"--gold-soft",kat:{}},
+ {id:"kunst",name:"Kunst",c:"--gold",cs:"--gold-soft",klausur:"2026-11-25",thema:"Fotografie zwischen Dokumentation und Inszenierung",
+  kat:{unterricht:{mod:"kuU",desc:"Einführung, Fotografie & Wirklichkeit, Gestaltungsmittel & Bildkomposition, Genres, Begriffe"},
+       klausur:{mod:"kuK",desc:"Was drankommt, Theorie, Gestaltungsmittel, Fotoanalyse mit Muster, Probe, Üben"}}},
  {id:"sport",name:"Sport",c:"--parl",cs:"--parl-soft",klausur:"2026-11-26",thema:"Trainingsmethoden · Superkompensation · Belastungssteigerung",
   kat:{unterricht:{mod:"spU",desc:"Trainingsmethoden, Anpassung & Superkompensation, Trainingsprinzipien, Begriffe"},
        klausur:{mod:"spK",desc:"Was drankommt, 4 Methoden, Superkompensation mit Skizze, Belastungssteigerung, Probe, Üben"}}},
