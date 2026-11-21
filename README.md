@@ -1,6 +1,6 @@
 # Klausuren
 
-Lern-App (PWA) für alle Klausurfächer. Fächer-Ordner (Geschichte, Kunst, Sport, Psychologie, Deutsch), jeweils mit Unterricht und Klausurvorbereitung. Geschichte · Unterricht: England 1509–1714 mit Zeitstrahl (mit Herrscherwechseln: warum an die Macht, warum Ende), Lexikon, Karteikarten und Jahreszahlen-Quiz. Funktioniert offline.
+Lern-App (PWA) für alle Klausurfächer. Fächer-Ordner (Geschichte, Mathe, Kunst, Sport, Psychologie, Deutsch), jeweils mit Unterricht und Klausurvorbereitung. Geschichte · Unterricht: England 1509–1714 mit Zeitstrahl (mit Herrscherwechseln: warum an die Macht, warum Ende), Lexikon, Karteikarten und Jahreszahlen-Quiz. Funktioniert offline.
 
 Psychologie (11 LK) · System, Interaktion & Kommunikation (`psychologie.js`): Unterricht (Mitschrift, Modelle) und Klausurvorbereitung (Ablauf, Fachbegriffe, Modelle mit Skizzen, Probeklausur mit Musterlösung, Üben mit Karteikarten, Quiz und Vier-Seiten-Trainer).
 
@@ -9,3 +9,5 @@ Deutsch (GK 12/1) · Materialgestütztes Schreiben eines argumentativen Textes, 
 Sport · Trainingslehre (`sport.js`): Unterricht (Trainingsmethoden, Anpassung & Superkompensation, Trainingsprinzipien, Begriffe) und Klausurvorbereitung nach dem Zettel „Klausurrelevant“ (Was drankommt, die 4 Trainingsmethoden, Superkompensation mit Skizze, allmähliche/sprunghafte/variierende Belastungssteigerung mit Erwartungshorizont, Probeklausur mit Musterlösungen, Üben mit Karten, Quiz, Methode erkennen und Reihenfolge).
 
 Kunst (GK 12) · Fotografie zwischen Dokumentation und Inszenierung (`kunst.js`): Unterricht (Einführung mit Aufgaben, Arten und Kommunikationsmodell, Fotografie und Wirklichkeit, Gestaltungsmittel und Bildkomposition, Genres, Begriffe) und Klausurvorbereitung (Was drankommt mit Lehren aus Test und Handout, Theorie, Gestaltungsmittel mit Einstellungsgrößen-Bildern, Fotoanalyse I–IV mit Kompositionsskizze und Musteranalyse, Probeklausur mit Musterlösungen, Üben mit Karten, Quiz, Einstellungsgrößen-Trainer und Zuordnen).
+
+Mathe · Kurvendiskussion (`mathe.js`): Unterricht (Nullstellen mit allen Verfahren außer Polynomdivision, Vielfachheit, Achsenschnittpunkte, Skizzieren; mittlere und lokale Änderungsrate, Steigungswinkel, Schnittpunkte und Schnittwinkel, Tangente und Normale; Ableitungsregeln mit Wurzeln, Brüchen und Parametern, graphisches Differenzieren mit NEW-Regel; Extrempunkte; durchsuchbare Formelsammlung) und Klausurvorbereitung (Was drankommt mit Taschenrechner-Regeln und Lernplan, 16 Rezepte Schritt für Schritt, OHiMi-Training ohne Taschenrechner, Probeklausur Teil A/B mit Musterlösungen, Üben mit Karten, Ableitungs-Trainer, Graphen-Trainer und Quiz).
