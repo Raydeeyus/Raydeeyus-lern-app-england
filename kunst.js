@@ -1,6 +1,8 @@
 /* =========================================================
    Klausuren-App: Kunst · Fotografie (GK 12, Lehrkraft A. Palm)
    Kursthema: Funktionen der Fotografie zwischen Dokumentation und Inszenierung
+   Klausurthemen (Liste, 23.11.): 1 Arten/Gattungen/Genre + Merkmale + Funktionen,
+   2 Gestaltungsmittel + Wirkung, 3 Fotoanalyse, 4 Praktische Umsetzung.
    Wird NACH sport.js und VOR klausur.js geladen und ergänzt MODS (kuU / kuK).
    Quelle: Unterrichtsmaterial (PDF „12_1“): Mitschriften, Arbeitsblätter
    Einführung/Genre/Fotoanalyse/Bildkomposition, Handbuch Medien S. 298–300,
@@ -70,7 +72,7 @@ const KU_EG=[
  {id:"halbnah",n:"Halbnah",dist:"ca. 2–3 m",zeigt:"etwa zwei Drittel der Person; die unmittelbare Umgebung ist noch zu erkennen; auch Personengruppen",wirk:"schon eher objektive Bildwirkung",frage:"Etwa zwei Drittel der Person und die nahe Umgebung (oder eine Gruppe)?"},
  {id:"halbtotale",n:"Halbtotale",dist:"ca. 5 m",zeigt:"Personen/Objekte ganz zu sehen und füllen den Bildausschnitt; wenig Umgebung",wirk:"vorwiegend objektiv, weniger emotional",frage:"Ganze Person von Kopf bis Fuß, die das Bild füllt?"},
  {id:"totale",n:"Totale",dist:"ca. 10 m bis unendlich",zeigt:"Überblick über das gesamte Geschehen; Personen ganz und mit viel Umgebung",wirk:"distanzierter Beobachter, objektiv; der Betrachter braucht mehr Zeit für die vielen Einzelheiten",frage:"Ganze Person mit viel Umgebung, Überblick?"},
- {id:"weite",n:"Weite",dist:"ca. 100 m bis unendlich",zeigt:"noch größerer Raum als die Totale; Personen sind nur noch ein unbedeutendes Detail",wirk:"vermittelt Weite; beliebt bei Landschaften",frage:"Landschaft, Person winzig?"}
+ {id:"weite",n:"Weite (Panorama)",kn:"Weite",dist:"ca. 100 m bis unendlich",zeigt:"noch größerer Raum als die Totale; Personen sind nur noch ein unbedeutendes Detail",wirk:"vermittelt Weite; beliebt bei Landschaften",frage:"Landschaft, Person winzig?"}
 ];
 const kuEGn=id=>{const e=KU_EG.find(x=>x.id===id);return e.kn||e.n};
 
@@ -84,18 +86,18 @@ const KU_PERSP=[
 
 /* ---------- Spezifisch fotografische Gestaltungsmittel (AB Fotoanalyse) ---------- */
 const KU_GM=[
- ["Blende","groß (kleine Blendenzahl)","geringe Schärfentiefe","nur die fokussierte Ebene ist scharf, der Rest unscharf"],
- ["","klein (große Blendenzahl)","große Schärfentiefe","Vorder-, Mittel- und Hintergrund scharf"],
- ["Objektiv","Brennweite groß (Teleobjektiv)","entfernte Bildebenen werden vergrößert","Objekte wirken eng gestaffelt, zusammengerückt"],
- ["","Brennweite mittel (Normalobjektiv)","Bildebenen wie beim normalen Sehen","Eindruck einer normalen Sicht"],
- ["","Brennweite klein (Weitwinkel)","weiter Bildausschnitt wird erfasst","Ausschnitt wirkt erweitert, wie aufgeklappt (Fischauge)"],
+ ["Blende","groß","geringe Tiefenschärfe","Bild wird unscharf, nur die durch das Objektiv fokussierte Bildebene erscheint scharf"],
+ ["","klein","große Tiefenschärfe","Vorder-, Mittel- und Hintergrund erscheinen scharf"],
+ ["Objektiv","Brennweite groß (= Teleobjektiv)","entfernte Bildebenen werden vergrößert","die erfassten Objekte erscheinen wie eng gestaffelt"],
+ ["","Brennweite mittel","Bildebenen erscheinen wie in einer normalen Sicht","Eindruck einer normalen Sicht"],
+ ["","Brennweite klein (= Weitwinkel)","ein weiter Bildausschnitt wird erfasst","Bildausschnitt erscheint erweitert, wie aufgeklappt (Fischauge)"],
  ["Blickwinkel","von oben (Vogelperspektive)","","Objekt erscheint klein, bedroht, schwach, unterlegen"],
- ["","frontal","","Objekt auf Augenhöhe, gleichwertig, weder überlegen noch unterlegen"],
+ ["","frontal","","Objekt auf gleicher Augenhöhe, dem Betrachter gleichwertig, weder überlegen noch unterlegen"],
  ["","von unten (Froschperspektive)","","Objekt erscheint mächtig, bedrohlich, groß"],
- ["Verschlusszeit","kurz","Bewegungen werden eingefroren, nichts verwackelt; wenig Licht","starr und scharf, wie eingefroren"],
- ["","lang","Bewegungsspuren, Verwacklungen sichtbar; viel Licht","lebendig und dynamisch"],
- ["Filmmaterial","feinkörnig","hohe Auflösung, wenig lichtempfindlich","scharf bei gutem Licht, bei schlechtem Licht zu dunkel"],
- ["","grobkörnig","geringere Auflösung, sehr lichtempfindlich","körnig, unschärfer, aber auch bei wenig Licht möglich"]
+ ["Verschlusszeit, Belichtungszeit","kurz","Bewegungen werden eingefroren, nichts verwackelt, aber nur wenig Licht dringt ein","Bild wirkt starr und scharf, wie eingefroren"],
+ ["","lang","Bewegungsspuren und Verwacklungen werden sichtbar, aber viel Licht dringt ein","Bild wirkt eher lebendig und dynamisch"],
+ ["Filmmaterial","feinkörnig","hohe Auflösung, niedrige Lichtempfindlichkeit","scharfes Bild bei guten Lichtverhältnissen, bei schlechtem Licht zu dunkel"],
+ ["","grobkörnig","geringere Auflösung, hohe Lichtempfindlichkeit","körniges, unschärferes Bild, aber Aufnahmen auch bei wenig Licht möglich"]
 ];
 const KU_LICHT=[
  ["Tageslicht, Sonne","von oben, scharfe Konturen, Schlagschatten, wenig Plastizität","natürlich, grell"],
@@ -139,31 +141,38 @@ const KU_KOMPO=[
    k: 1 = klausurrelevant, 0 = laut deiner Notiz klausurirrelevant */
 const KU_GENRE=[
  {n:"Inszenierte Fotografie",k:1,c:"--crown",
-  m:["Fotograf greift aktiv ins Motiv ein","arrangiert und inszeniert Objekte und Personen","strategischer Aufbau der Bildaussage (Schwerpunkt: Motiv, Gestaltung)","emotionale Reaktion des Betrachters steht im Vordergrund → Bildaussage"],
+  m:["Fotograf greift aktiv ins Motiv ein","arrangiert und inszeniert Objekte und Personen","strategischer Aufbau der Bildaussage (Schwerpunkt: Motiv, Gestaltung)","emotionale Reaktionen des Betrachters liegen im Vordergrund → Bildaussage"],
+  f:"Persönlichkeitsausdruck (Kunst); in Mode und Werbung Zweckinformation",wb:"gestellt, erfunden – wie ein Filmset",
   kue:"Cindy Sherman, Duane Michals, Sandy Skoglund, Gjon Mili",
   bsp:"Cindy Sherman: Untitled Film Still #58 (1980); Jeff Wall: The Thinker (1986); Mode: Helmut Newton: Rue Aubriot (1975)"},
  {n:"Fotomontage",k:0,c:"--muted",
   m:["neue künstlerische Wirklichkeit → neue Ästhetik, Verdichtung der Aussage","„provokative Antikunst“","Positiv- bzw. Klebemontage, digitale Montage oder Negativmontage"],
+  f:"Persönlichkeitsausdruck; oft politische Aussage oder Provokation",wb:"aus mehreren Fotos neu zusammengesetzt",
   kue:"Raoul Hausmann, John Heartfield, Annegret Soltau, Hannah Höch",
   bsp:"Herbert Bayer: Einsamer Großstädter (1932)"},
  {n:"Sozialdokumentarische Fotografie",k:1,c:"--parl",
-  m:["zeigt schlechte Arbeitsbedingungen und Armut (z. B. Kinderarbeit, Obdachlosigkeit)","keine nüchterne, zurückhaltende Sachaufnahme","Tendenzaufnahme → Wunsch nach politischer und sozialer Veränderung","Authentizität der Bilder → unverfälschte Wirklichkeit"],
+  m:["zeigt schlechte Arbeitsbedingungen und Armut (z. B. Kinderarbeit, Obdachlosigkeit)","keine nüchterne, enthaltsame Sachaufnahme","Tendenzaufnahme → Wunsch nach politischer und sozialer Veränderung","Authentizität der Bilder → unverfälschte Wirklichkeit"],
+  f:"Information – aufrütteln, politische und soziale Veränderung bewirken",wb:"echt, aber parteiisch (Tendenzaufnahme)",
   kue:"Lewis W. Hine, Walker Evans",
   bsp:"Lewis W. Hine: Kinderarbeit (1908); Dorothea Lange: Wanderarbeiterin (1936)"},
  {n:"Abstrakte Fotografie",k:0,c:"--muted",
   m:["verzerrte, verunklarte Objekte ODER Experimente mit Fotopapier in der Dunkelkammer (kameralose Fotografie)","erweitert die Ausdrucksfähigkeit des Fotoapparats","neue Bedeutungen der Motive, fotografische Strukturbildungsprozesse","überschreitet die gegenständlich abbildende Fotografie"],
-  kue:"Alvin Langdon Coburn, Man Ray",
+  f:"Persönlichkeitsausdruck; Entdeckung neuer Sehweisen",wb:"verfremdet bis ungegenständlich",
+  kue:"Alvin Langdon Coburn, Man Ray, Klaus Kumrow",
   bsp:"Man Ray: Solarisation (1931)"},
  {n:"Straight Photography",k:1,c:"--psy",
   m:["Streben nach nicht manipulierter Wirklichkeit, Wahrheit und Ästhetik","strenger, formaler Bildaufbau"],
+  f:"Information und Ästhetik: die Wirklichkeit wahrhaftig und schön zeigen",wb:"unmanipuliert, gestochen scharf",
   kue:"Edward Weston",
   bsp:"z. B. Westons gestochen scharfe Nahaufnahmen von Gemüse, Muscheln, Akten"},
  {n:"Pictorialismus (Piktorialismus)",k:1,c:"--de",
-  m:["ein Foto gewinnt an Wert, wenn es einem Gemälde oder einer Zeichnung ähnelt","orientiert sich an Atmosphäre und Licht der Malerei des Impressionismus","rein ästhetische Wirkung","Arbeit im Freien: verwischte, unscharfe Konturen, gestreutes Licht, Verzicht auf Details"],
+  m:["ein Foto gewinnt an Wert, wenn es einem Gemälde oder einer Zeichnung ähnelt","orientiert sich an Atmosphäre und Licht der Malerei des Impressionismus","rein ästhetische Wirkung","Arbeit im Freien: verwischte, unscharfe Konturen, gestreutes Licht, Verzicht auf Wiedergabe von Details"],
+  f:"Persönlichkeitsausdruck – rein ästhetisch, Foto als Kunst",wb:"malerisch weichgezeichnet",
   kue:"Frank Eugene (dazu: Heinrich Kühn, Alvin Langdon Coburn)",
   bsp:"Alvin Langdon Coburn: Die weiße Brücke – Venedig (1905); Heinrich Kühn: Miss Mary (um 1905)"},
  {n:"Neues Sehen / Neue Sachlichkeit",k:1,c:"--gold",
-  m:["der Gegenstand steht im Fokus","Einfachheit und Schönheit der Objekte","Komposition und Beleuchtung sollen aufgelockert werden → Bauhaus","Ergänzung: typisch sind ungewohnte Blickwinkel (steil von oben/unten), Diagonalen und harte Licht-Schatten-Muster"],
+  m:["der Gegenstand steht im Fokus","Einfachheit und Schönheit der Objekte","Komposition und Beleuchtung sollen aufgelockert werden → Bauhaus (Kunstschule 1919–1933)","Ergänzung: typisch sind ungewohnte Blickwinkel (steil von oben/unten), Diagonalen und harte Licht-Schatten-Muster"],
+  f:"Persönlichkeitsausdruck, Entdeckung: Alltagsdinge neu sehen",wb:"sachlich, aber aus ungewohntem Blickwinkel",
   kue:"Alexander Rodtschenko, László Moholy-Nagy, Andreas Feininger",
   bsp:"Alexander Rodtschenko: Mädchen mit Leica; André Kertész: Poughkeepsie, New York (1937)"}
 ];
@@ -197,7 +206,8 @@ const KU_BEGRIFFE=[
  {g:"Grundlagen",t:"Positiv / Negativ",d:"Ein Foto kann als Positiv (Helligkeiten wie in der Wirklichkeit) oder als Negativ (hell und dunkel vertauscht) auf Film, Folie oder Papier vorliegen. Vervielfältigt wird es als Abzug, Vergrößerung oder Druck.",k:0},
  {g:"Grundlagen",t:"Fotouniversum",d:"Begriff des Philosophen Vilém Flusser für die riesige Menge und Vielfalt von Fotos. Ordnen lassen sich Fotos nach <b>Technik, Inhalt, Funktion</b> und <b>Stil</b>.",k:1},
  {g:"Grundlagen",t:"documentum (Beweisstück)",d:"Weil die Kamera Vorgänge in unmittelbarer Beobachtung und naturalistisch aufnimmt, wirkt jedes Foto wie ein Beweis. Susan Sontag: Fotos liefern Beweismaterial – was wir bezweifeln, scheint bestätigt, wenn wir ein Foto davon sehen.",k:1},
- {g:"Grundlagen",t:"Aufgaben der Fotografie",d:"Aufzeichnung, Unterhaltung, Persönlichkeitsausdruck, Information, Zweckinformation, Entdeckung (nach „Praxis Kunst Fotografie“).",k:1},
+ {g:"Grundlagen",t:"Art / Gattung – Genre – Funktion",d:"<b>Art/Gattung:</b> Einteilung nach Technik, Inhalt oder Funktion (Makro-, Porträt-, Werbefotografie). <b>Genre:</b> Stilrichtung und Haltung (Inszenierte Fotografie, Pictorialismus …). <b>Funktion</b> = Aufgabe: wozu das Foto dient.",k:1},
+ {g:"Grundlagen",t:"Aufgaben (Funktionen) der Fotografie",d:"Aufzeichnung, Unterhaltung, Persönlichkeitsausdruck, Information, Zweckinformation, Entdeckung (nach „Praxis Kunst Fotografie“).",k:1},
  {g:"Grundlagen",t:"Kommunikationsmodell",d:"Sender (Fotograf) → <b>Codierung</b> → Botschaft im Medium (Foto) → <b>Decodierung</b> → Empfänger (Betrachter) → Wirkung → Feedback zurück an den Sender. <b>Störsignale</b> können jeden Schritt stören.",k:1},
  {g:"Grundlagen",t:"Codierung / Decodierung",d:"Der Fotograf „verschlüsselt“ seine Absicht in Gestaltungsmitteln (Licht, Perspektive, Ausschnitt …); der Betrachter „entschlüsselt“ sie – abhängig von Erfahrung, Wissen und Entwicklungsstand.",k:1},
  {g:"Grundlagen",t:"Störsignale",d:"Alles, was die Übermittlung der Bildbotschaft stört: fehlender oder falscher Kontext, irreführende Bildunterschrift, Bilderflut, Vorurteile oder fehlendes Wissen beim Betrachter, schlechte Bildqualität.",k:0},
@@ -209,9 +219,9 @@ const KU_BEGRIFFE=[
  {g:"Wirklichkeit",t:"Tendenzaufnahme",d:"Foto, das nicht neutral sein will, sondern Partei ergreift, um politische oder soziale Veränderung zu bewirken (typisch für die sozialdokumentarische Fotografie).",k:1},
  {g:"Wirklichkeit",t:"Wirkungsebenen",d:"Wirkung und Aussage eines Fotos lassen sich in drei Kategorien einteilen: Bilder mit überwiegendem <b>Informationsgehalt</b>, mit überwiegend <b>ästhetischem</b> Gehalt und mit überwiegend <b>emotionalem</b> Gehalt.",k:1},
  {g:"Wirklichkeit",t:"Retusche",d:"Nachträgliche Veränderung eines Fotos (früher am Negativ, heute digital). Beispiel: Bei Dorothea Langes „Wanderarbeiterin“ wurde 1939 ein Daumen am Bildrand wegretuschiert.",k:0},
- {g:"Gestaltung",t:"Einstellungsgröße",d:"Bildausschnitt, abgeleitet von der Größe des menschlichen Körpers; legt den Abstand des Betrachters zum Objekt fest und ist die erste Vorauswahl: Was soll der Betrachter sehen und was nicht? 8 Stufen: Detail, Groß, Nah, Amerikanisch, Halbnah, Halbtotale, Totale, Weite.",k:1},
+ {g:"Gestaltung",t:"Einstellungsgröße",d:"Bildausschnitt, abgeleitet von der Größe des menschlichen Körpers; legt den Abstand des Betrachters zum Objekt fest und ist die erste Vorauswahl: Was soll der Betrachter sehen und was nicht? 8 Stufen: Detail, Groß, Nah, Amerikanisch, Halbnah, Halbtotale, Totale, Weite (auf dem Analyse-Blatt auch „Panorama“).",k:1},
  {g:"Gestaltung",t:"Perspektive",d:"Standpunkt des Betrachters (normal, oben, unten, schräg); zusammen mit Blickrichtung und Einstellungsgröße formt sie die innere Beziehung zwischen Betrachter und Objekt. Fotografisch gibt sie dem Bild die dritte Dimension: Raumtiefe.",k:1},
- {g:"Gestaltung",t:"Schärfentiefe (Tiefenschärfe)",d:"Bereich vor und hinter der fokussierten Ebene, der scharf erscheint. Große Blende → geringe Schärfentiefe; kleine Blende → große Schärfentiefe.",k:1},
+ {g:"Gestaltung",t:"Tiefenschärfe (Schärfentiefe)",d:"Bereich vor und hinter der fokussierten Ebene, der scharf erscheint. Große Blende → geringe Tiefenschärfe; kleine Blende → große Tiefenschärfe.",k:1},
  {g:"Gestaltung",t:"Totale Schärfe",d:"Das ganze Bild ist scharf (VG, MG, HG). Wirkung: unbestechlich, informativ, aber auch steril.",k:1},
  {g:"Gestaltung",t:"Selektive Schärfe",d:"Nur ein Bereich ist scharf, der Rest unscharf. Wirkung: reizvoll; bildwichtige Objekte treten plastisch aus den unscharfen Zonen hervor, der Blick wird gelenkt.",k:1},
  {g:"Gestaltung",t:"Bewegungsunschärfe",d:"Verwischte Bewegung durch lange Belichtungszeit. Wirkung: Eindruck von Aktion, Dynamik.",k:1},
@@ -323,25 +333,6 @@ const KU_ZU_G=[
  ["Andreas Feininger",6,"Neues Sehen."]
 ];
 
-/* ---------- Checkliste ---------- */
-const KU_CHECK=[
- "Definition der Fotografie („malen mit Licht“, analog/digital) erklären",
- "Die 6 Aufgaben der Fotografie mit je einem Beispiel nennen",
- "Arten (Technik, Inhalt, Funktion, Stil) einer Aufgabe zuordnen und begründen",
- "Unterhaltung, Information und Manipulation genau erklären (Ziel, Mittel, Beispiel)",
- "Teil III: subjektiv – objektiv – Information erklären (Freund, Sontag, Fotograf ↔ Betrachter, Wirkungsebenen, Verantwortung)",
- "Die 8 Einstellungsgrößen an Personen erkennen und begründen (Trainer!)",
- "4 Perspektiven mit Wirkung",
- "Schärfe (total, selektiv, Bewegungsunschärfe), Blende, Brennweite, Verschlusszeit",
- "Licht, Farbe/SW und Kontraste beschreiben – immer mit Wirkung",
- "Komposition: Drittelregel, Goldener Schnitt, Symmetrie, Linien, Kompositionsfiguren",
- "Eine Kompositionsskizze zeichnen",
- "5 klausurrelevante Genres mit Merkmalen und Fotokünstlern",
- "Dokumentation und Inszenierung vergleichen",
- "Kommunikationsmodell zeichnen und auf ein Foto anwenden",
- "Eine komplette Fotoanalyse (I–IV) einmal selbst geschrieben"
-];
-
 /* ---------- Hilfen ---------- */
 const kuEl=id=>document.getElementById(id);
 const kuTag=(t,c)=>`<span class="ku-tag${c?" "+c:""}">${t}</span>`;
@@ -356,6 +347,133 @@ function kuGMRows(){
   const g=[];KU_GM.forEach(r=>{if(r[0])g.push([r[0],[]]);g[g.length-1][1].push(r)});
   return kuRows(g.map(([m,vs])=>[m,"",vs.map(v=>`<b>${v[1]}:</b> ${v[2]?v[2]+" → ":""}<i>${v[3]}</i>`).join("<br>"),""]));
 }
+
+/* ---------- Arten / Gattungen mit Merkmal und Funktion (Fotouniversum + Einführungsblatt) ----------
+   [Art, Ring im Fotouniversum, Merkmal, Funktionen (ids), Hinweis] */
+const KU_ARTEN=[
+ ["Makrofotografie","Technik","Nahaufnahme kleiner Dinge in starker Vergrößerung (Insektenauge, Blüte)",["entd"]],
+ ["Mikrofotografie","Technik","durch das Mikroskop, bis 100 000-fach (Scharf: Bettwanze)",["entd"]],
+ ["Röntgenfotografie","Technik","macht das Innere des Körpers sichtbar (Röntgen: Hand seiner Frau)",["entd"]],
+ ["Bewegungs- / Kurzzeitfotografie","Technik","friert schnellste Bewegungen ein (Edgerton: Kugel)",["entd"]],
+ ["Astro-, Infrarot-, Satellitenfotografie","Technik","zeigt, was das Auge nicht sehen kann (Weltall, Wärme, Erde von oben)",["entd"]],
+ ["Reprofotografie","Technik","fotografiert Vorlagen ab: Kunstwerke, Dokumente, Bücher",["aufz"]],
+ ["Digitale Fotografie","Technik","Bild als elektronische Daten – leicht zu bearbeiten und zu verbreiten",[],"je nach Zweck"],
+ ["Porträtfotografie","Inhalt","eine Person, ihr Gesicht und Ausdruck",["aufz","pers"],"Passfoto → Aufzeichnung, Künstlerporträt → Persönlichkeitsausdruck"],
+ ["Landschaftsfotografie","Inhalt","Natur, Weite, Stimmung (Adams: Mount Williamson)",["unt","pers"]],
+ ["Reisefotografie","Inhalt","Orte und Erlebnisse unterwegs",["unt"]],
+ ["Familien- / Amateurfotografie","Inhalt","Feste, Alltag, Erinnerungen – meist ohne Anspruch auf Kunst",["unt","aufz"]],
+ ["Sportfotografie","Inhalt","Höhepunkte und Bewegung, oft mit kurzer Belichtungszeit",["info","unt"]],
+ ["Architekturfotografie","Inhalt","Gebäude, oft mit strengen, geraden Linien",["aufz","info"]],
+ ["Kriegsfotografie","Inhalt","Krieg und seine Opfer – kann aufrütteln",["info"]],
+ ["Aktfotografie / Pin-up","Inhalt","unbekleideter Körper; Pin-up-Kalender (Monroe 1951)",["unt","pers"]],
+ ["Pressefoto","Funktion","aktuelles Ereignis, mit Bildunterschrift in Zeitung oder online (Adams: Saigon 1968)",["info"]],
+ ["Fotoreportage","Funktion","Bildfolge, die ein Thema ausführlich erzählt",["info"]],
+ ["Dokumentarfotografie","Funktion","hält Wirklichkeit sachlich als Zeugnis fest (Sander)",["aufz","info"]],
+ ["Sozialdokumentarische Fotografie","Funktion","zeigt Missstände und will Veränderung (Hine, Lange)",["info"]],
+ ["Werbefotografie","Funktion","Produkt schön und begehrenswert in Szene gesetzt",["zweck"]],
+ ["Modefotografie","Funktion","Kleidung, meist inszeniert (Newton)",["zweck"]],
+ ["Kriminal- / Spionagefotografie","Funktion","Spuren, Tatorte, heimliche Aufnahmen als Beweis",["aufz","info"]],
+ ["Souvenirfotografie","Funktion","Andenken, Erinnerungsbild",["unt"]],
+ ["Abbildende Fotokunst","Funktion","Foto als Kunstwerk, eigene Sicht der Welt",["pers"]]
+];
+
+/* ---------- Praktische Umsetzung: gewünschte Wirkung → passende Mittel ---------- */
+const KU_ZIEL=[
+ ["mächtig, überlegen, bedrohlich","Froschperspektive · Nah oder Halbnah · Hochformat, betonte Senkrechte · hartes Seitenlicht oder Licht von unten · starker Hell-Dunkel-Kontrast"],
+ ["klein, einsam, verloren","Vogelperspektive · Totale oder Weite · Person klein im Drittel-Schnittpunkt · viel Negativraum · kalte Farben oder SW · Waagerechte"],
+ ["nah, emotional, persönlich","Groß oder Detail · Normalperspektive, Blick in die Kamera · weiches Licht · selektive Schärfe (Hintergrund unscharf)"],
+ ["sachlich, dokumentarisch, glaubwürdig","Normalperspektive, frontal · Halbnah bis Totale · totale Schärfe · natürliches Licht · SW oder natürliche Farben · ruhige, zentrierte Komposition"],
+ ["dynamisch, bewegt, spannend","Diagonalen · schräger Standpunkt · lange Belichtungszeit (Bewegungsunschärfe) · Anschnitt · Motiv nach Drittelregel statt in der Mitte"],
+ ["ruhig, harmonisch","Waagerechte, Symmetrie oder Kreis · Querformat · weiches Licht · Normalperspektive · Negativraum · wenig Kontrast"],
+ ["geheimnisvoll, unheimlich","Gegenlicht (Silhouette) oder Licht von unten · viel Dunkel, harter Hell-Dunkel-Kontrast · Nacht, Kunstlicht-Spots · Teile verborgen oder angeschnitten"],
+ ["Blick auf ein Detail lenken","Detail oder Groß · selektive Schärfe (große Blende) · gebündeltes Licht (Spot) · Führungslinien · bunte Farbe vor grauem Umfeld"],
+ ["verträumt, malerisch (wie Pictorialismus)","Unschärfe, gestreutes Licht, Gegenlicht · warme oder getönte Farben · Verzicht auf Details"],
+ ["ungewohnt, neu gesehen (wie Neues Sehen)","extreme Vogel- oder Froschperspektive · gekippte Kamera · Diagonalen · harte Licht-Schatten-Muster · Anschnitte"]
+];
+/* Umsetzen-Trainer: [Situation, richtige Antwort, falsche Antworten…, Erklärung] */
+const KU_UMS=[
+ ["Die Person soll mächtig und überlegen wirken. Welche Perspektive?","Froschperspektive",["Vogelperspektive","Normalperspektive","Draufsicht von schräg oben"],"Von unten fotografiert wirkt ein Objekt erhaben, mächtig, auch bedrohlich."],
+ ["Die Person soll klein, schwach und einsam wirken. Welche Perspektive?","Vogelperspektive",["Froschperspektive","Normalperspektive","Untersicht"],"Von oben wirkt das Objekt klein, unterlegen, bedroht."],
+ ["Die Person soll gleichwertig, auf Augenhöhe wirken.","Normalperspektive",["Froschperspektive","Vogelperspektive","schräger Standpunkt"],"Frontal auf Augenhöhe: weder überlegen noch unterlegen."],
+ ["Die Szene soll irreal und verunsichernd wirken.","Kamera kippen (schräger Standpunkt)",["Normalperspektive","Symmetrie","Waagerechte betonen"],"Der schräge Standpunkt erzeugt stark irreale, dramatische Eindrücke."],
+ ["Die Gefühle der Person (Mimik) sollen im Mittelpunkt stehen.","Groß",["Totale","Weite","Halbtotale"],"Der Kopf füllt das Bild – sehr emotional."],
+ ["Haltung und Körpersprache sollen sichtbar werden.","Amerikanisch",["Detail","Groß","Weite"],"Scheitel bis Knie: Gestik und Haltung im Mittelpunkt."],
+ ["Die Person soll verloren in einer riesigen Landschaft wirken.","Weite",["Groß","Nah","Detail"],"In der Weite ist die Person nur noch ein kleines Detail."],
+ ["Nur das Gesicht soll scharf sein, der Hintergrund verschwimmen.","große Blende (kleine Blendenzahl)",["kleine Blende","lange Belichtungszeit","Weitwinkel"],"Große Blende → geringe Tiefenschärfe → selektive Schärfe."],
+ ["Vorder-, Mittel- und Hintergrund sollen scharf sein (informativ).","kleine Blende (große Blendenzahl)",["große Blende","Teleobjektiv","Gegenlicht"],"Kleine Blende → große Tiefenschärfe → totale Schärfe."],
+ ["Ein Radfahrer soll mit Bewegungsspuren dynamisch wirken.","lange Belichtungszeit",["kurze Belichtungszeit","Blitz","kleine Blende"],"Lange Verschlusszeit bildet Bewegungsspuren ab – lebendig, dynamisch."],
+ ["Ein Wassertropfen soll im Flug eingefroren werden.","kurze Belichtungszeit",["lange Belichtungszeit","Weitwinkel","große Blende"],"Kurze Verschlusszeit friert Bewegungen ein – starr und scharf."],
+ ["Eine Häuserreihe soll eng zusammengerückt wirken.","Teleobjektiv (große Brennweite)",["Weitwinkel (kleine Brennweite)","Normalobjektiv","Froschperspektive"],"Tele vergrößert entfernte Ebenen, sie wirken eng gestaffelt."],
+ ["Ein kleines Zimmer soll weit und groß wirken.","Weitwinkel (kleine Brennweite)",["Teleobjektiv","Normalobjektiv","Detail"],"Weitwinkel erfasst einen weiten Ausschnitt, wirkt wie aufgeklappt."],
+ ["Die Person soll als dunkle Silhouette erscheinen.","Gegenlicht",["Licht von vorn","weiches Licht von oben","Blitz von vorn"],"Licht von hinten: Umrisse leuchten, die Figur bleibt dunkel."],
+ ["Die Hautstruktur im Gesicht soll plastisch hervortreten.","Seitenlicht",["Licht von vorn","Gegenlicht","bedeckter Himmel von oben"],"Seitenlicht: eine Seite hell, eine dunkel – Strukturen und Plastizität."],
+ ["Weiche Stimmung ohne harte Schatten.","gestreutes Licht (z. B. Wolken)",["Mittagssonne","gebündelter Spot","Blitz gebündelt"],"Weich: diffuse Schatten, natürliche Wirkung."],
+ ["Ein Gesicht soll unheimlich wirken.","Licht von unten",["Licht von oben","weiches Fensterlicht","Licht von vorn"],"Ungewohnte Schatten nach oben wirken bedrohlich."],
+ ["Das Bild soll ruhig und harmonisch wirken.","Symmetrie / Waagerechte",["Diagonale","gekippte Kamera","Spirale"],"Waagerechte und Symmetrie: Ruhe, Ordnung, Harmonie."],
+ ["Das Bild soll Bewegung und Spannung ausdrücken.","Diagonale",["Waagerechte","Symmetrie","Kreis"],"Diagonalen erzeugen Dynamik und machen das Bild lebendig."],
+ ["Das Hauptmotiv soll spannend, aber ausgewogen platziert werden.","auf eine Drittellinie bzw. einen Schnittpunkt",["genau in die Mitte","an den Bildrand","ganz unten in die Ecke"],"Drittelregel: spannend, aber ausgewogen."],
+ ["Der Blick soll ins Bild hinein zum Motiv geführt werden.","Führungslinie (z. B. Weg, Zaun)",["Negativraum","Symmetrie","Detail"],"Linien führen den Blick zum Hauptmotiv."],
+ ["Die Figur soll vor ruhigem Umfeld wirken, nichts soll ablenken.","Negativraum (freie Fläche)",["viele Details im Hintergrund","Raster","Ballung"],"Freie Fläche schafft Ruhe und lässt das Motiv wirken."]
+];
+
+/* ---------- Lernplan bis zur Klausur ----------
+   Schritte: [Text, Minuten, Reiter, Übungsmodus, Kartenstapel] */
+const KU_PLAN=[
+ {d:"2026-11-23",tag:"Mo 23.11.",zeit:"heute Abend · ca. 60 min",n:1,title:"Arten, Gattungen, Genres",
+  ziel:"Du ordnest Arten einer Funktion zu und nennst zu jedem Genre Merkmale, Funktion und Fotokünstler.",
+  steps:[["Funktionen lesen: die 6 Aufgaben mit Eselsbrücke „AU, PIZza Essen!“",15,"arten"],
+   ["Arten und Gattungen: Fotouniversum und Liste „Art → Funktion“",10,"arten"],
+   ["Die 5 Klausur-Genres: Merkmale, Funktion, Künstler",20,"arten"],
+   ["Üben: Karten „Funktionen“ und „Genres“, dann „Zuordnen“",15,"ueben","zu"]]},
+ {d:"2026-11-24",tag:"Di 24.11.",zeit:"Block A · ca. 50 min",n:2,title:"Gestaltungsmittel und Wirkung",
+  ziel:"Du erkennst jede Einstellungsgröße und nennst zu jedem Mittel die Wirkung.",
+  steps:[["Einstellungsgrößen, Perspektive, Schärfe, Brennweite, Belichtungszeit",20,"mittel"],
+   ["Licht, Farbe, Kontraste, Motiv/Raum, Bildkomposition",15,"mittel"],
+   ["Üben: Einstellungsgrößen-Trainer (Ziel: 8 von 10), dann Karten „Mittel“",15,"ueben","eg"]]},
+ {d:"2026-11-24",tag:"Di 24.11.",zeit:"Block B · ca. 70 min",n:3,title:"Fotoanalyse",
+  ziel:"Du schreibst eine Analyse in den Schritten I–III mit Kompositionsskizze.",
+  steps:[["Arbeitsschritte I–III und Kompositionsskizze ansehen",10,"analyse"],
+   ["Musteranalyse Sander lesen und mit deinem Handout vergleichen",15,"analyse"],
+   ["Selbst schreiben: Probe-Aufgabe 7 (Lange), handschriftlich, 35 min",35,"probe"],
+   ["Mit der Musterlösung vergleichen und Fehlendes ergänzen",10,"probe"]]},
+ {d:"2026-11-24",tag:"Di 24.11.",zeit:"Block C · ca. 40 min",n:4,title:"Praktische Umsetzung",
+  ziel:"Du planst ein Foto für eine bestimmte Wirkung und begründest jedes Mittel.",
+  steps:[["Praxis lesen: 5 Schritte, Regie-Zettel, Wirkung → Mittel",15,"praxis"],
+   ["Selbst zeichnen: Probe-Aufgabe 8 (mächtig ↔ einsam), 2 Skizzen + Begründung",20,"probe"],
+   ["Üben: „Umsetzen“ eine Runde",5,"ueben","ums"]]},
+ {d:"2026-11-24",tag:"Di 24.11.",zeit:"abends · ca. 15 min",n:0,title:"Wiederholen",
+  steps:[["Quiz eine Runde",8,"ueben","quiz"],["Merken-Zettel einmal laut durchgehen",7,"merk"]]},
+ {d:"2026-11-25",tag:"Mi 25.11.",zeit:"vor der Klausur · ca. 20 min",n:0,title:"Kurz vor der Klausur",
+  steps:[["Merken-Zettel lesen",8,"merk"],["Einstellungsgrößen-Trainer eine Runde",6,"ueben","eg"],
+   ["Checkliste unten abhaken; Bleistift, Radiergummi, Lineal einpacken",6,"plan"]]}
+];
+
+/* ---------- Checkliste nach den 4 Klausurthemen ---------- */
+const KU_CHECK2=[
+ ["1 · Arten, Gattungen, Genres",[
+  "Die 6 Funktionen (Aufgaben) mit je einem Beispiel nennen",
+  "Arten (Technik, Inhalt, Funktion, Stil) einer Funktion zuordnen – mit Begründung",
+  "5 Genres: je 2 Merkmale, Funktion, Fotokünstler",
+  "Dokumentation und Inszenierung unterscheiden",
+  "Unterhaltung, Information und Manipulation genau erklären",
+  "Scheinbare Objektivität (Freund, Sontag) erklären und Stellung nehmen"]],
+ ["2 · Gestaltungsmittel und Wirkung",[
+  "8 Einstellungsgrößen an Personen erkennen und begründen",
+  "4 Perspektiven mit Wirkung",
+  "Blende/Tiefenschärfe, Brennweite, Belichtungszeit, Filmmaterial",
+  "Licht (Arten vom Blatt), Farbe, Kontraste – immer mit Wirkung",
+  "Bildkomposition: Drittelregel, Goldener Schnitt, Linien, Kompositionsfiguren"]],
+ ["3 · Fotoanalyse",[
+  "Schritte I–III (und IV Vergleich) aus dem Kopf",
+  "Augenführung beschreiben",
+  "Eine Kompositionsskizze zeichnen",
+  "Eine komplette Analyse einmal selbst geschrieben"]],
+ ["4 · Praktische Umsetzung",[
+  "Bildidee → Skizze → Mittel wählen und begründen",
+  "Wirkung → Mittel: mächtig, einsam, emotional, sachlich, dynamisch, ruhig",
+  "Kompositionsregeln gezielt einsetzen (Drittel, Führungslinie, Negativraum)",
+  "Fotoauftrag-Techniken: Brennweiten, Perspektiven, Einstellungsgrößen, Schärfe-Ebenen"]]
+];
 
 /* =========================================================
    SKIZZEN (SVG)
@@ -602,13 +720,14 @@ function kuuEinf(el){
    <p>Der Kunsthistoriker <b>Walter Koschatzky</b> bringt es auf den Punkt: Die Fotografie bedient die ganze Bandbreite menschlicher Bedürfnisse – im <b>praktischen</b> wie im <b>emotionalen</b> Bereich.</p>
   </section>
 
-  <section class="tx" id="ku3"><span class="tx-y">Arbeitsblatt · nach „Praxis Kunst Fotografie“</span><h2>Die 6 Aufgaben der Fotografie</h2>
+  <section class="tx" id="ku3"><span class="tx-y">Arbeitsblatt · nach „Praxis Kunst Fotografie“</span><h2>Die 6 Aufgaben (Funktionen) der Fotografie</h2>
+   <p class="meta">Auf deinem Blatt steht: „Aufgaben der Fotografie &amp; Funktion“ – beides meint dasselbe.</p>
    ${kuAufgCards()}
   </section>
 
   <section class="tx" id="ku4"><span class="tx-y">Arbeitsblatt + Lehrbuch S. 10–11</span><h2>Arten der Fotografie</h2>
    <p>Deine Beispiele auf dem Blatt:</p>
-   ${kuTable(["geordnet nach …","Beispiele"],[["Techniken","digitale Fotografie, Makrofotografie, entdeckende Fotografie"],["Inhalten","Landschaftsfotografie, unterhaltende Fotografie"],["Funktionen","Fotoreportage, Werbefotografie, Dokumentarfotografie → Aufzeichnung / Information"]])}
+   ${kuTable(["geordnet nach …","Beispiele"],[["Techniken","digitale Fotografie, Makrofotografie, entdeckende Fotografie"],["Inhalten","Landschaftsfotografie, unterhaltende Fotografie"],["Funktionen","Dokumentarfotografien, Fotoreportagen, Werbefotografie"]])}
    <h3 class="ps-h">Das Fotouniversum: vier Ringe</h3>
    ${kuUnivCards()}
    <h3 class="ps-h">Beispiele aus dem Lehrbuch</h3>
@@ -680,7 +799,7 @@ function kuuGestalt(el){
   <section class="tx" id="kg1"><span class="tx-y">Handbuch Medien S. 298–299 · Mitschrift</span><h2>Einstellungsgrößen</h2>
    <p>Die Einstellung, beschrieben durch die <b>Einstellungsgröße</b>, ist die klassische Einheit der Bildgestaltung. Sie legt die Distanz zum Objekt fest. In Fotografie und Film unterscheidet man <b>8 Einstellungsgrößen</b>, abgeleitet von der Größe des menschlichen Körpers.</p>
    ${kuEGGrid()}
-   ${kuRows(KU_EG.map((e,i)=>[`${i+1}. ${kuEGn(e.id)}`,e.dist,e.zeigt,e.wirk]))}
+   ${kuRows(KU_EG.map((e,i)=>[`${i+1}. ${e.n}`,e.dist,e.zeigt,e.wirk]))}
    <p class="meta">Distanzen: Kleinbildkamera mit 50-mm-Objektiv. Die Einstellungsgröße hängt von der Brennweite und vom Aufnahmeformat ab.</p>
    <p class="ex"><b>Merksatz aus dem Buch:</b> Die Einstellungsgröße bestimmt den Abstand des Betrachters zum Objekt – sie ist die erste Vorauswahl: Was soll der Betrachter sehen und was nicht? Überblick verschaffen Weite, Totale, Halbtotale und Halbnah.</p>
   </section>
@@ -737,6 +856,8 @@ function kuuGestalt(el){
    <h3 class="ps-h">Kompositionsskizze</h3>
    <p>Eine einfache, schnelle Vorzeichnung, mit der du Bildaufteilung, Platzierung der Elemente und Wirkung grob planst – oder in der Analyse sichtbar machst. Sie zeigt Haupt- und Nebenelemente, Linien und Formen, Licht und Schatten (grob) sowie Bildaufteilung und Blickführung.</p>
    <div class="step"><span class="afb">So gehst du vor – Schritt für Schritt</span><ol><li><b>Bildidee entwickeln:</b> Was soll das Bild zeigen? Welche Stimmung, welche Botschaft?</li><li><b>Kompositionsskizze erstellen:</b> Hauptmotiv, Aufteilung, Blickführung grob festhalten</li><li><b>Bildaufteilung planen:</b> Wohin kommen die wichtigen Elemente? Wie viel Raum bleibt für den Hintergrund?</li><li><b>Bild gestalten:</b> Skizze als Leitfaden nutzen</li><li><b>Ergebnis prüfen:</b> Wirkt das Bild ausgewogen? Lenkt es den Blick? Ist die Aussage klar?</li></ol></div>
+   <h3 class="ps-h">Gestaltungstipps für bessere Komposition</h3>
+   ${kuRows([["Blickführung nutzen","","mit Linien, Formen, Kontrasten oder Farben den Blick lenken"],["Drittelregel anwenden","","wichtige Elemente auf die Linien oder Schnittpunkte des Drittelrasters"],["Mit Formen arbeiten","","einfache geometrische Formen (Dreieck, Kreis, Rechteck) schaffen Struktur und Ordnung"],["Kontraste einsetzen","","Hell-Dunkel, Farbe oder Schärfe-Unschärfe erzeugen Spannung und Tiefe"],["Mit Raum spielen","","nicht alles ins Bild quetschen – auch freie Flächen sind ein Gestaltungsmittel"]])}
    <p class="ex"><b>Kurz gesagt:</b> Bildkomposition ist das Zusammenspiel von Bildaufteilung, Bildaufbau und Kompositionsfiguren – nicht zufällig, sondern geplant.</p>
   </section>
 
@@ -789,66 +910,154 @@ function kuBegriffe(el){
 const kuFix=(x,v,note)=>`<div class="ku-fix"><span class="x">✗ ${x}</span>${note?`<span class="meta">${note}</span>`:""}<span class="v">✓ ${v}</span></div>`;
 const KU_FORMEL=`<div class="ku-formel"><span><b>1</b>Mittel benennen<i>Fachbegriff</i></span><em>→</em><span><b>2</b>am Bild zeigen<i>wo genau?</i></span><em>→</em><span><b>3</b>Wirkung erklären<i>was macht das mit mir?</i></span></div>`;
 
-function kukAblauf(el){
+/* =========================================================
+   KLAUSURVORBEREITUNG nach den 4 Klausurthemen
+   1 Arten/Gattungen/Genre · 2 Gestaltungsmittel · 3 Fotoanalyse · 4 Praktische Umsetzung
+   ========================================================= */
+const KU_THEMEN=[
+ [1,"Arten / Gattungen / Genre","… und deren Merkmale und Funktionen","arten"],
+ [2,"Fotografische Gestaltungsmittel","… und deren Wirkung","mittel"],
+ [3,"Fotoanalyse","Schritte I–III, Skizze, Vergleich","analyse"],
+ [4,"Praktische Umsetzung","Foto planen, skizzieren, begründen","praxis"]
+];
+const kuDayIso=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+function kuGo(tab,mode,deck){
+  if(mode)store.set("kuMode",mode);
+  if(deck)store.set("kuDeck",deck);
+  if(tab==="merk"){const b=document.getElementById("merkBtn");if(b)b.click();return}
+  if(tab==="plan"){const c=kuEl("kuChkBox");if(c)c.scrollIntoView({behavior:"smooth"});return}
+  location.hash="#/kunst/klausur/"+tab;
+}
+
+function kukPlan(el){
+  const today=kuDayIso(),done=store.get("kuPlan",{});
+  const all=KU_PLAN.flatMap((s,i)=>s.steps.map((_,j)=>i+"-"+j));
+  const badge=d=>d===today?kuTag("heute","no"):(d<today?kuTag("vorbei"):"");
   el.innerHTML=`
   <div class="step ku-must"><span class="afb">Klausur Mittwoch, 25.11.2026 · Kunst GK 12</span>
    <p>Thema: <b>Kommunikation in künstlerischen und medialen Welten</b> · Kursthema: <b>Funktionen der Fotografie zwischen Dokumentation und Inszenierung</b></p></div>
+  <div class="erachips ku-chips"><a href="#kp1">Deine 4 Themen</a><a href="#kp2">Lernplan</a><a href="#kp3">So lernst du gut</a><a href="#kp4">Aus dem Test lernen</a><a href="#kuChkBox">Checkliste</a></div>
 
-  <h2 class="sec">Das kommt dran</h2>
-  <div class="step"><span class="afb">Deine rote Notiz zur Klausur</span>
-   <div class="ku-note"><span><b>I</b>Fotoanalyse</span><span class="leer"><b>II</b>nicht notiert</span><span><b>III</b>Subjektiv · Objektiv · Information</span></div>
-   <p class="meta">Teil II ist auf deinem Blatt leer – frag am besten noch einmal nach. Weitere Hinweise: deine Notizen am Test („Klausur!“, „Klausur: meist Bilder mit Personen“, „Lernen!!! Leichte Punkte“) und auf dem Genre-Blatt („klausurirrelevant“).</p></div>
-  <a class="ku-prio top" href="#/kunst/klausur/analyse"><span class="n">1</span><h3>Teil I · Fotoanalyse eines Fotos ${kuTag("meist mit Personen")}</h3><p>I Eindrücke · II Bildaufbau, Gestaltungsmittel + Kompositionsskizze · III Deutung · IV Vergleich (Dokumentation ↔ Inszenierung)</p></a>
-  <a class="ku-prio top" href="#/kunst/klausur/mittel"><span class="n">2</span><h3>Gestaltungsmittel und Wirkung ${kuTag("leichte Punkte")}</h3><p>Einstellungsgrößen, Perspektive, Schärfe, Licht, Farbe, Kontraste – brauchst du für die Analyse und für Einzelaufgaben</p></a>
-  <a class="ku-prio top" href="#/kunst/klausur/theorie"><span class="n">3</span><h3>Teil III · Subjektiv – Objektiv – Information</h3><p>Scheinbare Objektivität, Wirkungsebenen, Unterhaltung/Information/Manipulation, Verantwortung des Fotografen</p></a>
-  <a class="ku-prio" href="#/kunst/klausur/theorie"><span class="n">4</span><h3>Aufgaben und Arten der Fotografie ${kuTag("„Klausur!“")}</h3><p>Arten einer Aufgabe zuordnen – und begründen</p></a>
-  <a class="ku-prio" href="#/kunst/klausur/theorie"><span class="n">5</span><h3>Genres</h3><p>Inszenierte, Sozialdokumentarische, Straight Photography, Pictorialismus, Neues Sehen – <b>nicht</b> Fotomontage und Abstrakte Fotografie</p></a>
-  <a class="ku-prio" href="#/kunst/klausur/mittel"><span class="n">6</span><h3>Bildkomposition</h3><p>Drittelregel, Goldener Schnitt, Linien, Kompositionsfiguren, Bildaufbau, Kompositionsskizze</p></a>
+  <h2 class="sec" id="kp1">Deine 4 Klausurthemen</h2>
+  <div class="ku-themen">${KU_THEMEN.map(([n,t,s,tab])=>`<a href="#/kunst/klausur/${tab}"><span class="n">${n}</span><b>${t}</b><span>${s}</span></a>`).join("")}</div>
+  <p class="meta" style="margin:0">So stehen sie auf deiner Liste. Jedes Thema hat jetzt einen eigenen Reiter unten. Fotomontage und Abstrakte Fotografie hast du auf dem Genre-Blatt als „klausurirrelevant“ markiert – sie stehen nur kurz zum Kennen drin.</p>
 
-  <h2 class="sec">So sahen die Aufgaben im Test aus</h2>
-  <p class="meta" style="margin:0">Der korrigierte Test (37 Punkte) zeigt, wie gefragt wird. Rechne mit ähnlichen Aufgaben, dazu einer Fotoanalyse.</p>
-  <div class="aufg"><h3>1. Arten der Fotografie den Aufgaben zuordnen <span class="be">9 P.</span></h3><p>Makro-, Landschafts-, Werbefotografie → Entdeckung, Unterhaltung, Zweckinformation</p></div>
-  <div class="aufg"><h3>2. Unterhalten, Informieren, Manipulieren erklären <span class="be">6 P.</span></h3></div>
-  <div class="aufg"><h3>3. Stellung nehmen: Objektivität und Verantwortung des Fotografen <span class="be">4 P.</span></h3></div>
-  <div class="aufg"><h3>4. Einstellungsgrößen bestimmen und begründen <span class="be">4 P.</span></h3><p>Fotos eines Kindes – in der Klausur „meist Bilder mit Personen“</p></div>
-  <div class="aufg"><h3>5. a) Zwei Fotos vergleichen (Schärfe, Wirkung) <span class="be">6 P.</span> b) Licht, Farbe, Kontrast beschreiben <span class="be">8 P.</span></h3></div>
+  <h2 class="sec" id="kp2">Lernplan bis Mittwoch</h2>
+  <div class="progress"><span id="kuPlanTxt"></span><span>ca. ${KU_PLAN.reduce((a,s)=>a+s.steps.reduce((b,x)=>b+x[1],0),0)} min insgesamt</span></div><div class="bar"><i id="kuPlanBar"></i></div>
+  ${KU_PLAN.map((s,i)=>`<div class="ku-sess${s.d===today?" now":""}">
+   <div class="h"><span class="d">${s.tag}</span>${badge(s.d)}<span class="z">${s.zeit}</span></div>
+   <h3>${s.n?`<span class="n">${s.n}</span>`:""}${s.title}</h3>${s.ziel?`<p class="meta">Ziel: ${s.ziel}</p>`:""}
+   ${s.steps.map(([t,m,tab,mode,deck],j)=>`<div class="ku-step"><label><input type="checkbox" data-k="${i}-${j}" ${done[i+"-"+j]?"checked":""}><span>${t} <i>${m} min</i></span></label><button type="button" class="ku-go" data-tab="${tab}" data-mode="${mode||""}" data-deck="${deck||""}" aria-label="öffnen">›</button></div>`).join("")}
+  </div>${i===0||i===3?`<p class="ku-pause">${i===0?"Danach Schluss für heute – Schlaf festigt das Gelernte.":"Zwischen den Blöcken jeweils 10–15 min Pause."}</p>`:""}`).join("")}
+  <p class="meta" style="margin:0">Mittwochnachmittag bleibt frei für Sport (Klausur Do 26.11.). Schaffst du heute weniger, verschieb den Rest auf Dienstag vor Block A.</p>
 
-  <h2 class="sec">Hier gingen Punkte verloren</h2>
-  ${kuFix("Makrofotografie → Entdeckende Fotografie (nur zugeordnet)","Zuordnen und begründen: „… gehört zur Entdeckung, weil die Kamera Details zeigt, die das bloße Auge nicht erkennt.“","Aufgabe 1: 6 von 9 P. – alles richtig zugeordnet, vermutlich fehlte die Begründung")}
-  ${kuFix("Informieren → sachlich, möglichst objektives Foto","genau sagen, was: „Information: Fotos unterrichten sachlich über Tatsachen und Ereignisse und helfen dem Betrachter, sich ein Urteil zu bilden – z. B. Pressefotos, Dokumentaraufnahmen, Lehrbuchfotos.“","Randnotiz: „was genau?“ · Aufgabe 2: 1,5 von 6 P.")}
-  ${kuFix("Unterhalten / Manipulieren: von der Lehrkraft gestrichen","Ziel + Mittel + Beispiel: Manipulation = gezielte, unbemerkte Beeinflussung durch Ausschnitt, Perspektive, Inszenierung, Retusche, Bildunterschrift – z. B. in Werbung oder Propaganda.",'Musterantwort im Reiter <a href="#/kunst/klausur/theorie"><b>Theorie</b></a>')}
-  ${kuFix("„Nah, da es nur einen Teil des Kindes zeigt“","„Groß: Der Kopf füllt das Bild aus, Mimik und Augen stehen im Mittelpunkt → emotional.“","Aufgabe 4: korrigiert zu Groß")}
-  ${kuFix("„Totale, da alles zu sehen ist“","„Totale: Die Person ist ganz und mit viel Umgebung zu sehen; Überblick über das Geschehen → distanzierte, sachliche Wirkung.“","„alles“ unterstrichen: ungenau · Aufgabe 4: 1,5 von 4 P.")}
-  ${kuFix("„… unterscheiden sich durch die Schärfe“","den Fachbegriff nennen: <b>selektive Schärfe</b> – und für jedes Foto sagen, welche Ebene scharf ist und was das bewirkt.","Lehrkraft hat „selektive“ ergänzt")}
-  ${kuFix("Licht, Farbe, Kontrast: richtig, aber knapp","zu jedem Mittel Fachbegriff, Merkmal und Wirkung – z. B. Lichtrichtung, Schatten, warme oder kalte Farben, Art des Kontrasts. „Lernen!!! Leichte Punkte“","Aufgabe 5b: 6 von 8 P.")}
-  <p class="meta" style="margin:0">Gut gelaufen: Aufgabe 3 (Verantwortung des Fotografen, scheinbare Objektivität) – volle Punktzahl.</p>
+  <h2 class="sec" id="kp3">So lernst du gut</h2>
+  <div class="step"><ul>
+   <li><b>25 min lernen, 5 min Pause</b> – nach 4 Runden eine längere Pause.</li>
+   <li><b>Erst selbst, dann aufklappen:</b> Musterlösungen erst öffnen, wenn du es versucht hast.</li>
+   <li><b>Mit der Hand schreiben und zeichnen</b> – die Klausur ist auch handschriftlich, Skizzen inklusive.</li>
+   <li><b>Laut erklären:</b> Kannst du ein Genre oder ein Mittel in zwei Sätzen erklären, sitzt es.</li>
+   <li><b>Handy weg</b> beim Lesen – die App nur zum Üben benutzen.</li>
+   <li><b>Fehler sammeln:</b> Karten, die du „Nochmal“ drückst, am Abend wiederholen.</li></ul></div>
 
-  <h2 class="sec">So holst du die Punkte</h2>
+  <h2 class="sec" id="kp4">Aus Test und Handout lernen</h2>
+  <p class="meta" style="margin:0">Test 24 / 37 P., Handout 16,5 / 25 P. Hier lagen die Punkte:</p>
+  ${kuFix("Makrofotografie → Entdeckende Fotografie (nur zugeordnet)","Zuordnen <b>und begründen</b>: „… gehört zur Entdeckung, weil die Kamera Details zeigt, die das bloße Auge nicht erkennt.“","Test 1: 6 von 9 P., „Klausur!“")}
+  ${kuFix("Informieren → sachlich, möglichst objektives Foto","Ziel + Merkmal + Beispiel: „Information: Fotos unterrichten sachlich über Tatsachen und Ereignisse und helfen, sich ein Urteil zu bilden – z. B. Pressefotos.“","Test 2: 1,5 von 6 P., „was genau?“")}
+  ${kuFix("„Nah, da es nur einen Teil des Kindes zeigt“ · „Totale, da alles zu sehen ist“","Einstellungsgröße mit dem begründen, was genau zu sehen ist: „Groß: Der Kopf füllt das Bild …“ · „Totale: Person ganz mit viel Umgebung …“","Test 4: 1,5 von 4 P.")}
+  ${kuFix("„… unterscheiden sich durch die Schärfe“","Fachbegriff <b>selektive Schärfe</b>, dann pro Foto: welche Ebene scharf ist und was das bewirkt.","Test 5a")}
+  ${kuFix("Licht, Farbe, Kontrast: richtig, aber knapp","Zu jedem Mittel Fachbegriff, Merkmal und Wirkung – Lichtrichtung, Schatten, warme oder kalte Farben, Art des Kontrasts.","Test 5b: 6 von 8 P., „Lernen!!! Leichte Punkte“")}
+  ${kuFix("Handout: Wer? Format? Raum? Skizze?","Genau sagen, wer was tut; Format, VG/HG, SW und Hell-Dunkel-Kontrast nennen; Kompositionsskizze zeichnen.",'alle Randbemerkungen im Reiter <a href="#/kunst/klausur/analyse"><b>Analyse</b></a>')}
+  <h3 class="ps-h">Die Formel für jedes Gestaltungsmittel</h3>
   ${KU_FORMEL}
-  <p class="ex"><b>Beispiel:</b> „Durch die <b>Froschperspektive</b> (1) blicken wir von unten zu der Frau auf, hinter der das Hochhaus schräg in den Himmel ragt (2). Sie wirkt dadurch überlegen und entschlossen, die Szene bedrohlich und dramatisch (3).“</p>
-  <div class="step"><ul>
-   <li><b>Fachbegriffe statt Alltagswörter:</b> selektive Schärfe, Froschperspektive, Hell-Dunkel-Kontrast, Halbtotale, Diagonale, Augenführung.</li>
-   <li><b>Genau beobachten:</b> Wer ist zu sehen, was tut die Person, wo? Was ist wirklich im Hintergrund?</li>
-   <li><b>Immer begründen</b> – auch bei Zuordnungen und Einstellungsgrößen.</li>
-   <li><b>Kompositionsskizze</b> bei jeder Analyse zeichnen und im Text darauf verweisen.</li>
-   <li><b>Aufgabe genau lesen</b> und nur das liefern, was verlangt ist.</li></ul></div>
+  <h3 class="ps-h">Operatoren</h3>
+  ${kuRows([["Nennen / Zuordnen","","aufzählen bzw. einer Kategorie zuweisen – beim Zuordnen kurz begründen"],["Beschreiben","","sachlich wiedergeben, was zu sehen ist, noch ohne Deutung"],["Erklären / Erläutern","","verständlich machen, mit Beispiel und Begründung"],["Analysieren","","Gestaltungsmittel untersuchen und ihre Wirkung erklären"],["Deuten","","Absicht und Botschaft herausarbeiten, am Bild belegen"],["Vergleichen","","Gemeinsamkeiten und Unterschiede nach Kriterien, dann Fazit"],["Stellung nehmen / Beurteilen","","eigenes, begründetes Urteil mit Beispiel"],["Entwerfen / Skizzieren / Gestalten","","eigenes Bild planen, Skizze zeichnen, Mittel begründen"]])}
 
-  <h2 class="sec">Operatoren</h2>
-  <div class="step"><ul>
-   <li><b>Beschreiben:</b> sachlich wiedergeben, was zu sehen ist – noch ohne Deutung.</li>
-   <li><b>Zuordnen:</b> einer Kategorie zuweisen und kurz begründen.</li>
-   <li><b>Erklären / Erläutern:</b> verständlich machen, mit Beispiel und Begründung.</li>
-   <li><b>Analysieren:</b> Gestaltungsmittel untersuchen und ihre Wirkung erklären.</li>
-   <li><b>Deuten / Interpretieren:</b> Absicht, Inhalt und Botschaft herausarbeiten, am Bild belegen.</li>
-   <li><b>Vergleichen:</b> Gemeinsamkeiten und Unterschiede nach Kriterien (Intention, Inszenierung der Figur, Wirkung).</li>
-   <li><b>Stellung nehmen / Beurteilen:</b> begründetes eigenes Urteil mit Argumenten und Beispiel.</li>
-   <li><b>Skizzieren:</b> Kompositionsskizze mit Linien, Formen, Blickführung.</li></ul></div>
+  <h2 class="sec" id="kuChkBox">Checkliste</h2>
+  <div id="kuChk2"></div>`;
+  const upd=()=>{const n=all.filter(k=>done[k]).length;kuEl("kuPlanTxt").textContent=`${n} von ${all.length} Schritten erledigt`;kuEl("kuPlanBar").style.width=(n/all.length*100)+"%"};
+  el.querySelectorAll(".ku-step input").forEach(c=>c.onchange=()=>{done[c.dataset.k]=c.checked;store.set("kuPlan",done);upd()});
+  el.querySelectorAll(".ku-go").forEach(b=>b.onclick=()=>kuGo(b.dataset.tab,b.dataset.mode,b.dataset.deck));
+  upd();
+  const cd=store.get("kuChk2",{});
+  kuEl("kuChk2").innerHTML=KU_CHECK2.map(([g,items],gi)=>`<div class="step ps-chk"><span class="afb">${g}</span>${items.map((t,i)=>`<label><input type="checkbox" data-k="${gi}-${i}" ${cd[gi+"-"+i]?"checked":""}> <span>${t}</span></label>`).join("")}</div>`).join("");
+  kuEl("kuChk2").querySelectorAll("input").forEach(c=>c.onchange=()=>{cd[c.dataset.k]=c.checked;store.set("kuChk2",cd)});
+}
 
-  <h2 class="sec">Checkliste</h2>
-  <div class="step ps-chk" id="kuChk"></div>`;
-  const done=store.get("kuChk",{});
-  kuEl("kuChk").innerHTML=KU_CHECK.map((t,i)=>`<label><input type="checkbox" data-i="${i}" ${done[i]?"checked":""}> <span>${t}</span></label>`).join("");
-  kuEl("kuChk").querySelectorAll("input").forEach(c=>c.onchange=()=>{done[c.dataset.i]=c.checked;store.set("kuChk",done)});
+/* ---------- Thema 1: Arten, Gattungen, Genres ---------- */
+function kuGenreCardK(g){
+  return `<div class="ku-card" style="--mc:var(${g.c})"><h3>${g.n}</h3>
+   <ul class="ps-ul">${g.m.map(x=>`<li>${x}</li>`).join("")}</ul>
+   <dl><dt>Funktion</dt><dd>${g.f}</dd><dt>Wirklichkeit</dt><dd>${g.wb}</dd><dt>Künstler</dt><dd>${g.kue}</dd><dt>Beispiel</dt><dd>${g.bsp}</dd></dl></div>`;
+}
+function kukArten(el){
+  el.innerHTML=`
+  <div class="step ku-must"><span class="afb">Thema 1</span><p><b>Arten / Gattungen / Genre der Fotografie und deren Merkmale und Funktionen</b></p></div>
+  <div class="erachips ku-chips"><a href="#kr1">Begriffe klären</a><a href="#kr2">Funktionen</a><a href="#kr3">Arten & Gattungen</a><a href="#kr4">Genres</a><a href="#kr5">Genres im Vergleich</a><a href="#kr6">Doku ↔ Inszenierung</a><a href="#kr7">Unterhaltung · Info · Manipulation</a><a href="#kr8">Wirklichkeit</a><a href="#kr9">Kommunikation</a></div>
+
+  <section class="tx" id="kr1"><span class="tx-y">damit du nichts verwechselst</span><h2>Art, Gattung, Genre, Funktion</h2>
+   ${kuRows([
+    ["Art / Gattung","„Was für ein Foto?“","Einteilung nach <b>Technik</b> (Makro, Röntgen …), <b>Inhalt</b> (Porträt, Landschaft …) oder <b>Funktion</b> (Werbe-, Pressefoto …) – das Fotouniversum nach Vilém Flusser."],
+    ["Genre / Stilrichtung","„In welcher Tradition?“","Wie und mit welcher Haltung fotografiert wird: Inszenierte, Sozialdokumentarische Fotografie, Straight Photography, Pictorialismus, Neues Sehen (dazu Fotomontage, Abstrakte Fotografie)."],
+    ["Funktion = Aufgabe","„Wozu?“","Auf deinem Blatt: „Aufgaben der Fotografie & Funktion“ – Aufzeichnung, Unterhaltung, Persönlichkeitsausdruck, Information, Zweckinformation, Entdeckung."]])}
+   <p class="ex"><b>So hängt es zusammen:</b> Eine <b>Art</b> sagt, was fotografiert wurde oder wie, die <b>Funktion</b> sagt, wozu. Darum kann eine Art mehreren Funktionen dienen – ein Porträt als Passfoto (Aufzeichnung) oder als Kunstwerk (Persönlichkeitsausdruck).</p>
+  </section>
+
+  <section class="tx" id="kr2"><span class="tx-y">„Klausur!“ · zuordnen und begründen</span><h2>Die 6 Funktionen (Aufgaben) der Fotografie</h2>
+   <p class="ex"><b>Eselsbrücke:</b> <b>A</b>ufzeichnung · <b>U</b>nterhaltung · <b>P</b>ersönlichkeitsausdruck · <b>I</b>nformation · <b>Z</b>weckinformation · <b>E</b>ntdeckung – „<b>AU</b>, <b>PIZ</b>za <b>E</b>ssen!“</p>
+   ${kuAufgCards(true)}
+   <div class="step"><span class="afb">So formulierst du eine Zuordnung</span><p>„Die <b>[Art]</b> gehört zur Funktion <b>[Aufgabe]</b>, weil <b>[Merkmal der Aufgabe]</b>, z. B. <b>[Beispiel]</b>.“</p></div>
+   ${kuMl("Musterantwort zu Test-Aufgabe 1 (Makro-, Landschafts-, Werbefotografie)",KU_ML_A1)}
+  </section>
+
+  <section class="tx" id="kr3"><span class="tx-y">Fotouniversum · Lehrbuch S. 10–11</span><h2>Arten und Gattungen mit Merkmal und Funktion</h2>
+   ${kuUnivCards()}
+   <p class="meta">Deine Beispiele auf dem Einführungsblatt: <b>Techniken</b> – digitale, Makro-, entdeckende Fotografie · <b>Inhalte</b> – Landschafts-, unterhaltende Fotografie · <b>Funktionen</b> – Dokumentarfotografien, Fotoreportagen, Werbefotografie.</p>
+   <div class="ku-rows">${KU_ARTEN.map(([n,r,m,f,h])=>`<div><div class="h"><b>${n}</b><span class="meta">${r}</span></div><p>${m}</p><p class="w"><span>Funktion:</span> ${f.length?f.map(id=>kuA(id).n).join(" oder "):""}${h?` <i class="meta">(${h})</i>`:""}</p></div>`).join("")}</div>
+  </section>
+
+  <section class="tx" id="kr4"><span class="tx-y">Arbeitsblatt „Genre der Fotografie“</span><h2>Die 5 Genres für die Klausur</h2>
+   <div class="view" style="gap:10px">${KU_GREL.map(kuGenreCardK).join("")}</div>
+   ${kuDet("Kurz kennen: Fotomontage und Abstrakte Fotografie (laut deiner Notiz klausurirrelevant)",`<div class="view" style="gap:10px">${KU_GENRE.filter(g=>!g.k).map(kuGenreCardK).join("")}</div>`)}
+  </section>
+
+  <section class="tx" id="kr5"><span class="tx-y">zum Auswendiglernen</span><h2>Genres im Vergleich</h2>
+   ${kuRows(KU_GREL.map(g=>[`<span style="color:var(${g.c})">${g.n}</span>`,"",`<b>Wirklichkeit:</b> ${g.wb}<br><b>Künstler:</b> ${g.kue}`,g.f,"Funktion"]))}
+   <p class="meta">Fotos von deinem Analyse-Blatt: Sherman, Wall, Newton → inszeniert · Lange (und Hine) → sozialdokumentarisch · Kühn → Pictorialismus · Rodtschenko, Kertész → Neues Sehen · Sander → laut Korrektur dokumentarisch.</p>
+  </section>
+
+  <section class="tx" id="kr6"><span class="tx-y">Kursthema</span><h2>Dokumentation ↔ Inszenierung</h2>
+   ${kuTable(["","Dokumentation","Inszenierung"],[
+    ["Fotograf","beobachtet, greift möglichst nicht ein","arrangiert wie ein Regisseur"],
+    ["Figur","reale Person in ihrer Situation","Model, Schauspieler, Künstlerin in einer Rolle"],
+    ["Wirkung","authentisch, glaubwürdig","künstlich, rätselhaft, ästhetisch"],
+    ["Genres","Sozialdokumentarisch, Straight, Pressefoto","Inszeniert, Mode und Werbung"],
+    ["Beispiel","Sander, Lange, Hine, Platt","Sherman, Wall, Newton"]])}
+   <p class="ex"><b>Aber:</b> Auch das Dokument ist gestaltet (Moment, Ausschnitt, Perspektive, Pose) – und das inszenierte Bild kann Wahres über die Gesellschaft zeigen.</p>
+  </section>
+
+  <section class="tx" id="kr7"><span class="tx-y">Test-Aufgabe 2 · genau erklären</span><h2>Unterhaltung, Information, Manipulation</h2>
+   ${kuRows([
+    ["Unterhaltung","","<b>Ziel:</b> Freude, Vergnügen, Zeitvertreib<br><b>Merkmale:</b> spricht Gefühl und Geschmack an; schön, angenehm","Urlaubsfoto, Bildband, Pin-up","Beispiele"],
+    ["Information","","<b>Ziel:</b> sachlich unterrichten, Urteil ermöglichen<br><b>Merkmale:</b> glaubwürdig, möglichst objektiv, meist mit Text","Pressefoto, Lehrbuch, Dokumentaraufnahme","Beispiele"],
+    ["Manipulation","","<b>Ziel:</b> Meinung, Kauf, Gefühl lenken – unbemerkt<br><b>Mittel:</b> Ausschnitt, Moment, Perspektive, Inszenierung, Retusche, Montage, Bildunterschrift","Werbung, Propaganda, retuschierte Pressebilder","Beispiele"]])}
+   ${kuMl("Musterantwort zu Test-Aufgabe 2",KU_ML_A2)}
+  </section>
+
+  <section class="tx" id="kr8"><span class="tx-y">Funktion Information: Wie wahr sind Fotos?</span><h2>Fotografie und Wirklichkeit</h2>
+   <div class="ps-grid2">
+    <div class="ps-mini"><b>Warum Fotos objektiv wirken</b><ul class="ps-ul"><li>Die Kamera zeichnet naturalistisch und in unmittelbarer Beobachtung auf.</li><li>Jedes Foto wirkt wie ein <b>„documentum“</b>, ein Beweisstück.</li><li><b>Susan Sontag:</b> Fotos liefern Beweismaterial.</li></ul></div>
+    <div class="ps-mini"><b>Warum sie subjektiv sind</b><ul class="ps-ul"><li><b>Fotograf:</b> Absicht, Motivwahl, Standort, Ausschnitt, Moment, Brennweite, Licht, Format – bis zu Inszenierung und Bearbeitung</li><li><b>Betrachter:</b> deutet je nach Erfahrung, Wissen, Entwicklungsstand</li><li><b>Kontext:</b> Bildunterschrift und Medium lenken die Deutung</li></ul></div>
+   </div>
+   ${kuDef("Scheinbare Objektivität (Gisèle Freund, 1979)","Die Fotografie ist an die Natur gebunden, doch die angeblich unbestechliche Linse erlaubt alle möglichen Verformungen der Wirklichkeit. → Ein Motiv hat viele Bilder; ein Foto ist nie ein richtiges Abbild der Wirklichkeit.")}
+   <p><b>Wirkungsebenen:</b> überwiegend <b>Informationsgehalt</b> (Was teilen Bild und Text sachlich mit?) · <b>ästhetischer</b> Gehalt (Wie ist es gestaltet?) · <b>emotionaler</b> Gehalt (Was erzählt es, welche Gefühle?). <b>Beurteilung:</b> subjektiv · möglichst objektiv · im gesellschaftlichen Kontext.</p>
+   ${kuMl("Musterantwort: „Nehmen Sie Stellung: Die Fotografie hat nur eine scheinbare Objektivität.“",KU_ML_A3)}
+  </section>
+
+  <section class="tx" id="kr9"><span class="tx-y">Mitschrift</span><h2>Kommunikationsmodell</h2>
+   ${kuSvgKomm()}
+   <p class="ex"><b>Angewendet:</b> Dorothea Lange (Sender) codiert die Not der Familie in Nahaufnahme, weichem Licht und Dreieckskomposition. Das Foto erscheint in der Zeitung (Medium). Leser (Empfänger) decodieren es als Bild der Armut → Mitgefühl, Hilfe (Wirkung) → das Foto wird berühmt (Feedback). Störsignal: eine falsche Bildunterschrift.</p>
+  </section>`;
 }
 
 const KU_ML_A1=`
@@ -866,66 +1075,6 @@ const KU_ML_A3=`
  <p>Ein Beispiel ist August Sanders „Handlanger“: Das Foto wirkt wie ein sachliches Dokument, doch Pose, frontaler Blick und der dunkle Hintergrund sind bewusst gewählt.</p>
  <p>Ein Foto ist also nie ein vollständiges, „richtiges“ Abbild der Wirklichkeit, sondern ein gestalteter Ausschnitt. Daraus folgt eine hohe moralische Verantwortung des Fotografen – und für uns Betrachter die Aufgabe, Fotos kritisch zu prüfen: Wer hat das Bild gemacht, wozu, und was zeigt es nicht?</p>`;
 
-function kukTheorie(el){
-  el.innerHTML=`
-  <div class="erachips ku-chips"><a href="#kt4">Subjektiv · Objektiv · Information</a><a href="#kt3">Unterhaltung · Information · Manipulation</a><a href="#kt5">Dokumentation ↔ Inszenierung</a><a href="#kt1">Aufgaben</a><a href="#kt2">Arten</a><a href="#kt6">Genres</a><a href="#kt7">Kommunikation</a></div>
-
-  <section class="tx" id="kt4"><span class="tx-y">deine Notiz: Teil III der Klausur</span><h2>Subjektiv – Objektiv – Information</h2>
-   <div class="ps-grid2">
-    <div class="ps-mini"><b>Warum Fotos objektiv wirken</b><ul class="ps-ul"><li>Die Kamera zeichnet mechanisch-optisch auf, naturalistisch und in unmittelbarer Beobachtung.</li><li>Jedes Foto wirkt wie ein <b>„documentum“</b>, ein Beweisstück.</li><li><b>Susan Sontag:</b> Fotos liefern Beweismaterial.</li></ul></div>
-    <div class="ps-mini"><b>Warum sie subjektiv sind</b><ul class="ps-ul"><li><b>Fotograf:</b> Absicht, Motivwahl, Standort und Perspektive, Ausschnitt, Moment, Brennweite, Licht, Format – bis zu Inszenierung und Bearbeitung</li><li><b>Betrachter:</b> deutet je nach Erfahrung, Wissen, Entwicklungsstand</li><li><b>Kontext:</b> Bildunterschrift und Medium lenken die Deutung</li></ul></div>
-   </div>
-   ${kuDef("Scheinbare Objektivität (Gisèle Freund, 1979)","Die Fotografie ist an die Natur gebunden, aber die angeblich unbestechliche Linse erlaubt alle möglichen Verformungen der Wirklichkeit. → Ein Motiv hat viele Bilder; ein Foto ist nie ein richtiges Abbild der Wirklichkeit.")}
-   <h3 class="ps-h">Information: Wirkungsebenen</h3>
-   ${kuRows([
-    ["1. Informationsgehalt","","Welche sachliche Information teilen uns Bild und Text mit?"],
-    ["2. Ästhetischer Gehalt","","Wie ist das Foto gestaltet? Format, Ausschnitt, Farbe/SW, Kontraste, Licht, Raum, Schärfe, Komposition, Layout von Bild, Text und Produkt"],
-    ["3. Emotionaler Gehalt","","Was erzählt das Foto? Wünsche, Ängste, Gefühle, Assoziationen, Bezug zur Realität"]])}
-   <p><b>Beurteilung:</b> Wie schätze ich die Qualität und den Wert des Bildes ein? <b>subjektiv</b> · <b>möglichst objektiv</b> · <b>im gesellschaftlichen Kontext</b>. Der Informationswert hängt davon ab, wer das Foto gemacht hat, wozu, mit welchem Text es erscheint und was es weglässt.</p>
-   <p class="ex"><b>Fazit für jede Antwort:</b> Fotos sind gestaltete Ausschnitte der Wirklichkeit. Darum trägt der Fotograf eine hohe moralische Verantwortung – und der Betrachter muss Fotos kritisch prüfen.</p>
-   ${kuMl("Musterantwort: „Nehmen Sie Stellung: Die Fotografie hat nur eine scheinbare Objektivität.“",KU_ML_A3)}
-  </section>
-
-  <section class="tx" id="kt3"><span class="tx-y">Test-Aufgabe 2 · genau erklären</span><h2>Unterhaltung, Information, Manipulation</h2>
-   ${kuRows([
-    ["Unterhaltung","","<b>Ziel:</b> Freude, Vergnügen, Zeitvertreib<br><b>Merkmale:</b> spricht Gefühl und Geschmack an; schön, angenehm","Urlaubsfoto, Bildband, Pin-up","Beispiele"],
-    ["Information","","<b>Ziel:</b> sachlich unterrichten, Urteil ermöglichen<br><b>Merkmale:</b> glaubwürdig, möglichst objektiv, meist mit Text","Pressefoto, Lehrbuch, Dokumentaraufnahme","Beispiele"],
-    ["Manipulation","","<b>Ziel:</b> Meinung, Kauf, Gefühl lenken – unbemerkt<br><b>Mittel:</b> Ausschnitt, Moment, Perspektive, Inszenierung, Retusche, Montage, Bildunterschrift","Werbung, Propaganda, retuschierte Pressebilder","Beispiele"]])}
-   ${kuMl("Musterantwort zu Test-Aufgabe 2",KU_ML_A2)}
-  </section>
-
-  <section class="tx" id="kt5"><span class="tx-y">Kursthema</span><h2>Dokumentation ↔ Inszenierung</h2>
-   ${kuTable(["","Dokumentation","Inszenierung"],[
-    ["Fotograf","beobachtet, greift möglichst nicht ein","arrangiert wie ein Regisseur"],
-    ["Figur","reale Person in ihrer Situation","Model, Schauspieler, Künstlerin in einer Rolle"],
-    ["Wirkung","authentisch, glaubwürdig","künstlich, rätselhaft, ästhetisch"],
-    ["Beispiel","Sander, Lange, Hine, Platt","Sherman, Wall, Newton"]])}
-   <p class="ex">In Vergleichsaufgaben: Intention → wie wird die Figur inszeniert (Pose, Kleidung, Blick, Ort, Licht, Einstellungsgröße, Perspektive) → Wirkung → Fazit: Beide sind gestaltet.</p>
-  </section>
-
-  <section class="tx" id="kt1"><span class="tx-y">„Klausur!“ · zuordnen und begründen</span><h2>Die 6 Aufgaben der Fotografie</h2>
-   <p class="ex"><b>Eselsbrücke:</b> <b>A</b>ufzeichnung · <b>U</b>nterhaltung · <b>P</b>ersönlichkeitsausdruck · <b>I</b>nformation · <b>Z</b>weckinformation · <b>E</b>ntdeckung – „<b>AU</b>, <b>PIZ</b>za <b>E</b>ssen!“</p>
-   ${kuAufgCards(true)}
-   <div class="step"><span class="afb">So formulierst du eine Zuordnung</span><p>„Die <b>[Art]</b> gehört zur Aufgabe <b>[Aufgabe]</b>, weil <b>[Begründung mit Merkmal der Aufgabe]</b>, z. B. <b>[Beispiel]</b>.“</p></div>
-   ${kuMl("Musterantwort zu Test-Aufgabe 1 (Makro-, Landschafts-, Werbefotografie)",KU_ML_A1)}
-  </section>
-
-  <section class="tx" id="kt2"><span class="tx-y">Fotouniversum</span><h2>Arten der Fotografie</h2>
-   <p>Fotos lassen sich nach <b>Technik</b>, <b>Inhalt</b>, <b>Funktion</b> und <b>Stil</b> ordnen. Eine Art kann verschiedenen Aufgaben dienen – entscheidend ist, <b>wofür</b> das Foto gemacht wurde (Dokumentarfotografie z. B. → Aufzeichnung oder Information).</p>
-   ${kuUnivCards()}
-  </section>
-
-  <section class="tx" id="kt6"><span class="tx-y">ohne Fotomontage und Abstrakte Fotografie</span><h2>Die 5 Genres für die Klausur</h2>
-   ${kuRows(KU_GREL.map(g=>[`<span style="color:var(${g.c})">${g.n}</span>`,"",g.m.filter(x=>!x.startsWith("Ergänzung")).join("; "),g.kue,"Künstler"]))}
-   <p class="meta">Beispiele aus der Auswahl: Sherman, Wall, Newton → inszeniert · Lange (und Hine) → sozialdokumentarisch · Kühn → Pictorialismus · Rodtschenko, Kertész → Neues Sehen · Sander → laut Korrektur dokumentarisch.</p>
-  </section>
-
-  <section class="tx" id="kt7"><span class="tx-y">Mitschrift</span><h2>Kommunikationsmodell</h2>
-   ${kuSvgKomm()}
-   <p class="ex"><b>Angewendet:</b> Dorothea Lange (Sender) codiert die Not der Familie in Nahaufnahme, weichem Licht und Dreieckskomposition. Das Foto erscheint in der Zeitung (Medium). Leser (Empfänger) decodieren es als Bild der Armut → Mitgefühl, Hilfe (Wirkung) → das Foto wird berühmt (Feedback). Störsignal: eine falsche Bildunterschrift könnte die Deutung verändern.</p>
-  </section>`;
-}
-
 const KU_ML_LICHT=`
  <p><b>Licht:</b> Es ist natürliches Abendlicht. Die tief stehende Sonne steht rechts im Hintergrund, das Licht kommt also von hinten bzw. von der Seite (Gegenlicht). Es ist weich und gestreut: Es gibt keine harten Schlagschatten, die Übergänge sind sanft. Dadurch wirkt die Szene friedlich, ruhig und ein wenig verträumt – wie ein Moment am Ende eines Sommertages.</p>
  <p><b>Farbe:</b> Es überwiegen warme Farben: Orange und Gelb im Himmel, Ocker und Braun im Feld und das kräftige Rot der Tulpe. Die warme Farbigkeit wirkt gemütlich und harmonisch und unterstützt die friedliche Abendstimmung. Das leuchtende Rot ist die stärkste Farbe im Bild; im Kontrast zum Grün der Blätter (Rot-Grün-Kontrast) und zu den gedeckten Ockertönen (Grau-Bunt-Kontrast) zieht es den Blick an, obwohl die Tulpe unscharf ist.</p>
@@ -933,12 +1082,12 @@ const KU_ML_LICHT=`
 
 function kukMittel(el){
   el.innerHTML=`
-  <div class="erachips ku-chips"><a href="#km1">Einstellungsgrößen</a><a href="#km2">Perspektive</a><a href="#km3">Schärfe & Technik</a><a href="#km4">Licht</a><a href="#km5">Farbe & Kontraste</a><a href="#km6">Format & Raum</a><a href="#km7">Komposition</a><a href="#km8">Muster</a></div>
-  <div class="step ku-must"><span class="afb">„Lernen!!! Leichte Punkte“ – die Formel für jedes Mittel</span>${KU_FORMEL}</div>
+  <div class="step ku-must"><span class="afb">Thema 2 · „Lernen!!! Leichte Punkte“</span><p><b>Fotografische Gestaltungsmittel und deren Wirkung</b> – die Formel für jedes Mittel:</p>${KU_FORMEL}</div>
+  <div class="erachips ku-chips"><a href="#km1">Einstellungsgrößen</a><a href="#km2">Perspektive</a><a href="#km3">Blende, Objektiv, Zeit</a><a href="#km4">Licht</a><a href="#km5">Farbe & Kontraste</a><a href="#km6">Motiv & Raum</a><a href="#km7">Bildkomposition</a><a href="#km8">Muster</a></div>
 
   <section class="tx" id="km1"><span class="tx-y">„Klausur: meist Bilder mit Personen“</span><h2>Einstellungsgrößen erkennen</h2>
    ${kuEGGrid()}
-   ${kuRows(KU_EG.map((e,i)=>[`${i+1}. ${kuEGn(e.id)}`,e.dist,`<i>${e.frage}</i>`,e.wirk]))}
+   ${kuRows(KU_EG.map((e,i)=>[`${i+1}. ${e.n}`,e.dist,`<i>${e.frage}</i>`,e.wirk]))}
    <p class="ex"><b>Abgrenzung Amerikanisch ↔ Halbnah:</b> In deinem Buch ist <b>Amerikanisch</b> „vom Scheitel bis zum Knie“, die Person steht im Mittelpunkt; <b>Halbnah</b> zeigt etwa zwei Drittel der Person <b>und die unmittelbare Umgebung</b> oder eine Personengruppe. (Andere Bücher ordnen die beiden umgekehrt – begründe immer mit dem, was zu sehen ist.)</p>
    <p><a class="btn primary" href="#/kunst/klausur/ueben" id="kuToTrainer" style="display:block;text-align:center;text-decoration:none">Einstellungsgrößen-Trainer öffnen</a></p>
    ${kuDet("Die 9 Fotos der Auswahl: Einstellungsgröße und Perspektive",kuRows(KU_FOTOS.map(f=>[`${f.nr}. ${f.f}`,f.j.split(" ")[0],`<i>${f.t}</i>`,`<b>${f.eg}</b> · ${f.p}`,"Einstellung · Perspektive"])))}
@@ -949,45 +1098,51 @@ function kukMittel(el){
    ${kuRows(KU_PERSP.map(p=>[`<span style="color:var(${p.c})">${p.n}</span>`,"",p.wo,p.wirk]))}
   </section>
 
-  <section class="tx" id="km3"><span class="tx-y">Test-Aufgabe 5a: „selektive Schärfe“ als Fachbegriff!</span><h2>Schärfe, Blende, Brennweite, Belichtungszeit</h2>
+  <section class="tx" id="km3"><span class="tx-y">Test-Aufgabe 5a: „selektive Schärfe“ als Fachbegriff!</span><h2>Schärfe, Blende, Objektiv, Belichtungszeit, Filmmaterial</h2>
    <div class="ku-sch">
     <figure><div class="ku-ph">${kuSvgSchaerfe("total")}</div><figcaption><b>Totale Schärfe</b> unbestechlich, informativ, steril</figcaption></figure>
     <figure><div class="ku-ph">${kuSvgSchaerfe("vg")}</div><figcaption><b>Selektiv: VG scharf</b> Tulpe tritt plastisch hervor</figcaption></figure>
     <figure><div class="ku-ph">${kuSvgSchaerfe("hg")}</div><figcaption><b>Selektiv: HG scharf</b> Blick geht zur Person, VG rahmt</figcaption></figure>
    </div>
-   ${kuRows([
-    ["Blende","","<b>groß</b> → geringe Schärfentiefe (selektive Schärfe)<br><b>klein</b> → große Schärfentiefe (totale Schärfe)","selektiv lenkt den Blick, total wirkt informativ"],
-    ["Brennweite","","<b>Weitwinkel</b> (klein) · <b>Normal</b> (mittel) · <b>Tele</b> (groß)","weiter Raum, wie aufgeklappt · normale Sicht · Ebenen rücken eng zusammen"],
-    ["Belichtungszeit","","<b>kurz</b> → Bewegung eingefroren · <b>lang</b> → Bewegungsunschärfe","starr und scharf · Aktion, Dynamik"],
-    ["Körnung","","<b>feinkörnig</b> · <b>grobkörnig</b>","scharf, glatt · körnig, rau, oft dokumentarisch"]])}
+   <p class="meta">Spezifisch fotografische Gestaltungsmittel – so stehen sie auf deinem Blatt. Tipp: große Blende = kleine Blendenzahl (z. B. f/1,8).</p>
+   ${kuGMRows()}
   </section>
 
   <section class="tx" id="km4"><span class="tx-y">leichte Punkte</span><h2>Licht</h2>
    ${kuSvgLicht()}
+   ${kuRows(KU_LICHT.map(r=>[r[0],"",r[1],r[2],"Eindruck"]))}
+   <h3 class="ps-h">Lichtrichtung (Formensprache: hart, weich, Seitenlicht, Schlagschatten)</h3>
    ${kuRows([
-    ["hartes Licht","Sonne, Spot","scharfe Konturen, harte Schlagschatten, starke Kontraste","grell, dramatisch, lenkt auf „Spots“"],
-    ["weiches Licht","Wolken, gestreut","weiche Übergänge, diffuse Schatten","natürlich, ruhig, sanft; Plastizität"],
     ["Seitenlicht","","eine Seite hell, eine dunkel","plastisch, Strukturen treten hervor, spannungsvoll"],
     ["Gegenlicht","","Licht von hinten, Umrisse leuchten","Silhouette, geheimnisvoll, stimmungsvoll"],
-    ["Kunstlicht","Lampen, Blitz","Lichtquellen sichtbar, Spots, Nacht","inszeniert, verfremdend; Blitz friert Bewegung ein"],
-    ["Licht von unten","Ergänzung","Schatten fallen nach oben","unheimlich, bedrohlich"]])}
+    ["Licht von unten","Ergänzung","Schatten fallen nach oben","unheimlich, bedrohlich"],
+    ["flächig ↔ punktförmig","","gleichmäßig ausgeleuchtet ↔ einzelne helle Stellen","ruhig, sachlich ↔ lenkt den Blick, dramatisch"]])}
   </section>
 
   <section class="tx" id="km5"><span class="tx-y">leichte Punkte</span><h2>Farbe und Kontraste</h2>
    ${kuRows(KU_FARBE.map(r=>[r[0],"",r[1],r[2]]))}
   </section>
 
-  <section class="tx" id="km6"><span class="tx-y">vom Handout: „Format, Raum!“</span><h2>Format und Raum</h2>
-   ${kuTable(["Mittel","Wirkung"],[
-    ["<b>Hochformat</b>","betont Höhe, Aufrechtes, die einzelne Person (typisch fürs Porträt); stabil, würdevoll"],
-    ["<b>Querformat</b>","betont Weite, Ruhe, Erzählung (Landschaft, Filmbild)"],
-    ["<b>Vordergrund</b>","schafft Tiefe, rahmt, führt ins Bild"],
-    ["<b>Mittelgrund</b>","verbindet, zeigt oft das Hauptmotiv"],
-    ["<b>Hintergrund</b>","Atmosphäre, Kontext; leer oder dunkel → Figur isoliert, nichts lenkt ab"],
-    ["<b>Handlungsachse</b>","parallel zur Kamera (ruhig, beobachtend), konträr (Konfrontation), ins Bild mitführend (Tiefe, man geht mit)"]])}
+  <section class="tx" id="km6"><span class="tx-y">Hilfen zu II · 1. Motiverfassung und Motivgestaltung</span><h2>Motiv, Format, Raum, Form, Textur</h2>
+   ${kuRows([
+    ["Ausschnittwahl","","Moment der Aufnahme, Wirklichkeitsausschnitt (Modell/Objekt, Ort, Ausstattung), Bildausschnitt = 8 Einstellungsgrößen, Bildformat"],
+    ["Hochformat","","betont Höhe, Aufrechtes, die einzelne Person (Porträt)","stabil, würdevoll"],
+    ["Querformat","","betont Weite, Ruhe, Erzählung (Landschaft, Filmbild)","ruhig, erzählend"],
+    ["Raumtiefe","","Ausgestaltung von Vorder-, Mittel- und Hintergrund","VG rahmt und führt ins Bild · MG zeigt oft das Hauptmotiv · leerer oder dunkler HG isoliert die Figur"],
+    ["Handlungsachse","","Verhältnis von Kameraposition und Handlungsachse: parallel, konträr, ins Bild mitführend","beobachtend · konfrontierend · man geht mit ins Bild"],
+    ["Form","","Umrissformen, Formkontraste (fließend, eckig, ruhig, unruhig), Form an sich, Größe","Spannung oder Ruhe"],
+    ["Farbe","","Farbverteilung auf der Fläche; Kontraste der Farbe an sich, Menge, Leuchtkraft, kalt-warm, grau-bunt"],
+    ["Texturen","","Oberflächenstrukturen: Helldunkel-Werte, Tonwerte, schwarze grafische Elemente","machen Material spürbar (rau, glatt)"]])}
   </section>
 
-  <section class="tx" id="km7"><span class="tx-y">Bildkomposition</span><h2>Linien, Figuren, Regeln</h2>
+  <section class="tx" id="km7"><span class="tx-y">Hilfen zu II · 2. Bildkomposition</span><h2>Bildkomposition</h2>
+   <p class="meta">Leitfrage vom Blatt: Welchen Einfluss hat die Komposition auf die Wirkung der Fotografie?</p>
+   ${kuRows([
+    ["Aufteilung der Bildfläche","","Gliederung und Proportionen (Drittelregel, Goldener Schnitt, Mitte)"],
+    ["Aufteilung des Bildraums","","Vorder-, Mittel-, Hintergrund"],
+    ["Anordnung der Bildelemente","","Reihung (gleichmäßig/unrhythmisch), Ballung, Streuung, Raster, Kompositionsfiguren (kreis-, bogenförmig, drei- oder rechteckig)"],
+    ["Ausrichtung der Bildelemente","","waagerecht, senkrecht, diagonal – wohin „zeigen“ die Elemente?"],
+    ["Auswahl der Bildelemente","","Wie unterscheiden sie sich? Welche Wirkung entsteht durch ihre Kombination?"]])}
    ${kuKompoGrid()}
    <p class="ex"><b>Bildaufteilung</b> = Fläche (Wo liegt was? Drittel, Mitte, Diagonale, Negativraum) · <b>Bildaufbau</b> = Raum (VG, MG, HG) · <b>Kompositionsfiguren</b> = Formen, nach denen die Elemente angeordnet sind.</p>
   </section>
@@ -1010,27 +1165,27 @@ const KU_ML_SANDER=`
 
 function kukAnalyse(el){
   el.innerHTML=`
-  <div class="erachips ku-chips"><a href="#ka1">Ablauf I–IV</a><a href="#ka2">Kompositionsskizze</a><a href="#ka3">Satzbausteine</a><a href="#ka4">Muster: Sander</a><a href="#ka5">Korrekturen</a></div>
+  <div class="erachips ku-chips"><a href="#ka1">Schritte I–III</a><a href="#ka2">Kompositionsskizze</a><a href="#ka3">Satzbausteine</a><a href="#ka4">Muster: Sander</a><a href="#ka5">Korrekturen</a></div>
 
-  <section class="tx" id="ka1"><span class="tx-y">Arbeitsblatt Fotoanalyse · Arbeitsschritte</span><h2>Fotoanalyse in 4 Schritten</h2>
-   <div class="step"><span class="afb">0 · Einleitung</span><p>Fotograf, Titel, Jahr, SW oder Farbe, Hoch- oder Querformat, Genre/Funktion – und in einem Satz: Wer oder was ist zu sehen?</p></div>
-   <div class="step"><span class="afb">I · Eindrücke, Wirkungen, Anmutungsqualitäten</span><ul>
-    <li>Welche <b>Situation</b> (Schauplatz, Handlung) zeigt das Foto? Was tut sich? → <b>Wer</b> genau, <b>was</b> tut die Person, <b>wo</b>?</li>
-    <li><b>Stimmung</b> (psychologische Empfindungen) und <b>Atmosphäre</b> (Sinneseindrücke: Gerüche, Temperatur, Geräusche)</li>
-    <li>Welche <b>Bildpartien</b> werden besonders hervorgehoben? (erster Blickfang)</li></ul></div>
-   <div class="step"><span class="afb">II · Bildaufbau und Gestaltungsmittel – mit Wirkung</span><ul>
-    <li>Gehe die Mittel der Reihe nach durch (kurze, auch tabellarische Notizen): <b>Format · Einstellungsgröße · Perspektive · Raum (VG/MG/HG) · Licht · SW/Farbe · Kontraste · Schärfe · Brennweite · Linien und Kompositionsfiguren · Bildaufteilung</b></li>
-    <li>Erkläre, durch welche Maßnahmen des Fotografen die Eindrücke aus Schritt I entstehen.</li>
-    <li><b>Augenführung:</b> Was springt zuerst ins Auge, was sieht man später?</li>
+  <section class="tx" id="ka1"><span class="tx-y">Thema 3 · Arbeitsblatt „Fotoanalyse“</span><h2>Arbeitsschritte I–III (+ Vergleich)</h2>
+   <div class="step"><span class="afb">0 · Einleitung</span><p>Fotograf, Titel, Jahr, SW oder Farbe, Hoch- oder Querformat – und in einem Satz: Wer oder was ist zu sehen?</p></div>
+   <div class="step"><span class="afb">I · Eindrücke, Wirkungen, Anmutungsqualitäten umschreiben</span><ul>
+    <li>Welche <b>Situation</b> (Schauplatz, Handlung) zeigt das Foto? Was tut sich? → <b>wer</b> genau, <b>was</b> tut die Person, <b>wo</b>?</li>
+    <li>Eindrücke von der <b>Stimmung</b> (Summe der psychologischen Empfindungen), der <b>Atmosphäre</b> (Sinneseindrücke: Gerüche, Temperatur, Geräusche) und von den dargestellten <b>Gegenständen, Figuren und Schauplätzen</b></li>
+    <li>Welche <b>Bildpartien</b> werden besonders hervorgehoben?</li></ul></div>
+   <div class="step"><span class="afb">II · Bildaufbau erklären, Gestaltungsmittel untersuchen</span><ul>
+    <li>Die Übersicht der Gestaltungsmittel zu Hilfe nehmen, kurze, auch tabellarische Notizen – Reihenfolge-Tipp: <b>Format · Einstellungsgröße · Perspektive · Raum (VG/MG/HG) · Licht · SW/Farbe · Kontraste · Schärfe · Brennweite · Komposition</b></li>
+    <li>Erklären, durch welche gestalterischen Maßnahmen des Fotografen die Eindrücke aus Schritt I entstehen.</li>
+    <li><b>Augenführung:</b> die vom Fotografen kalkulierte Reihenfolge – was springt zuerst ins Auge, was sieht man später?</li>
     <li><b>Kompositionsskizze</b> anfertigen und im Text darauf verweisen.</li></ul></div>
-   <div class="step"><span class="afb">III · Deutung (Absichten, Inhalte, Botschaften)</span><ul>
-    <li>Was will der Fotograf? Worauf legt er besonderen Wert?</li>
-    <li>Wie unterscheidet sich das Foto von anderen – persönlicher oder zeitbedingter Stil? → Genre zuordnen</li>
-    <li>Gibt es eine tiefere Bedeutung, die sich erst auf den zweiten Blick erschließt?</li></ul></div>
-   <div class="step"><span class="afb">IV · Vergleich</span><ul>
-    <li><b>Intention:</b> Dokumentation oder Inszenierung? Information, Zweckinformation, Persönlichkeitsausdruck?</li>
-    <li><b>Wie wird die Figur inszeniert?</b> Pose, Kleidung, Blick, Ort, Licht, Einstellungsgröße, Perspektive</li>
-    <li><b>Gemeinsamkeiten</b> und <b>Unterschiede</b>, dann ein <b>Fazit</b></li></ul></div>
+   <div class="step"><span class="afb">III · Deuten: Absicht, Botschaften auf den zweiten Blick</span><ul>
+    <li>Wie unterscheidet sich die Arbeit von anderen Fotos oder Kunstwerken – persönlicher oder historisch bedingter Stil? → <b>Genre</b> und <b>Funktion</b> zuordnen</li>
+    <li>Welche Ziele verfolgt der Fotograf, worauf legt er besonderen Wert?</li>
+    <li>Hat das Bild eine tiefere Bedeutung, die sich erst bei genauerem Studium erschließt?</li>
+    <li><i>Zum Abschluss passt eine kurze Beurteilung (Wirkungsebenen-Blatt): subjektiv · möglichst objektiv · im gesellschaftlichen Kontext.</i></li></ul></div>
+   <div class="step"><span class="afb">IV · Vergleich – wenn die Aufgabe ihn verlangt</span><ul>
+    <li>So im Handout-Auftrag: Vergleich mit einem zweiten Foto bezüglich der <b>Intention</b> und <b>wie die Fotografen die Figur inszenieren</b> (Pose, Kleidung, Blick, Ort, Licht, Einstellungsgröße, Perspektive)</li>
+    <li>Gemeinsamkeiten, Unterschiede, Fazit (Dokumentation ↔ Inszenierung)</li></ul></div>
   </section>
 
   <section class="tx" id="ka2"><span class="tx-y">„→ Kompo-Skizze!“ stand am Handout</span><h2>Kompositionsskizze</h2>
@@ -1067,6 +1222,137 @@ function kukAnalyse(el){
   </section>`;
 }
 
+/* ---------- Thema 4: Praktische Umsetzung ---------- */
+// Skizze: Person mächtig (Froschperspektive, Hochformat)
+function kuSvgMaechtig(){
+  const fig=`<path d="M48 277 L92 277 L97 170 L78 170Z M108 277 L152 277 L122 170 L103 170Z"/><path d="M76 172 L124 172 L131 112 L69 112Z"/><path d="M64 128 L136 128 L132 147 L68 147Z"/><circle cx="100" cy="92" r="15"/>`;
+  return `<svg class="ku-svg ku-plan" viewBox="0 0 200 280" role="img" aria-label="Skizze: Person in Froschperspektive"><defs>
+  <pattern id="kuHatchP" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" style="stroke:var(--muted)" stroke-width="1.4" opacity=".7"/></pattern>
+  <clipPath id="kuRight"><rect x="100" y="0" width="100" height="280"/></clipPath>
+  <marker id="kuArP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--crown)"/></marker></defs>
+  <rect x="3" y="3" width="194" height="274" style="fill:var(--bg);stroke:var(--fg)" stroke-width="2"/>
+  <path d="M8 277 L64 3 M192 277 L136 3" style="stroke:var(--muted)" stroke-width="1.3" stroke-dasharray="6 5" fill="none"/>
+  <g style="fill:var(--surface);stroke:var(--fg)" stroke-width="1.6" stroke-linejoin="round">${fig}</g>
+  <g clip-path="url(#kuRight)" fill="url(#kuHatchP)" stroke="none">${fig}</g>
+  <line x1="100" y1="74" x2="100" y2="277" style="stroke:var(--gold)" stroke-width="2.6" stroke-dasharray="8 5"/>
+  <line x1="10" y1="128" x2="60" y2="128" style="stroke:var(--crown)" stroke-width="2.2" marker-end="url(#kuArP)"/>
+  <rect x="7" y="8" width="128" height="34" rx="4" style="fill:var(--bg)" opacity=".92"/>
+  <text x="11" y="22" font-size="12" font-weight="700">Froschperspektive</text>
+  <text x="11" y="36" font-size="10.5" style="fill:var(--muted)">Hochformat · Senkrechte</text>
+  <rect x="7" y="96" width="60" height="26" rx="4" style="fill:var(--bg)" opacity=".92"/>
+  <text x="10" y="107" font-size="10" font-weight="700" style="fill:var(--crown)">hartes</text><text x="10" y="119" font-size="10" font-weight="700" style="fill:var(--crown)">Seitenlicht</text>
+  <rect x="138" y="44" width="56" height="28" rx="4" style="fill:var(--bg)" opacity=".92"/>
+  <text x="141" y="55" font-size="10" style="fill:var(--muted)">stürzende</text><text x="141" y="67" font-size="10" style="fill:var(--muted)">Linien</text>
+  </svg>`;
+}
+// Skizze: Person einsam (Vogelperspektive, Querformat)
+function kuSvgEinsam(){
+  return `<svg class="ku-svg ku-plan" viewBox="0 0 300 200" role="img" aria-label="Skizze: Person in Vogelperspektive"><defs>
+  <marker id="kuArE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--crown)"/></marker></defs>
+  <rect x="3" y="3" width="294" height="194" style="fill:var(--bg);stroke:var(--fg)" stroke-width="2"/>
+  <g style="stroke:var(--line)" stroke-width="1">${[40,80,120,160,200,240,280,320,360,400].map(x=>`<line x1="${x}" y1="3" x2="${x-130}" y2="197"/>`).join("")}</g>
+  <rect x="3" y="3" width="294" height="194" fill="none" style="stroke:var(--fg)" stroke-width="2"/>
+  <g style="stroke:var(--muted)" stroke-width="1" stroke-dasharray="4 4"><line x1="100" y1="3" x2="100" y2="197"/><line x1="200" y1="3" x2="200" y2="197"/><line x1="3" y1="66.7" x2="297" y2="66.7"/><line x1="3" y1="133.3" x2="297" y2="133.3"/></g>
+  <path d="M196 136 L160 166 L168 172 L204 140Z" style="fill:var(--muted)" opacity=".45"/>
+  <ellipse cx="200" cy="134" rx="9" ry="4.5" style="fill:var(--crown)"/><circle cx="200" cy="133" r="4.2" style="fill:var(--fg)"/>
+  <path d="M250 178 C236 168 222 156 208 141" style="stroke:var(--crown)" stroke-width="1.8" fill="none" marker-end="url(#kuArE)"/>
+  <rect x="12" y="12" width="150" height="40" rx="6" style="fill:var(--surface)" opacity=".9"/>
+  <text x="20" y="28" font-size="12" font-weight="700">Vogelperspektive · Totale</text>
+  <text x="20" y="44" font-size="10.5" style="fill:var(--muted)">kalte Farben oder SW</text>
+  <rect x="30" y="90" width="112" height="34" rx="4" style="fill:var(--bg)" opacity=".92"/>
+  <text x="36" y="104" font-size="12" font-weight="700" style="fill:var(--muted)">viel leerer Raum</text>
+  <text x="36" y="118" font-size="10.5" style="fill:var(--muted)">(Negativraum)</text>
+  <rect x="136" y="179" width="158" height="16" rx="3" style="fill:var(--bg)" opacity=".92"/>
+  <text x="290" y="191" text-anchor="end" font-size="10.5" font-weight="700" style="fill:var(--crown)">Figur im Drittel-Schnittpunkt</text>
+  </svg>`;
+}
+
+const KU_ML_PX=`
+ <p><b>Skizze 1 – mächtig und überlegen:</b> Ich fotografiere die Person im <b>Hochformat</b> aus der <b>Froschperspektive</b> (Kamera auf Kniehöhe, nach oben gerichtet). Dadurch erscheint sie groß, erhaben und überlegen; die Beine wirken mächtig, der Kopf ragt nach oben. Die Einstellungsgröße <b>Halbnah bis Amerikanisch</b> rückt Haltung und Körpersprache in den Mittelpunkt (verschränkte Arme, breiter Stand). Die Körperachse bildet eine betonte <b>Senkrechte</b> in der Bildmitte – sie steht für Kraft und Dominanz. Ein <b>hartes Seitenlicht</b> teilt die Figur in eine helle und eine dunkle Hälfte; der starke <b>Hell-Dunkel-Kontrast</b> wirkt dramatisch und plastisch. Hausfassaden im Hintergrund laufen nach oben zusammen und verstärken den Eindruck von Höhe.</p>
+ <p><b>Skizze 2 – klein und einsam:</b> Dieselbe Person fotografiere ich im <b>Querformat</b> aus der <b>Vogelperspektive</b> (von einer Treppe oder einem Fenster aus). Sie wirkt dadurch klein, schwach und unterlegen. In der <b>Totale</b> ist sie nur ein kleiner Teil eines großen, leeren Platzes. Ich setze sie in einen <b>Drittel-Schnittpunkt</b>, sodass sehr viel <b>Negativraum</b> bleibt – die Leere wird zum Thema. Gleichmäßige Linien der Bodenplatten und <b>kalte Farben oder SW</b> mit <b>weichem, gestreutem Licht</b> verstärken die ruhige, traurige Stimmung.</p>
+ <p><b>Fazit:</b> Mit denselben Mitteln – Perspektive, Einstellungsgröße, Format, Licht und Komposition – lässt sich die Wirkung einer Person ins Gegenteil verkehren. Darum ist auch ein Foto nie ganz objektiv.</p>`;
+
+function kukPraxis(el){
+  el.innerHTML=`
+  <div class="step ku-must"><span class="afb">Thema 4</span><p><b>Praktische Umsetzung</b> – ein Foto gezielt planen, skizzieren und die Mittel begründen</p></div>
+  <div class="erachips ku-chips"><a href="#kx1">Was gefragt sein kann</a><a href="#kx2">Vorgehen</a><a href="#kx3">Regie-Zettel</a><a href="#kx4">Wirkung → Mittel</a><a href="#kx5">Beispiele</a><a href="#kx6">Mit dem Handy</a><a href="#kx7">Skizzen-Tipps</a></div>
+
+  <section class="tx" id="kx1"><span class="tx-y">genauer steht es nicht auf deiner Liste</span><h2>Was „praktische Umsetzung“ heißen kann</h2>
+   ${kuRows([
+    ["Bildidee entwerfen","","Zu einem Thema oder Wort ein (inszeniertes) Foto planen: Kompositionsskizze zeichnen und jedes Mittel begründen."],
+    ["Wirkung verändern","","Ein Foto so umplanen, dass es anders wirkt (z. B. mächtig statt unterlegen) – in Skizzen zeigen und erklären."],
+    ["Gestaltungsmittel zeigen","","Wie euer Fotoauftrag: Brennweiten, Perspektiven, Einstellungsgrößen und Schärfe-Ebenen gezielt fotografieren bzw. planen."],
+    ["Bildreihe","","Mehrere Fotos zu einem Begriff planen – wie euer Projekt „Vier Bilder – ein Wort“."]])}
+   <p class="meta">Wenn du unsicher bist, frag deine Lehrkraft, ob ihr in der Klausur zeichnet, plant oder fotografiert. Mit den Schritten unten bist du für alle Varianten vorbereitet.</p>
+  </section>
+
+  <section class="tx" id="kx2"><span class="tx-y">Arbeitsblatt „Bildkomposition“ · Sehen → Verstehen → Gestalten</span><h2>Vorgehen in 5 Schritten</h2>
+   <div class="ku-lv">
+    <div><span class="n">1</span><b>Bildidee entwickeln</b><p>Was soll das Bild zeigen? Welche Stimmung, welche Botschaft?</p></div>
+    <div><span class="n">2</span><b>Kompositionsskizze erstellen</b><p>Hauptmotiv, Aufteilung, Blickführung grob festhalten.</p></div>
+    <div><span class="n">3</span><b>Bildaufteilung planen</b><p>Wohin kommen die wichtigen Elemente? Wie viel Raum bleibt für den Hintergrund?</p></div>
+    <div><span class="n">4</span><b>Bild gestalten</b><p>Die Skizze als Leitfaden nutzen – beim Fotografieren oder Zeichnen.</p></div>
+    <div><span class="n">5</span><b>Ergebnis prüfen</b><p>Wirkt das Bild ausgewogen? Lenkt es den Blick? Ist die Aussage klar?</p></div>
+   </div>
+   <h3 class="ps-h">Gestaltungstipps vom Blatt</h3>
+   ${kuRows([["Blickführung nutzen","","mit Linien, Formen, Kontrasten oder Farben den Blick lenken"],["Drittelregel anwenden","","wichtige Elemente auf die Linien oder Schnittpunkte des Drittelrasters"],["Mit Formen arbeiten","","einfache geometrische Formen (Dreieck, Kreis, Rechteck) schaffen Struktur und Ordnung"],["Kontraste einsetzen","","Hell-Dunkel, Farbe oder Schärfe-Unschärfe erzeugen Spannung und Tiefe"],["Mit Raum spielen","","nicht alles ins Bild quetschen – auch freie Flächen sind ein Gestaltungsmittel"]])}
+   <p class="ex">„Gute Komposition ist wie ein unsichtbarer Rahmen für deine Bildidee.“ – nicht zufällig, sondern geplant.</p>
+  </section>
+
+  <section class="tx" id="kx3"><span class="tx-y">jede Entscheidung mit „weil“</span><h2>Regie-Zettel: dein Foto planen</h2>
+   ${kuRows([
+    ["Bildidee, Botschaft","","Was soll man fühlen oder verstehen?","„Das Foto soll Einsamkeit in der Großstadt zeigen.“","Beispiel"],
+    ["Genre, Funktion","","dokumentarisch oder inszeniert? wozu?","„inszeniert, Persönlichkeitsausdruck“","Beispiel"],
+    ["Motiv","","Wer oder was, wo, mit welcher Kleidung, Pose, Requisiten, zu welchem Moment?","„eine Person im grauen Mantel auf einem leeren Platz“","Beispiel"],
+    ["Format","","hoch oder quer?","„Querformat betont die Weite“","Beispiel"],
+    ["Einstellungsgröße","","wie nah?","„Totale: Die Person ist klein, der Raum groß“","Beispiel"],
+    ["Perspektive","","von wo?","„Vogelperspektive: wirkt klein und verloren“","Beispiel"],
+    ["Licht","","hart oder weich, aus welcher Richtung, Tageszeit?","„weiches Licht bei bedecktem Himmel: ruhig, traurig“","Beispiel"],
+    ["Schärfe, Blende","","Was soll scharf sein?","„totale Schärfe: der leere Platz soll sichtbar sein“","Beispiel"],
+    ["Brennweite","","Weitwinkel, Normal oder Tele?","„Weitwinkel: der Platz wirkt noch größer“","Beispiel"],
+    ["Belichtungszeit","","einfrieren oder Bewegungsspuren?","„lang: vorbeieilende Passanten verwischen, die Person steht still“","Beispiel"],
+    ["Farbe, Kontraste","","SW oder Farbe, warm oder kalt, welcher Kontrast?","„kalte Grau- und Blautöne“","Beispiel"],
+    ["Komposition","","Drittel, Linien, Figuren, Negativraum, Augenführung","„Figur im Drittel-Schnittpunkt, viel Negativraum“","Beispiel"]])}
+   <p class="ex"><b>Satzbaustein:</b> „Ich wähle <b>[Mittel]</b>, weil <b>[Grund]</b>. Dadurch wirkt <b>[Motiv]</b> <b>[Wirkung]</b>.“</p>
+  </section>
+
+  <section class="tx" id="kx4"><span class="tx-y">andersherum denken: von der Wirkung zum Mittel</span><h2>Wirkung → Mittel</h2>
+   ${kuRows(KU_ZIEL.map(([z,m])=>[z,"",m]))}
+   <p><a class="btn primary" href="#/kunst/klausur/ueben" id="kuToUms" style="display:block;text-align:center;text-decoration:none">Trainer „Umsetzen“ öffnen</a></p>
+  </section>
+
+  <section class="tx" id="kx5"><span class="tx-y">so kann eine Lösung aussehen</span><h2>Beispiele</h2>
+   <div class="aufg"><h3>Entwerfen Sie zwei Kompositionsskizzen derselben Person: Einmal soll sie mächtig und überlegen, einmal klein und einsam wirken. Begründen Sie die Gestaltungsmittel.</h3></div>
+   <div class="ku-plan2"><figure>${kuSvgMaechtig()}<figcaption>Skizze 1: mächtig</figcaption></figure><figure>${kuSvgEinsam()}<figcaption>Skizze 2: einsam</figcaption></figure></div>
+   ${kuMl("Musterbegründung aufklappen",KU_ML_PX)}
+   <h3 class="ps-h">Wirkung ändern mit der Einstellungsgröße</h3>
+   <div class="ku-eg-grid ku-two"><figure class="ku-eg"><div class="ku-ph">${kuSvgEG("totale")}</div><figcaption>vorher: Totale<span>distanziert, sachlich, Überblick</span></figcaption></figure><figure class="ku-eg"><div class="ku-ph">${kuSvgEG("gross")}</div><figcaption>nachher: Groß<span>nah, persönlich, emotional</span></figcaption></figure></div>
+   <p class="ex">„Statt der Totale wähle ich eine Großaufnahme. Die Umgebung verschwindet, der Kopf füllt das Bild. Dadurch rückt die Mimik in den Mittelpunkt, und der Betrachter fühlt sich der Person nah.“</p>
+   <h3 class="ps-h">Bildreihe „Vier Bilder – ein Wort“: Beispiel ALLEIN</h3>
+   ${kuRows([["Bild 1","Weite","eine Person winzig am leeren Strand, Querformat, viel Himmel"],["Bild 2","Vogelperspektive","ein einzelner Stuhl auf einem leeren Schulhof"],["Bild 3","Detail, selektive Schärfe","eine Tasse auf einem großen, leeren Tisch"],["Bild 4","Gegenlicht","Silhouette einer Person am Fenster"]])}
+   <p class="meta">Euer Projekt: inszenierte Fotos zu einem Wort (max. 9 Buchstaben), Layout DIN A3 mit 4 Fotos und 4 Textfeldern zu Inhalt, Aufnahmesituation oder Bildaufbau.</p>
+  </section>
+
+  <section class="tx" id="kx6"><span class="tx-y">wie euer Fotoauftrag</span><h2>Mit dem Handy umsetzen</h2>
+   ${kuRows([
+    ["Weitwinkel","","Objektiv 0,5× (Ultraweitwinkel) – nah rangehen, der Raum wirkt weit"],
+    ["Tele","","2× oder 3× (Tele-Objektiv; reiner Digitalzoom verliert Qualität) – von weiter weg, Ebenen rücken zusammen"],
+    ["Froschperspektive","","Handy auf Knie- oder Bodenhöhe, nach oben richten"],
+    ["Vogelperspektive","","von einem Stuhl, einer Treppe oder einem Fenster nach unten"],
+    ["Selektive Schärfe","","Porträtmodus oder ganz nah ans Motiv und darauf tippen – der Hintergrund verschwimmt"],
+    ["Totale Schärfe","","normaler Fotomodus, etwas Abstand, gutes Licht"],
+    ["Bewegungsunschärfe","","Langzeitbelichtung oder Pro-Modus mit langer Verschlusszeit, Handy ruhig halten"],
+    ["Seitenlicht","","Person seitlich neben ein Fenster stellen"],
+    ["Drittelregel","","Raster bzw. Gitter in den Kamera-Einstellungen einschalten"]])}
+   <p class="meta">Für euren Auftrag galt: unbearbeitete Fotos, sortiert nach Aufgaben (Brennweiten, 3 Perspektiven, 3 Einstellungsgrößen, Schärfe-Ebenen).</p>
+  </section>
+
+  <section class="tx" id="kx7"><span class="tx-y">auch ohne Zeichentalent</span><h2>Skizzen-Tipps</h2>
+   <ol class="ps-ul"><li>Rahmen mit Lineal im richtigen Format zeichnen – hoch oder quer.</li><li>Strichfiguren und einfache Formen reichen völlig; es geht um Aufteilung, nicht um Schönheit.</li><li>Drittellinien dünn vorzeichnen, Hauptmotiv bewusst setzen.</li><li>Wichtige Linien kräftig: Senkrechte, Waagerechte, Diagonale, Kompositionsfigur.</li><li>Dunkle Flächen schraffieren, Licht mit einem Pfeil zeigen.</li><li>Kamerastandpunkt und Augenführung mit Pfeilen und Nummern einzeichnen.</li><li>Kurz beschriften (z. B. „Froschperspektive“, „Negativraum“) und im Text darauf verweisen.</li></ol>
+  </section>`;
+  kuEl("kuToUms").onclick=()=>store.set("kuMode","ums");
+}
+
 /* ---------- Probeklausur ---------- */
 const KU_PROBE_EG=[["A","gross"],["B","amerik"],["C","halbtotale"],["D","totale"]];
 const KU_ML_P1=`
@@ -1093,36 +1379,53 @@ const KU_ML_P6=`
  <p><b>III. Deutung:</b> Lange will die Not der Wanderarbeiter in der Weltwirtschaftskrise sichtbar machen und Mitgefühl und Hilfe auslösen. Das Foto gehört zur <b>sozialdokumentarischen Fotografie</b>: Es ist keine neutrale Sachaufnahme, sondern eine Tendenzaufnahme mit dem Wunsch nach sozialer Veränderung. Weil die Kinder ihre Gesichter abwenden, wird die Mutter zum einzigen „Gesicht“ der Armut; die Madonnen-Komposition überhöht sie zur Symbolfigur für Sorge, Verantwortung und Würde. Das Bild wurde zur Ikone der Großen Depression. Auf den zweiten Blick ist auch dieses Dokument gestaltet: Lange näherte sich mit mehreren Aufnahmen und wählte Ausschnitt und Moment; später ließ sie einen Daumen am Bildrand wegretuschieren – auch hier zeigt sich die scheinbare Objektivität.</p>
  <p><b>IV. Vergleich mit Cindy Sherman, „Untitled Film Still #58“ (1980):</b> Beide Fotos sind schwarz-weiß, zeigen eine Frau in der Einstellung Nah, und in beiden geht ihr Blick aus dem Bild hinaus statt zur Kamera. Die <b>Intention</b> ist aber gegensätzlich: Lange dokumentiert eine reale Frau in realer Not (Information, Aufrütteln). Sherman inszeniert sich selbst als erfundene Filmfigur (Persönlichkeitsausdruck), um die Klischees von Frauen in Filmen der 1950er- und 60er-Jahre sichtbar zu machen. <b>Inszenierung der Figur:</b> Langes Mutter trägt Alltagskleidung, sitzt eingeengt von ihren Kindern, das Licht ist weich, die Perspektive auf Augenhöhe. Sherman ist Regisseurin, Darstellerin und Fotografin zugleich: Frisur, Kostüm und der im Wind wehende Netzschal sind ausgewählt, ihr Blick geht dramatisch nach oben, die <b>Froschperspektive</b> lässt das Hochhaus hinter ihr bedrohlich in den Himmel ragen, das Querformat erinnert an ein Filmbild. <b>Wirkung:</b> Lange berührt durch Echtheit und Nähe. Sherman wirkt rätselhaft und filmisch: Man fragt sich, was gleich passiert – eine Geschichte ohne Film. <b>Fazit:</b> Dokumentation und Inszenierung stehen sich gegenüber, doch beide Fotografinnen gestalten ihre Figur bewusst und lenken damit unsere Gefühle.</p>`;
 
+const KU_ML_PG=`
+ <p><b>Inszenierte Fotografie:</b> Der Fotograf greift aktiv ins Motiv ein und arrangiert Personen und Objekte; die Bildaussage wird strategisch aufgebaut, die emotionale Reaktion des Betrachters steht im Vordergrund. <b>Funktion:</b> vor allem Persönlichkeitsausdruck (in Mode und Werbung Zweckinformation). <b>Künstlerin:</b> Cindy Sherman.</p>
+ <p><b>Sozialdokumentarische Fotografie:</b> Sie zeigt Armut und schlechte Arbeitsbedingungen (z. B. Kinderarbeit) und ist keine nüchterne Sachaufnahme, sondern eine Tendenzaufnahme; die Bilder sollen authentisch, unverfälscht wirken. <b>Funktion:</b> Information – sie will aufrütteln und politische und soziale Veränderung bewirken. <b>Künstler:</b> Lewis W. Hine.</p>
+ <p><b>Pictorialismus:</b> Das Foto soll einem Gemälde ähneln und orientiert sich an Licht und Atmosphäre des Impressionismus: unscharfe Konturen, gestreutes Licht, Verzicht auf Details. <b>Funktion:</b> Persönlichkeitsausdruck mit rein ästhetischer Wirkung. <b>Künstler:</b> Frank Eugene.</p>
+ <p class="meta">Ebenso möglich: Straight Photography (unmanipulierte Wirklichkeit, strenger Bildaufbau – Edward Weston) oder Neues Sehen (Gegenstand im Fokus, aufgelockerte Komposition, Bauhaus – Rodtschenko).</p>`;
+
 function kukProbe(el){
   el.innerHTML=`
-  <p class="meta" style="margin:0">Selbst erstellte Probeklausur nach dem Muster deines Tests, dazu eine Fotoanalyse. Erst auf Papier schreiben, dann die Musterlösungen aufklappen. Punkte nur zur Orientierung.</p>
-  <h2 class="sec">Aufgaben</h2>
-  <div class="aufg"><h3>1. Ordnen Sie die Fotografien je einer Aufgabe der Fotografie zu und begründen Sie. <span class="be">12 P.</span></h3><p>a) Mikrofotografie einer Bettwanze · b) Pressefoto aus dem Vietnamkrieg · c) Urlaubsfoto vom Strand · d) Werbefoto für ein Parfum · e) Passfoto · f) Cindy Sherman: Untitled Film Still #58</p></div>
-  <div class="aufg"><h3>2. Erklären Sie die Begriffe Unterhaltung, Information und Manipulation in Bezug auf die Fotografie. <span class="be">6 P.</span></h3></div>
-  <div class="aufg"><h3>3. „Die Fotografie hat nur eine scheinbare Objektivität“ (nach Gisèle Freund). Nehmen Sie Stellung. <span class="be">6 P.</span></h3></div>
-  <div class="aufg"><h3>4. Bestimmen Sie die Einstellungsgrößen der Abbildungen A–D und begründen Sie. <span class="be">8 P.</span></h3>
+  <p class="meta" style="margin:0">Selbst erstellte Probeklausur nach deinen 4 Themen und dem Muster deines Tests. Erst auf Papier schreiben, dann die Musterlösungen aufklappen. Punkte nur zur Orientierung.</p>
+  <h2 class="sec">1 · Arten, Gattungen, Genres</h2>
+  <div class="aufg"><h3>1. Ordnen Sie die Fotografien je einer Funktion (Aufgabe) der Fotografie zu und begründen Sie. <span class="be">12 P.</span></h3><p>a) Mikrofotografie einer Bettwanze · b) Pressefoto aus dem Vietnamkrieg · c) Urlaubsfoto vom Strand · d) Werbefoto für ein Parfum · e) Passfoto · f) Cindy Sherman: Untitled Film Still #58</p></div>
+  <div class="aufg"><h3>2. Nennen Sie zu drei Genres der Fotografie je zwei Merkmale, ihre Funktion und einen Fotokünstler. <span class="be">9 P.</span></h3></div>
+  <div class="aufg"><h3>3. Erklären Sie die Begriffe Unterhaltung, Information und Manipulation in Bezug auf die Fotografie. <span class="be">6 P.</span></h3></div>
+  <div class="aufg"><h3>4. „Die Fotografie hat nur eine scheinbare Objektivität“ (nach Gisèle Freund). Nehmen Sie Stellung. <span class="be">6 P.</span></h3></div>
+  <h2 class="sec">2 · Gestaltungsmittel und Wirkung</h2>
+  <div class="aufg"><h3>5. Bestimmen Sie die Einstellungsgrößen der Abbildungen A–D und begründen Sie. <span class="be">8 P.</span></h3>
    <div class="ku-eg-grid">${KU_PROBE_EG.map(([b,id])=>`<figure class="ku-eg"><div class="ku-ph">${kuSvgEG(id)}</div><figcaption>${b}</figcaption></figure>`).join("")}</div></div>
-  <div class="aufg"><h3>5. a) Vergleichen Sie Foto 1 und Foto 2 hinsichtlich der Schärfe und ihrer Wirkung. <span class="be">6 P.</span> b) Beschreiben Sie Licht, Farbe und Kontraste in Foto 2 und erläutern Sie ihre Wirkung. <span class="be">8 P.</span></h3>
+  <div class="aufg"><h3>6. a) Vergleichen Sie Foto 1 und Foto 2 hinsichtlich der Schärfe und ihrer Wirkung. <span class="be">6 P.</span> b) Beschreiben Sie Licht, Farbe und Kontraste in Foto 2 und erläutern Sie ihre Wirkung. <span class="be">8 P.</span></h3>
    <div class="ku-sch two"><figure><div class="ku-ph">${kuSvgSchaerfe("vg")}</div><figcaption><b>Foto 1</b></figcaption></figure><figure><div class="ku-ph">${kuSvgSchaerfe("hg")}</div><figcaption><b>Foto 2</b></figcaption></figure></div></div>
-  <div class="aufg"><h3>6. Analysieren Sie die Fotografie „Wanderarbeiterin“ von Dorothea Lange (1936) in den Schritten I–III und fertigen Sie eine Kompositionsskizze an. Vergleichen Sie das Foto anschließend mit Cindy Shermans „Untitled Film Still #58“ (1980) bezüglich der Intention und der Inszenierung der Figur. <span class="be">30 P.</span></h3><p class="meta">Foto 5 und Foto 7 auf deinem Blatt „Auswahl zur Fotoanalyse“.</p></div>
+  <h2 class="sec">3 · Fotoanalyse</h2>
+  <div class="aufg"><h3>7. Analysieren Sie die Fotografie „Wanderarbeiterin“ von Dorothea Lange (1936) in den Schritten I–III und fertigen Sie eine Kompositionsskizze an. Vergleichen Sie das Foto anschließend mit Cindy Shermans „Untitled Film Still #58“ (1980) bezüglich der Intention und der Inszenierung der Figur. <span class="be">30 P.</span></h3><p class="meta">Foto 5 und Foto 7 auf deinem Blatt „Auswahl zur Fotoanalyse“.</p></div>
+  <h2 class="sec">4 · Praktische Umsetzung</h2>
+  <div class="aufg"><h3>8. Entwerfen Sie zwei Kompositionsskizzen derselben Person: Einmal soll sie mächtig und überlegen, einmal klein und einsam wirken. Begründen Sie die eingesetzten Gestaltungsmittel. <span class="be">10 P.</span></h3></div>
 
   <h2 class="sec">Musterlösungen</h2>
-  ${kuMl("Aufgabe 1 · Aufgaben zuordnen",KU_ML_P1)}
-  ${kuMl("Aufgabe 2 · Unterhaltung, Information, Manipulation",KU_ML_A2)}
-  ${kuMl("Aufgabe 3 · Scheinbare Objektivität",KU_ML_A3)}
-  ${kuMl("Aufgabe 4 · Einstellungsgrößen",KU_ML_P4)}
-  ${kuMl("Aufgabe 5a · Schärfe",KU_ML_P5A)}
-  ${kuMl("Aufgabe 5b · Licht, Farbe, Kontraste",KU_ML_LICHT)}
-  ${kuMl("Aufgabe 6 · Fotoanalyse Lange + Vergleich Sherman",KU_ML_P6+`<p><i>Kompositionsskizze: Hochformat; großes Dreieck von den Kindern unten zum Kopf der Mutter; senkrechter Unterarm zum Gesicht; Gesicht als hellster Punkt; Pfeile 1 Gesicht → 2 Hand → 3 Kinder → 4 Baby.</i></p>`)}`;
+  ${kuMl("Aufgabe 1 · Funktionen zuordnen",KU_ML_P1)}
+  ${kuMl("Aufgabe 2 · Genres: Merkmale, Funktion, Künstler",KU_ML_PG)}
+  ${kuMl("Aufgabe 3 · Unterhaltung, Information, Manipulation",KU_ML_A2)}
+  ${kuMl("Aufgabe 4 · Scheinbare Objektivität",KU_ML_A3)}
+  ${kuMl("Aufgabe 5 · Einstellungsgrößen",KU_ML_P4)}
+  ${kuMl("Aufgabe 6a · Schärfe",KU_ML_P5A)}
+  ${kuMl("Aufgabe 6b · Licht, Farbe, Kontraste",KU_ML_LICHT)}
+  ${kuMl("Aufgabe 7 · Fotoanalyse Lange + Vergleich Sherman",KU_ML_P6+`<p><i>Kompositionsskizze: Hochformat; großes Dreieck von den Kindern unten zum Kopf der Mutter; senkrechter Unterarm zum Gesicht; Gesicht als hellster Punkt; Pfeile 1 Gesicht → 2 Hand → 3 Kinder → 4 Baby.</i></p>`)}
+  ${kuMl("Aufgabe 8 · Zwei Skizzen: mächtig ↔ einsam",`<div class="ku-plan2"><figure>${kuSvgMaechtig()}<figcaption>Skizze 1</figcaption></figure><figure>${kuSvgEinsam()}<figcaption>Skizze 2</figcaption></figure></div>`+KU_ML_PX)}`;
 }
 
 /* ---------- Üben ---------- */
 function kukUeben(el){
   let mode=store.get("kuMode","karten");
-  el.innerHTML=`<div class="seg ps-four"><button type="button" data-m="karten">Karten</button><button type="button" data-m="quiz">Quiz</button><button type="button" data-m="eg">Einstellung?</button><button type="button" data-m="zu">Zuordnen</button></div><div id="kuUe" class="view" style="gap:14px"></div>`;
-  const set=m=>{mode=m;store.set("kuMode",m);el.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));({karten:kuKarten,quiz:kuQuiz,eg:kuEGTrainer,zu:kuZuordnen}[m]||kuKarten)(kuEl("kuUe"))};
+  el.innerHTML=`<div class="seg ku-five"><button type="button" data-m="karten">Karten</button><button type="button" data-m="quiz">Quiz</button><button type="button" data-m="eg">Einstellung</button><button type="button" data-m="zu">Zuordnen</button><button type="button" data-m="ums">Umsetzen</button></div><div id="kuUe" class="view" style="gap:14px"></div>`;
+  const set=m=>{mode=m;store.set("kuMode",m);el.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));({karten:kuKarten,quiz:kuQuiz,eg:kuEGTrainer,zu:kuZuordnen,ums:kuUmsetzen}[m]||kuKarten)(kuEl("kuUe"))};
   el.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>set(b.dataset.m));
   set(mode);
+}
+function kuUmsetzen(box){
+  const items=shuffle(KU_UMS).slice(0,10).map(([q,r,f,x])=>({pre:'<p class="meta" style="margin:0">Du planst ein Foto. Was setzt du ein?</p>',ask:`<span class="ku-ask">${q}</span>`,after:x,opts:shuffle([{h:r,r:true},...f.map(t=>({h:t,r:false}))])}));
+  kuQuizRun(box,items,"kuUmsBest",kuUmsetzen);
 }
 function kuKarten(box){
   const deckSel=store.get("kuDeck","mittel");
@@ -1137,12 +1440,12 @@ function kuKarten(box){
       ...KU_LICHT.slice(0,4).map(r=>({g:"Licht",t:`${r[0]}: Merkmale und Wirkung?`,d:`${r[1]} → ${r[2]}`})),
       ...KU_FARBE.map(r=>({g:"Farbe / Kontrast",t:`${r[0]}: Wirkung?`,d:`${r[1]} → ${r[2]}`})),
       ...KU_KOMPO.map(([k,n,w])=>({g:"Komposition",t:`${n}: Wirkung?`,d:w}))],
-    aufg:()=>KU_AUFG.map(a=>({g:"Aufgabe der Fotografie",t:`${a.n}`,d:`${a.kurz}.<br><b>Ziel:</b> ${a.ziel}.<br><b>Beispiele:</b> ${a.arten}.`})),
-    genre:()=>KU_GREL.map(g=>({g:"Genre",t:g.n,d:`${g.m.filter(x=>!x.startsWith("Ergänzung")).join("; ")}.<br><b>Fotokünstler:</b> ${g.kue}`})),
+    aufg:()=>KU_AUFG.map(a=>({g:"Funktion (Aufgabe) der Fotografie",t:`${a.n}`,d:`${a.kurz}.<br><b>Ziel:</b> ${a.ziel}.<br><b>Beispiele:</b> ${a.arten}.`})),
+    genre:()=>KU_GREL.map(g=>({g:"Genre",t:g.n,d:`${g.m.filter(x=>!x.startsWith("Ergänzung")).join("; ")}.<br><b>Funktion:</b> ${g.f}<br><b>Fotokünstler:</b> ${g.kue}`})),
     begr:()=>KU_BEGRIFFE.filter(b=>b.k).map(b=>({g:b.g,t:b.t,d:b.d}))};
   let deck=shuffle(DECK[deckSel]()),total=deck.length,known=0,flip=false;
   const draw=()=>{
-    const sel=`<div class="seg ps-four"><button type="button" data-d="mittel" aria-pressed="${deckSel==="mittel"}">Mittel</button><button type="button" data-d="aufg" aria-pressed="${deckSel==="aufg"}">Aufgaben</button><button type="button" data-d="genre" aria-pressed="${deckSel==="genre"}">Genres</button><button type="button" data-d="begr" aria-pressed="${deckSel==="begr"}">Begriffe</button></div>`;
+    const sel=`<div class="seg ps-four"><button type="button" data-d="mittel" aria-pressed="${deckSel==="mittel"}">Mittel</button><button type="button" data-d="aufg" aria-pressed="${deckSel==="aufg"}">Funktionen</button><button type="button" data-d="genre" aria-pressed="${deckSel==="genre"}">Genres</button><button type="button" data-d="begr" aria-pressed="${deckSel==="begr"}">Begriffe</button></div>`;
     if(!deck.length){box.innerHTML=sel+`<div class="done"><span class="big">${total} / ${total}</span><p>Alle Karten gewusst!</p><button class="btn primary" type="button" id="kuAgain">Nochmal</button></div>`;kuEl("kuAgain").onclick=()=>kuKarten(box);bindSel();return}
     const c=deck[0];
     box.innerHTML=sel+`<div class="progress"><span>${known} von ${total} gewusst</span><span>noch ${deck.length}</span></div><div class="bar"><i style="width:${known/total*100}%"></i></div>
@@ -1161,7 +1464,7 @@ function kuQuizRun(box,items,bestKey,render){
   let i=0,pts=0,lock=false;
   const draw=()=>{
     if(i>=items.length){const best=Math.max(store.get(bestKey,0),pts);store.set(bestKey,best);
-      box.innerHTML=`<div class="done"><span class="big">${pts} / ${items.length}</span><p>${pts>=items.length*0.8?"Super, das sitzt!":pts>=items.length*0.5?"Gut! Schau dir die Fehler in den Reitern nochmal an.":"Lies Theorie und Mittel nochmal durch und versuch es dann erneut."}</p><p class="tip">Bestwert: ${best} / ${items.length}</p><button class="btn primary" type="button" id="kuAgain">Nochmal</button></div>`;
+      box.innerHTML=`<div class="done"><span class="big">${pts} / ${items.length}</span><p>${pts>=items.length*0.8?"Super, das sitzt!":pts>=items.length*0.5?"Gut! Schau dir die Fehler in den passenden Reitern nochmal an.":"Lies die Reiter Arten, Mittel und Praxis nochmal und versuch es dann erneut."}</p><p class="tip">Bestwert: ${best} / ${items.length}</p><button class="btn primary" type="button" id="kuAgain">Nochmal</button></div>`;
       kuEl("kuAgain").onclick=()=>render(box);return}
     const it=items[i];
     box.innerHTML=`<div class="progress"><span>Frage ${i+1} von ${items.length}</span><span>${pts} richtig</span></div><div class="bar"><i style="width:${i/items.length*100}%"></i></div>
@@ -1194,19 +1497,22 @@ function kuZuordnen(box){
 
 /* ---------- Merken ---------- */
 const KU_MERK=`<table class="mtab"><tbody>
-<tr class="ph"><td colspan="2">Aufgaben der Fotografie („AU, PIZza Essen!“)</td></tr>
+<tr class="ph"><td colspan="2">1 · Funktionen („AU, PIZza Essen!“)</td></tr>
 <tr><td>Aufzeichnung</td><td>sachlich festhalten · Passfoto, Reproduktion</td></tr>
 <tr><td>Unterhaltung</td><td>Vergnügen · Landschaft, Urlaub, Pin-up</td></tr>
 <tr><td>Persönlichkeit</td><td>eigene Sicht ausdrücken · Fotokunst</td></tr>
 <tr><td>Information</td><td>sachlich unterrichten, Urteil ermöglichen · Pressefoto, Lehrbuch</td></tr>
 <tr><td>Zweckinfo</td><td>begehrenswert machen → Verkauf, Idee · Werbung, Propaganda</td></tr>
 <tr><td>Entdeckung</td><td>Kamera dem Auge überlegen · Makro, Mikro, Röntgen, Astro</td></tr>
-<tr class="ph"><td colspan="2">Teil III · Subjektiv – Objektiv – Information</td></tr>
-<tr><td>objektiv?</td><td>Kamera zeichnet naturalistisch auf → „documentum“, Beweisstück (Sontag)</td></tr>
-<tr><td>subjektiv!</td><td>Fotograf wählt Motiv, Standort, Ausschnitt, Moment, Technik · Betrachter deutet · Kontext lenkt</td></tr>
-<tr><td>Freund</td><td>nur „scheinbare Objektivität“ · ein Motiv hat viele Bilder</td></tr>
-<tr><td>Ebenen</td><td>Information · Ästhetik · Emotion</td></tr>
-<tr class="ph"><td colspan="2">Einstellungsgrößen (meist Personen!)</td></tr>
+<tr class="ph"><td colspan="2">1 · Arten und Genres</td></tr>
+<tr><td>Arten</td><td>nach Technik · Inhalt · Funktion · Stil (Fotouniversum, Flusser)</td></tr>
+<tr><td>Inszeniert</td><td>Fotograf arrangiert · Persönlichkeitsausdruck · Sherman, Michals, Skoglund, Mili</td></tr>
+<tr><td>Sozialdok.</td><td>Armut, Tendenz, authentisch · Information, Veränderung · Hine, Evans (Lange)</td></tr>
+<tr><td>Straight</td><td>unmanipuliert, streng · Wahrheit und Ästhetik · Weston</td></tr>
+<tr><td>Pictorialismus</td><td>wie Gemälde, unscharf · rein ästhetisch · Eugene, Kühn</td></tr>
+<tr><td>Neues Sehen</td><td>Gegenstand im Fokus, Bauhaus · neu sehen · Rodtschenko, Moholy-Nagy, Feininger</td></tr>
+<tr><td>Wirklichkeit</td><td>Freund: nur „scheinbare Objektivität“ · Sontag: Fotos als Beweis</td></tr>
+<tr class="ph"><td colspan="2">2 · Einstellungsgrößen (meist Personen!)</td></tr>
 <tr><td>Detail</td><td>nur Augen, Mund, Hand · enthüllend, sehr emotional</td></tr>
 <tr><td>Groß</td><td>Kopf bildfüllend · Mimik, emotional</td></tr>
 <tr><td>Nah</td><td>Kopf bis Brust (⅓) · subjektiv, emotional</td></tr>
@@ -1214,30 +1520,27 @@ const KU_MERK=`<table class="mtab"><tbody>
 <tr><td>Halbnah</td><td>ca. ⅔ + nahe Umgebung/Gruppe · eher objektiv</td></tr>
 <tr><td>Halbtotale</td><td>ganze Person füllt das Bild · objektiv</td></tr>
 <tr><td>Totale</td><td>ganze Person + viel Umgebung · Überblick, distanziert</td></tr>
-<tr><td>Weite</td><td>Landschaft, Person winzig · Weite</td></tr>
-<tr class="ph"><td colspan="2">Perspektive · Schärfe · Licht</td></tr>
-<tr><td>Normal</td><td>Augenhöhe → gleichwertig, vertraut</td></tr>
-<tr><td>Frosch</td><td>von unten → mächtig, bedrohlich, erhaben</td></tr>
-<tr><td>Vogel</td><td>von oben → klein, schwach, einsam</td></tr>
-<tr><td>Schräg</td><td>gekippt → irreal, dramatisch</td></tr>
-<tr><td>Schärfe</td><td>total: informativ, steril · selektiv: hebt hervor, lenkt · Bewegung: Aktion</td></tr>
-<tr><td>Licht</td><td>hart: Schlagschatten, grell, dramatisch · weich: diffus, ruhig · Seite: plastisch · Gegen: Silhouette</td></tr>
-<tr><td>Farbe</td><td>SW: sachlich, zeitlos · warm: nah, lebendig · kalt: distanziert, ruhig · HD-Kontrast: Spannung, Blickfang</td></tr>
-<tr class="ph"><td colspan="2">Komposition</td></tr>
-<tr><td>Linien</td><td>waagerecht: Ruhe · senkrecht: Kraft · diagonal: Dynamik</td></tr>
-<tr><td>Figuren</td><td>Dreieck: Spannung · Kreis: Harmonie · Rechteck: Stabilität · Spirale: Bewegung</td></tr>
-<tr><td>Regeln</td><td>Drittelregel · Goldener Schnitt 1 : 1,618 · Symmetrie: ruhig</td></tr>
-<tr class="ph"><td colspan="2">Genres (ohne Fotomontage, Abstrakt)</td></tr>
-<tr><td>Inszeniert</td><td>Fotograf arrangiert · Sherman, Michals, Skoglund, Mili</td></tr>
-<tr><td>Sozialdok.</td><td>Armut, Tendenz, authentisch · Hine, Evans (Lange)</td></tr>
-<tr><td>Straight</td><td>unmanipuliert, streng · Weston</td></tr>
-<tr><td>Pictorialismus</td><td>wie Gemälde, unscharf · Eugene, Kühn</td></tr>
-<tr><td>Neues Sehen</td><td>Gegenstand, Bauhaus · Rodtschenko, Moholy-Nagy, Feininger</td></tr>
-<tr class="ph"><td colspan="2">Fotoanalyse</td></tr>
-<tr><td>I</td><td>Eindrücke: wer, was, wo · Stimmung · Blickfang</td></tr>
-<tr><td>II</td><td>Format · Einstellung · Perspektive · Raum · Licht · SW · Kontrast · Schärfe · Komposition · Augenführung + Skizze</td></tr>
-<tr><td>III</td><td>Absicht · Genre · Botschaft · zweiter Blick</td></tr>
-<tr><td>IV</td><td>Intention · Inszenierung der Figur · Wirkung · Fazit</td></tr>
+<tr><td>Weite</td><td>(Panorama) Landschaft, Person winzig · Weite</td></tr>
+<tr class="ph"><td colspan="2">2 · Perspektive · Technik · Licht</td></tr>
+<tr><td>Frosch / Vogel</td><td>von unten: mächtig · von oben: klein, schwach · Normal: gleichwertig · schräg: irreal</td></tr>
+<tr><td>Blende</td><td>groß → geringe Tiefenschärfe (selektiv) · klein → große Tiefenschärfe (total)</td></tr>
+<tr><td>Brennweite</td><td>Tele: eng gestaffelt · Normal: normale Sicht · Weitwinkel: aufgeklappt</td></tr>
+<tr><td>Belichtung</td><td>kurz: eingefroren, starr · lang: Bewegungsspuren, dynamisch</td></tr>
+<tr><td>Licht</td><td>Sonne: grell, Schlagschatten · Wolken: weich, plastisch · gebündelt: Spots · Seite: plastisch · Gegen: Silhouette</td></tr>
+<tr><td>Farbe</td><td>SW: sachlich, zeitlos · warm: nah · kalt: distanziert · HD-Kontrast: Spannung, Blickfang</td></tr>
+<tr><td>Komposition</td><td>waagerecht: Ruhe · senkrecht: Kraft · diagonal: Dynamik · Dreieck: Spannung · Kreis: Harmonie · Drittelregel</td></tr>
+<tr class="ph"><td colspan="2">3 · Fotoanalyse</td></tr>
+<tr><td>I</td><td>Eindrücke: Situation (wer, was, wo) · Stimmung, Atmosphäre · Blickfang</td></tr>
+<tr><td>II</td><td>Bildaufbau: Mittel + Wirkung · Augenführung · Kompositionsskizze</td></tr>
+<tr><td>III</td><td>Deutung: Absicht · Stil/Genre · Botschaft auf den zweiten Blick</td></tr>
+<tr><td>IV</td><td>Vergleich (wenn verlangt): Intention · Inszenierung der Figur · Fazit</td></tr>
+<tr class="ph"><td colspan="2">4 · Umsetzen: Wirkung → Mittel</td></tr>
+<tr><td>mächtig</td><td>Frosch · Hochformat · Senkrechte · hartes Seitenlicht</td></tr>
+<tr><td>einsam</td><td>Vogel · Totale/Weite · Negativraum · kalt/SW</td></tr>
+<tr><td>emotional</td><td>Groß · Augenhöhe · weiches Licht · HG unscharf</td></tr>
+<tr><td>sachlich</td><td>Normal · totale Schärfe · natürliches Licht · zentriert</td></tr>
+<tr><td>dynamisch</td><td>Diagonale · gekippt · lange Belichtung</td></tr>
+<tr><td>Vorgehen</td><td>Idee → Skizze → Aufteilung → gestalten → prüfen · „Ich wähle …, weil …“</td></tr>
 </tbody></table><p class="tip" style="margin:10px 0 0">Immer: Mittel benennen → am Bild zeigen → Wirkung erklären.</p>`;
 
 /* ---------- Module für die Navigation ---------- */
@@ -1246,15 +1549,17 @@ if(typeof PS_ICON!=="undefined")Object.assign(PS_ICON,{
   ku_real:`<svg viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="10" rx="1"/><rect x="9" y="9" width="12" height="10" rx="1"/></svg>`,
   ku_frame:`<svg viewBox="0 0 24 24"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><circle cx="12" cy="10" r="2.5"/><path d="M7.5 18c.8-2.6 2.5-4 4.5-4s3.7 1.4 4.5 4"/></svg>`,
   ku_genre:`<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="15" rx="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="16" cy="8.5" r="1.5"/></svg>`,
-  ku_ana:`<svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 10.5h5M10.5 8v5"/></svg>`
+  ku_ana:`<svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 10.5h5M10.5 8v5"/></svg>`,
+  ku_plan:`<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 9.5h16M8.5 3v4M15.5 3v4M8 13.5l2 2 4-4"/></svg>`,
+  ku_prax:`<svg viewBox="0 0 24 24"><rect x="3" y="4" width="13" height="16" rx="1"/><path d="M6 15l3-4 2 2.5 2-1.5M14.5 17.5l5-9 1.8 1-5 9-2.2 1.2z"/></svg>`
 });
 if(typeof MODS!=="undefined")Object.assign(MODS,{
   kuU:{tabs:[["einf","Einführung","ku_cam"],["wirk","Wirklichkeit","ku_real"],["gestalt","Gestaltung","ku_frame"],["genres","Genres","ku_genre"],["begriffe","Begriffe","lex"]],
-    titles:{einf:["Einführung Fotografie","Definition, Aufgaben, Arten, Kommunikation"],wirk:["Fotografie und Wirklichkeit","Wirkungsebenen, scheinbare Objektivität"],gestalt:["Gestaltung","Einstellungsgrößen, Perspektive, Licht, Komposition"],genres:["Genres","7 Genres und die Fotos der Auswahl"],begriffe:["Begriffe",`${KU_BEGRIFFE.length} Fachbegriffe`]},
+    titles:{einf:["Einführung Fotografie","Definition, Funktionen, Arten, Kommunikation"],wirk:["Fotografie und Wirklichkeit","Wirkungsebenen, scheinbare Objektivität"],gestalt:["Gestaltung","Einstellungsgrößen, Perspektive, Licht, Komposition"],genres:["Genres","7 Genres und die Fotos der Auswahl"],begriffe:["Begriffe",`${KU_BEGRIFFE.length} Fachbegriffe`]},
     views:{einf:kuuEinf,wirk:kuuWirk,gestalt:kuuGestalt,genres:kuuGenres,begriffe:kuBegriffe},
     merk:["Das Wichtigste auf einen Blick","Fotografie",KU_MERK]},
-  kuK:{tabs:[["ablauf","Ablauf","ablauf"],["theorie","Theorie","ku_cam"],["mittel","Mittel","ku_frame"],["analyse","Analyse","ku_ana"],["probe","Probe","probe"],["ueben","Üben","ueben"]],
-    titles:{ablauf:["Was drankommt","Themen, Testaufgaben, Checkliste"],theorie:["Theorie","Teil III, Aufgaben, Genres"],mittel:["Gestaltungsmittel","Einstellung, Perspektive, Licht, Farbe"],analyse:["Fotoanalyse","I–IV, Skizze, Muster"],probe:["Probeklausur","6 Aufgaben mit Musterlösung"],ueben:["Üben","Karten, Quiz, Einstellung, Zuordnen"]},
-    views:{ablauf:kukAblauf,theorie:kukTheorie,mittel:kukMittel,analyse:kukAnalyse,probe:kukProbe,ueben:kukUeben},
+  kuK:{tabs:[["plan","Plan","ku_plan"],["arten","Arten","ku_genre"],["mittel","Mittel","ku_frame"],["analyse","Analyse","ku_ana"],["praxis","Praxis","ku_prax"],["probe","Probe","probe"],["ueben","Üben","ueben"]],
+    titles:{plan:["Lernplan","bis Mi 25.11. · 4 Themen · Checkliste"],arten:["1 · Arten und Genres","Merkmale und Funktionen"],mittel:["2 · Gestaltungsmittel","und deren Wirkung"],analyse:["3 · Fotoanalyse","Schritte I–III, Skizze, Muster"],praxis:["4 · Praktische Umsetzung","planen, skizzieren, begründen"],probe:["Probeklausur","8 Aufgaben zu allen 4 Themen"],ueben:["Üben","Karten, Quiz, Einstellung, Zuordnen, Umsetzen"]},
+    views:{plan:kukPlan,arten:kukArten,mittel:kukMittel,analyse:kukAnalyse,praxis:kukPraxis,probe:kukProbe,ueben:kukUeben},
     merk:["Das Wichtigste auf einen Blick","Fotografie",KU_MERK]}
 });

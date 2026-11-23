@@ -405,6 +405,34 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .ku-note span b{font-family:var(--serif);color:var(--crown);font-size:1.1rem}
 .ku-note span.leer{background:var(--bg);color:var(--muted);font-weight:500;font-style:italic}
 .ku-note span.leer b{color:var(--muted);font-style:normal}
+.ku-themen{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ku-themen a{display:flex;flex-direction:column;gap:2px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:12px;padding:10px 12px;text-decoration:none;color:var(--fg)}
+.ku-themen .n{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1}
+.ku-themen b{font-size:.95rem;line-height:1.3}
+.ku-themen a>span:last-child{font-size:.8rem;color:var(--muted);line-height:1.35}
+.ku-sess{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.ku-sess.now{border:2px solid var(--crown)}
+.ku-sess .h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ku-sess .h .d{font-weight:800;font-size:.85rem;letter-spacing:.03em}
+.ku-sess .h .z{margin-left:auto;font-size:.78rem;color:var(--muted)}
+.ku-sess h3{margin:0;font-family:var(--serif);font-size:1.12rem;display:flex;align-items:center;gap:8px;line-height:1.3}
+.ku-sess h3 .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--bg);font-family:var(--sans);font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.ku-sess .meta{margin:0}
+.ku-step{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:6px}
+.ku-step label{flex:1;display:flex;gap:9px;align-items:flex-start;font-size:.93rem;line-height:1.4;cursor:pointer}
+.ku-step input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--gold)}
+.ku-step input:checked+span{color:var(--muted);text-decoration:line-through}
+.ku-step i{font-style:normal;color:var(--muted);font-size:.78rem;white-space:nowrap}
+.ku-go{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--gold);background:var(--gold-soft);color:var(--gold);font:inherit;font-weight:800;font-size:1.2rem;cursor:pointer;line-height:1}
+.ku-pause{margin:0;text-align:center;font-size:.85rem;color:var(--muted)}
+.ku-plan2{display:grid;grid-template-columns:2fr 3fr;gap:10px;align-items:end;margin:8px 0}
+.ku-plan2 figure{margin:0;display:flex;flex-direction:column;gap:4px}
+#m-view .ku-plan2 svg{margin:0}
+.ku-plan2 figcaption{font-size:.8rem;font-weight:700;text-align:center}
+@media (max-width:480px){.ku-plan2{grid-template-columns:1fr}.ku-plan2 figure:first-child svg{max-width:240px;margin:0 auto}}
+.ku-eg-grid.ku-two{grid-template-columns:1fr 1fr}
+.ku-eg-grid.ku-two .ku-ph{height:130px}
+.seg.ku-five{grid-template-columns:repeat(5,1fr)} .seg.ku-five button{font-size:.76rem;padding:8px 1px}
 .ku-tw .ps-tab td:first-child{hyphens:manual;-webkit-hyphens:manual}
 .ku-rows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);margin:8px 0}
 .ku-rows>div{padding:9px 12px;border-top:1px solid var(--line)}
